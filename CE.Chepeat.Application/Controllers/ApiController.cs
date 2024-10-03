@@ -22,6 +22,6 @@ namespace CE.Chepeat.Application.Controllers
             _configuration = configuration;
         }
 
-        public IPersonaPresenter PersonaPresenter => new PersonaPresenter(_unitRepository, _mapper);    //
+        public IUserPresenter UserPresenter => new UserPresenter(_unitRepository, _mapper);    //
     }
 }

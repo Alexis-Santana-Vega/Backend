@@ -12,3 +12,5 @@ global using Microsoft.Data.SqlClient;
 global using System.Data;
 global using CE.Chepeat.Domain.Aggregates.Persona;
 global using CE.Chepeat.Domain.DTOs;
+global using CE.Chepeat.Domain.DTOs.User;
+global using CE.Chepeat.Domain.Interfaces.Infraestructure;

@@ -21,6 +21,7 @@ public class AuthController : ApiController
     {
 
     }
+    /*
     /// <summary>
     /// Consulta un regsitro de la tabla GI_Persona
     /// </summary>
@@ -77,4 +78,5 @@ public class AuthController : ApiController
         return Ok(await _appController.PersonaPresenter.AddPersona(aggregate));
 
     }
+    */
 }

@@ -12,6 +12,6 @@ namespace CE.Chepeat.Application.Interfaces.Persistance
         ValueTask<bool> Complete();
         bool HasChanges();
 
-        IPersonaInfraestructure personaInfraestructure {  get; }
+        IUserInfraestructure userInfraestructure {  get; }
     }
 }

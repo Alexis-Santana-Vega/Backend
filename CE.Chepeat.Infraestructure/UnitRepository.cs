@@ -1,10 +1,10 @@
 ﻿namespace CE.Chepeat.Infraestructure;
 public class UnitRepository:BaseDisposable, IUnitRepository
 {
-    private readonly GestorInventariosContext _context;
+    private readonly ChepeatContext _context;
     private readonly IConfiguration _configuration;
 
-    public UnitRepository(GestorInventariosContext context, IConfiguration configuration)
+    public UnitRepository(ChepeatContext context, IConfiguration configuration)
     {
         _context = context;
         _configuration = configuration;
@@ -29,7 +29,7 @@ public class UnitRepository:BaseDisposable, IUnitRepository
         }
     }
     //
-    public IPersonaInfraestructure personaInfraestructure => new PersonaInfraestructure(_context);
+    public IUserInfraestructure userInfraestructure => new UserInfraestructure(_context);
 
 
     public async ValueTask<bool> Complete()

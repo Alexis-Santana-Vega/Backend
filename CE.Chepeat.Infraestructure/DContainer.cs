@@ -11,7 +11,7 @@ public static class DContainer
 
         services
         .Configure<ConnectionsSettings>(connectionSettingsSection)
-        .AddDbContext<GestorInventariosContext>(options =>
+        .AddDbContext<ChepeatContext>(options =>
         {
             options.UseSqlServer(configuration.GetConnectionString("DbConnection"),
             sqlServerOptionsAction: sqlOptions =>
