@@ -12,4 +12,11 @@ public interface IUserInfraestructure
     /// </summary>
     /// <returns></returns>
     Task<UserDto> GetUser();
+
+    /// <summary>
+    /// Eliminacion un registro de la tabla CE_User
+    /// </summary>
+    /// <returns></returns>
+    Task<UserDto> DeleteUser();
+    
 }

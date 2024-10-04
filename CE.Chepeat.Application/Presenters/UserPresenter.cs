@@ -18,4 +18,14 @@ public class UserPresenter : IUserPresenter
     {
         return await _unitRepository.userInfraestructure.GetUser();
     }
+
+    /// <summary>
+    /// Eliminar un registro de la tabla CE_Users
+    /// </summary>
+    /// <returns></returns>
+    ///
+    public async Task<UserDto> DeleteUser()
+    {
+        return await _unitRepository.userInfraestructure.DeleteUser();
+    }
 }
