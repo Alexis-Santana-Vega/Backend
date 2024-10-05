@@ -9,7 +9,13 @@ namespace CE.Chepeat.Domain.DTOs
     public class RespuestaDB
     {
         [Key]
-        public int TipoError {  get; set; }
-        public string Mensaje {  get; set; }
+        public int NumError {  get; set; }
+        public string Result {  get; set; }
+        // public List<Lista> Lista { get; set; }
+    }
+
+    public class Lista {
+        public string Nombre { get; set; }
+        public string Apellido { get; set; }
     }
 }

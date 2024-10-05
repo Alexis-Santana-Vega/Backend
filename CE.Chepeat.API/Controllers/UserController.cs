@@ -34,15 +34,102 @@ public class UserController : ApiController
     /// <response code="200">string</response>  
     /// <response code="400">string</response> 
     /// <response code="500">string</response> 
-    [HttpGet("GetUser")]
+    [HttpGet("GetUsers")]
     [Consumes(MediaTypeNames.Application.Json)]
     [Produces(MediaTypeNames.Application.Json)]
     [ProducesResponseType(typeof(string), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(string), StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(typeof(string), StatusCodes.Status500InternalServerError)]
-    public async ValueTask<IActionResult> GetPersona()
+    public async ValueTask<IActionResult> GetUsers()
     {
-        return Ok(await _appController.UserPresenter.GetUser());
+        return Ok(await _appController.UserPresenter.GetUsers());
+    }
+
+    /// <summary>
+    /// Agrega un regsitro a la tabla GI_Persona
+    /// </summary>
+    /// <param name="">Params de entrada</param> 
+    /// <remarks>
+    /// Sample request: 
+    /// 
+    ///     POST 
+    ///       {
+    ///         "nombre":"Joel",
+    ///         "apellidoPaterno":"Lopez",
+    ///         "apellidoMaterno":"Martinez",
+    ///         "edad":25
+    ///       }
+    /// </remarks>   
+    /// <response code="200">string</response>  
+    /// <response code="400">string</response> 
+    /// <response code="500">string</response> 
+    [HttpPost("AddUser")]
+    [Consumes(MediaTypeNames.Application.Json)]
+    [Produces(MediaTypeNames.Application.Json)]
+    [ProducesResponseType(typeof(string), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(string), StatusCodes.Status401Unauthorized)]
+    [ProducesResponseType(typeof(string), StatusCodes.Status500InternalServerError)]
+    public async ValueTask<IActionResult> AddUser([FromBody] UserAggregate userAggregate)
+    {
+        return Ok(await _appController.UserPresenter.AddUser(userAggregate));
+    }
+
+    /// <summary>
+    /// Agrega un regsitro a la tabla GI_Persona
+    /// </summary>
+    /// <param name="">Params de entrada</param> 
+    /// <remarks>
+    /// Sample request: 
+    /// 
+    ///     POST 
+    ///       {
+    ///         "nombre":"Joel",
+    ///         "apellidoPaterno":"Lopez",
+    ///         "apellidoMaterno":"Martinez",
+    ///         "edad":25
+    ///       }
+    /// </remarks>   
+    /// <response code="200">string</response>  
+    /// <response code="400">string</response> 
+    /// <response code="500">string</response> 
+    [HttpDelete("DeleteUser")]
+    [Consumes(MediaTypeNames.Application.Json)]
+    [Produces(MediaTypeNames.Application.Json)]
+    [ProducesResponseType(typeof(string), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(string), StatusCodes.Status401Unauthorized)]
+    [ProducesResponseType(typeof(string), StatusCodes.Status500InternalServerError)]
+    public async ValueTask<IActionResult> DeleteUser([FromBody] Guid id)
+    {
+        return Ok(await _appController.UserPresenter.DeleteUser(id));
+    }
+
+    /// <summary>
+    /// Agrega un regsitro a la tabla GI_Persona
+    /// </summary>
+    /// <param name="">Params de entrada</param> 
+    /// <remarks>
+    /// Sample request: 
+    /// 
+    ///     POST 
+    ///       {
+    ///         "nombre":"Joel",
+    ///         "apellidoPaterno":"Lopez",
+    ///         "apellidoMaterno":"Martinez",
+    ///         "edad":25
+    ///       }
+    /// </remarks>   
+    /// <response code="200">string</response>  
+    /// <response code="400">string</response> 
+    /// <response code="500">string</response> 
+    [HttpPatch("UpdateUser")]
+    [Consumes(MediaTypeNames.Application.Json)]
+    [Produces(MediaTypeNames.Application.Json)]
+    [ProducesResponseType(typeof(string), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(string), StatusCodes.Status401Unauthorized)]
+    [ProducesResponseType(typeof(string), StatusCodes.Status500InternalServerError)]
+    public async ValueTask<IActionResult> UpdateUser([FromBody] UserAggregate userAggregate)
+    {
+        return Ok(await _appController.UserPresenter.UpdateUser(userAggregate));
     }
 
 }

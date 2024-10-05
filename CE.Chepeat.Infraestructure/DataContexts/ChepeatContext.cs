@@ -1,5 +1,4 @@
 ﻿
-
 namespace CE.Chepeat.Infraestructure.DataContexts;
 public class ChepeatContext : DbContext
 {

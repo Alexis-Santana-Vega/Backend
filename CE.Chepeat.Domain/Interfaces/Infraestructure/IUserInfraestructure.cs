@@ -1,4 +1,6 @@
-﻿/// Developer : Alexis Eduardo Santana Vega
+﻿using CE.Chepeat.Domain.Aggregates.User;
+
+/// Developer : Alexis Eduardo Santana Vega
 /// Creation Date : 03/10/2024
 /// Creation Description:Interface
 /// Update Date : --
@@ -11,5 +13,24 @@ public interface IUserInfraestructure
     /// Consulta un registro de la tabla CE_User
     /// </summary>
     /// <returns></returns>
-    Task<UserDto> GetUser();
+    Task<List<UserDto>> GetUsers();
+
+    /// <summary>
+    /// Crear un registro a Users
+    /// </summary>
+    /// <returns></returns>
+    Task<RespuestaDB> AddUser(UserAggregate userAggregate);
+
+    /// <summary>
+    /// Crear un registro a Users
+    /// </summary>
+    /// <returns></returns>
+    Task<RespuestaDB> DeleteUser(Guid Id);
+
+    /// <summary>
+    /// Crear un registro a Users
+    /// </summary>
+    /// <returns></returns>
+
+    Task<RespuestaDB> UpdateUser(UserAggregate userAggregate);
 }
