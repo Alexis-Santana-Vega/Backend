@@ -47,9 +47,42 @@ public class AuthController : ApiController
     [ProducesResponseType(typeof(string), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(string), StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(typeof(string), StatusCodes.Status500InternalServerError)]
-    public async ValueTask<IActionResult> AddPersona([FromBody] RegistrationRequest request)
+    public async ValueTask<IActionResult> RegistrarUsuario([FromBody] RegistrationRequest request)
     {
         return Ok(await _appController.AuthPresenter.RegistrarUsuario(request));
+    }
+
+    [HttpPost("BuscarPorEmail")]
+    [Consumes(MediaTypeNames.Application.Json)]
+    [Produces(MediaTypeNames.Application.Json)]
+    [ProducesResponseType(typeof(string), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(string), StatusCodes.Status401Unauthorized)]
+    [ProducesResponseType(typeof(string), StatusCodes.Status500InternalServerError)]
+    public async ValueTask<IActionResult> BuscarPorEmail([FromBody] string email)
+    {
+        return Ok(await _appController.AuthPresenter.ObtenerPorEmail(email));
+    }
+
+    [HttpPost("BuscarPorId")]
+    [Consumes(MediaTypeNames.Application.Json)]
+    [Produces(MediaTypeNames.Application.Json)]
+    [ProducesResponseType(typeof(string), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(string), StatusCodes.Status401Unauthorized)]
+    [ProducesResponseType(typeof(string), StatusCodes.Status500InternalServerError)]
+    public async ValueTask<IActionResult> BuscarPorId([FromBody] Guid id)
+    {
+        return Ok(await _appController.AuthPresenter.ObtenerPorId(id));
+    }
+
+    [HttpPost("IniciarSesion")]
+    [Consumes(MediaTypeNames.Application.Json)]
+    [Produces(MediaTypeNames.Application.Json)]
+    [ProducesResponseType(typeof(string), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(string), StatusCodes.Status401Unauthorized)]
+    [ProducesResponseType(typeof(string), StatusCodes.Status500InternalServerError)]
+    public async ValueTask<IActionResult> IniciarSesion([FromBody] LoginRequest request)
+    {
+        return Ok(await _appController.AuthPresenter.IniciarSesion(request));
     }
 
     /*

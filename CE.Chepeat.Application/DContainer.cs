@@ -1,5 +1,6 @@
 ﻿using CE.Chepeat.Application.Controllers;
 using CE.Chepeat.Application.Mapping;
+using CE.Chepeat.Application.Services;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
@@ -16,7 +17,7 @@ namespace CE.Chepeat.Application
             services.AddScoped<IApiController, ApiController>();
             services.AddAutoMapper(typeof(AutoMapperProfile).Assembly);
             //Add new aggregates
-
+            services.AddScoped<IJwtService, JwtService>();
 
             return services;
         }

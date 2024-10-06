@@ -1,4 +1,6 @@
 ﻿
+using CE.Chepeat.Domain.DTOs.Session;
+
 namespace CE.Chepeat.Infraestructure.DataContexts;
 public class ChepeatContext : DbContext
 {
@@ -8,6 +10,9 @@ public class ChepeatContext : DbContext
     #region Generic Dtos DB
     public DbSet<RespuestaDB> respuestaDB { get; set; }
     public DbSet<UserDto> userDto { get; set; }
+
+    public DbSet<User> Users { get; set; }
+    public DbSet<Session> Sessions { get; set; }
     #endregion
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
