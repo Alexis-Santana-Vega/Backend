@@ -2,4 +2,5 @@
 public interface IApiController
 {
     IUserPresenter UserPresenter { get; }
+    IAuthPresenter AuthPresenter { get; }
 }

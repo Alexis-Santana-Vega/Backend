@@ -30,6 +30,7 @@ public class UnitRepository:BaseDisposable, IUnitRepository
     }
     //
     public IUserInfraestructure userInfraestructure => new UserInfraestructure(_context);
+    public IAuthInfraestructure authInfraestructure => new AuthInfraestructure(_context);
 
 
     public async ValueTask<bool> Complete()

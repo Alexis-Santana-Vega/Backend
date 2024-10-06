@@ -13,5 +13,6 @@ namespace CE.Chepeat.Application.Interfaces.Persistance
         bool HasChanges();
 
         IUserInfraestructure userInfraestructure {  get; }
+        IAuthInfraestructure authInfraestructure { get; }
     }
 }
