@@ -30,6 +30,9 @@ builder.Services.AddEndpointsApiExplorer();
 // Configure the HTTP request pipeline 
 var app = builder.Build();
 
+// Agregado por Alexis
+app.UseMiddleware<SessionManagementMiddleware>();
+
 // Configure the HTTP request pipeline.
 if (Environment.GetEnvironmentVariable("ASPNETCORE_SWAGGER_UI_ACTIVE") == "On" || app.Environment.IsDevelopment() || app.Environment.IsStaging() || app.Environment.IsProduction())
 {

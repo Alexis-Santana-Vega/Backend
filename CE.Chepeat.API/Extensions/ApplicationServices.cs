@@ -51,18 +51,29 @@ public static class ApplicationServices
 
             options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
             {
-                Description = "JWT Authorization header using the Bearer scheme (Example: '12345abcdef')",
+                Description = "Inseta el Token JWT en este formato: Bearer {token}",
                 Name = "Authorization",
-                In = ParameterLocation.Header,
-                Type = SecuritySchemeType.Http,
-                BearerFormat = "JWT",
+                Type = SecuritySchemeType.ApiKey,
                 Scheme = "Bearer"
+            });
+
+            options.AddSecurityRequirement(new OpenApiSecurityRequirement {
+                {
+                    new OpenApiSecurityScheme
+                    {
+                        Reference = new OpenApiReference
+                        {
+                            Type = ReferenceType.SecurityScheme,
+                            Id = "Bearer"
+                        }
+                    }, new string[] {  }
+                }
             });
 
             // Set the comments path for the Swagger JSON and UI.
             var xmlFile = $"{System.Reflection.Assembly.GetExecutingAssembly().GetName().Name}.xml";
             var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
-            options.OperationFilter<OperationFilter>();
+            // options.OperationFilter<OperationFilter>();
             options.DocumentFilter<DocumentFilter>();
         });
 

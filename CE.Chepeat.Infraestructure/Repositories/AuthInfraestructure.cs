@@ -17,6 +17,11 @@ public class AuthInfraestructure : IAuthInfraestructure
         _context = context;
     }
 
+    public Task<RespuestaDB> EliminarAsync(Session session)
+    {
+        throw new NotImplementedException();
+    }
+
     public async Task<Session> ObtenerPorRefreshTokenAsync(string refreshToken)
     {
         return await _context.Sessions.FirstOrDefaultAsync(s => s.RefreshToken == refreshToken);
@@ -126,4 +131,6 @@ public class AuthInfraestructure : IAuthInfraestructure
             throw;
         }
     }
+
+
 }

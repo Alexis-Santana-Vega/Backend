@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 /// Developer : Alexis Eduardo Santana Vega
 /// Creation Date : 25/09/2024
 /// Creation Description : Controller
@@ -40,6 +41,7 @@ public class UserController : ApiController
     [ProducesResponseType(typeof(string), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(string), StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(typeof(string), StatusCodes.Status500InternalServerError)]
+    [Authorize]
     public async ValueTask<IActionResult> GetUsers()
     {
         return Ok(await _appController.UserPresenter.GetUsers());

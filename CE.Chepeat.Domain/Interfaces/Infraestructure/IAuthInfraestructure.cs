@@ -15,4 +15,6 @@ public interface IAuthInfraestructure
     Task<LoginResponse> IniciarSesion(LoginRequest request);
     Task<RespuestaDB> CrearAsync(Session session);
     Task<LoginResponse> RefrescarToken(RefreshTokenRequest request);
+    Task<Session> ObtenerPorRefreshTokenAsync(string refreshToken);
+    Task<RespuestaDB> EliminarAsync(Session session);
 }

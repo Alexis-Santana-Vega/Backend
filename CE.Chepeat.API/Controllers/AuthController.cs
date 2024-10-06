@@ -85,6 +85,17 @@ public class AuthController : ApiController
         return Ok(await _appController.AuthPresenter.IniciarSesion(request));
     }
 
+    [HttpPost("RefrescarToken")]
+    [Consumes(MediaTypeNames.Application.Json)]
+    [Produces(MediaTypeNames.Application.Json)]
+    [ProducesResponseType(typeof(string), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(string), StatusCodes.Status401Unauthorized)]
+    [ProducesResponseType(typeof(string), StatusCodes.Status500InternalServerError)]
+    public async ValueTask<IActionResult> RefrescarToken([FromBody] RefreshTokenRequest request)
+    {
+        return Ok(await _appController.AuthPresenter.RefrescarToken(request));
+    }
+
     /*
     /// <summary>
     /// Consulta un regsitro de la tabla GI_Persona

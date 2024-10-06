@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using CE.Chepeat.Application.Services;
 using CE.Chepeat.Domain.Aggregates.Auth;
 using CE.Chepeat.Domain.DTOs.Session;
+using Microsoft.AspNetCore.Mvc;
 
 namespace CE.Chepeat.Application.Presenters;
 public class AuthPresenter : IAuthPresenter
@@ -21,10 +22,34 @@ public class AuthPresenter : IAuthPresenter
         _jwtService = jwtService;
     }
 
+    public Task<Session> ObtenerPorRefreshTokenAsync(string refreshToken)
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task<RespuestaDB> EliminarAsync(Session session)
+    {
+        throw new NotImplementedException();
+    }
+
     public async Task<LoginResponse> RefrescarToken(RefreshTokenRequest request)
     {
-        // var session = await _unitRepository.authInfraestructure.ObtenerPorRefreshTokenAsync(request.RefreshToken);
-        throw new NotImplementedException();
+        var session = await _unitRepository.authInfraestructure.ObtenerPorRefreshTokenAsync(request.RefreshToken);
+        if (session == null || session.ExpiresAt <= DateTime.Now)
+        {
+            return new LoginResponse { NumError = 2, Result = "Refresh token invalido o expirado" };
+        }
+        var user = await _unitRepository.authInfraestructure.ObtenerPorId(session.IdUser);
+        var token = _jwtService.GenerarToken(user);
+        var nuevoRefreshToken = _jwtService.GenerarRefreshToken();
+
+        session.RefreshToken = nuevoRefreshToken;
+        session.CreatedAt = DateTime.Now;
+        session.ExpiresAt = DateTime.Now.AddDays(1);
+
+        await _unitRepository.authInfraestructure.CrearAsync(session);
+
+        return new LoginResponse { NumError = 1, Result = "Refresh Token Generado con Exito", Token = token, RefreshToken = nuevoRefreshToken };
     }
 
     public Task<RespuestaDB> CrearAsync(Session session)
@@ -79,5 +104,6 @@ public class AuthPresenter : IAuthPresenter
         request.Password =  BCrypt.Net.BCrypt.HashPassword(request.Password);
         return await _unitRepository.authInfraestructure.RegistrarUsuario(request);
     }
+
 }
 
