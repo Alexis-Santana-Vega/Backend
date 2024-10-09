@@ -119,10 +119,12 @@ public class AuthInfraestructure : IAuthInfraestructure
                 new SqlParameter("Email", request.Email),
                 new SqlParameter("Password", request.Password),
                 new SqlParameter("Fullname", request.Fullname),
+                new SqlParameter("CreatedAt", DateTime.UtcNow),
+                new SqlParameter("UpdatedAt", DateTime.UtcNow),
                 NumError,
                 Result
             };
-            string sqlQuery = "EXEC dbo.sp_registrar_usuario @Email, @Password, @Fullname, @NumError OUTPUT, @Result OUTPUT";
+            string sqlQuery = "EXEC dbo.sp_registrar_usuario @Email, @Password, @Fullname, @CreatedAt, @UpdatedAt, @NumError OUTPUT, @Result OUTPUT";
             var dataSP = await _context.respuestaDB.FromSqlRaw(sqlQuery, parameters).ToListAsync();
             return dataSP.FirstOrDefault();
         }

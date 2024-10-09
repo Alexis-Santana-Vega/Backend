@@ -1,14 +1,26 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿/// Developer : Alexis Eduardo Santana Vega
+/// Creation Date : 02/10/2024
+/// Creation Description : Modelo de petición
+/// Update Date : 10/10/2024
+/// Update Description : Implementación de validaciones
+/// CopyRight : CE-Chepeat
 
 namespace CE.Chepeat.Domain.Aggregates.Auth;
 public class RegistrationRequest
 {
+    [Required(ErrorMessage = "Email requerido")]
+    [StringLength(50, ErrorMessage = "Email máximo 255 caracteres")]
+    [EmailAddress(ErrorMessage = "Email no válido")]
     public string Email { get; set; }
+    [Required(ErrorMessage = "NombreCompleto requerido")]
+    [StringLength(50, ErrorMessage = "NombreCompleto máximo 120 caracteres")]
     public string Fullname { get; set; }
+    [Required(ErrorMessage = "Contraseña requerida")]
+    [StringLength(16, ErrorMessage = "Contraseña máximo 16 caracteres")]
+    [RegularExpression(@"^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&])\S{8,16}$", ErrorMessage = "Contraseña 8-16 caracteres, mínimo una mayúscula, una minúscula, un número y un caracter especial")]
     public string Password { get; set; }
+    [Required(ErrorMessage = "Confirmar contraseña requerida")]
+    [StringLength(16, ErrorMessage = "ConfirmarContraseña máximo 16 caracteres")]
+    [Compare("Password", ErrorMessage = "Contraseña y ConfirmarContraseña no coinciden")]
     public string ConfirmPassword { get; set; }
 }

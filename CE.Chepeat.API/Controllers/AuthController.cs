@@ -1,12 +1,10 @@
-﻿
-using System.Net.Mime;
-using CE.Chepeat.Domain.Aggregates.Auth;
+﻿using CE.Chepeat.Domain.Aggregates.Auth;
 
 /// Developer : Alexis Eduardo Santana Vega
-/// Creation Date : 25/09/2024
+/// Creation Date : 01/10/2024
 /// Creation Description : Controller
-/// Update Date : 30/09/2024
-/// Update Description : Desarrollo de la plantilla base
+/// Update Date : 10/10/2024
+/// Update Description : Generacion de Endpoints
 /// CopyRight : CE-Chepeat
 
 namespace CE.Chepeat.API.Controllers;
@@ -24,19 +22,18 @@ public class AuthController : ApiController
     }
 
     /// <summary>
-    /// Agrega un regsitro a la tabla GI_Persona
+    /// Agrega un registro a la tabla Users
     /// </summary>
     /// <param name="">Params de entrada</param> 
     /// <remarks>
     /// Sample request: 
-    /// 
     ///     POST 
-    ///       {
-    ///         "nombre":"Joel",
-    ///         "apellidoPaterno":"Lopez",
-    ///         "apellidoMaterno":"Martinez",
-    ///         "edad":25
-    ///       }
+    ///     {
+    ///         "email": "user@example.com",
+    ///         "fullname": "string",
+    ///         "password": "string",
+    ///         "confirmPassword": "string"
+    ///     }
     /// </remarks>   
     /// <response code="200">string</response>  
     /// <response code="400">string</response> 
