@@ -27,7 +27,7 @@ public class AuthInfraestructure : IAuthInfraestructure
         return await _context.Sessions.FirstOrDefaultAsync(s => s.RefreshToken == refreshToken);
     }
 
-    public Task<LoginResponse> RefrescarToken(RefreshTokenRequest request)
+    public Task<RefreshTokenResponse> RefrescarToken(RefreshTokenRequest request, Guid id)
     {
         throw new NotImplementedException();
     }
@@ -69,11 +69,23 @@ public class AuthInfraestructure : IAuthInfraestructure
         }
     }
 
+    /// <summary>
+    ///     Realiza el inicio de sesion del usuario y genera el JWT
+    /// </summary>
+    /// <returns>
+    ///     new LoginResponse { NumError: 0, Result: "Mensaje", Token: "JWTTOKEN", RefreshToken: "REFRESHTOKEN" }
+    /// </returns>
     public Task<LoginResponse> IniciarSesion(LoginRequest request)
     {
         throw new NotImplementedException();
     }
 
+    /// <summary>
+    ///     Consulta el usuario a traves de su email
+    /// </summary>
+    /// <returns>
+    ///     new User { Id: "ID", Email: "example@domain.ext", Password: "P#ssw0rd", Fullname: "Nombre de usuario", CreatedAt: "DateTime", UpdatedAt: "DateTime" }
+    /// </returns>
     public async Task<User> ObtenerPorEmail(string email)
     {
         try
@@ -84,6 +96,12 @@ public class AuthInfraestructure : IAuthInfraestructure
         }
     }
 
+    /// <summary>
+    ///     Consulta el usuario a traves de su ID
+    /// </summary>
+    /// <returns>
+    ///     new User { Id: "ID", Email: "example@domain.ext", Password: "P#ssw0rd", Fullname: "Nombre de usuario", CreatedAt: "DateTime", UpdatedAt: "DateTime" }
+    /// </returns>
     public async Task<User> ObtenerPorId(Guid id)
     {
         try
@@ -96,6 +114,12 @@ public class AuthInfraestructure : IAuthInfraestructure
         }
     }
 
+    /// <summary>
+    ///     Realiza la insersión de un nuevo usuario a la tabla Users
+    /// </summary>
+    /// <returns>
+    ///     new RespuestaDB { NumError: 0, Result: "Mensaje de la BD" }
+    /// </returns>
     public async Task<RespuestaDB> RegistrarUsuario(RegistrationRequest request)
     {
         try

@@ -54,7 +54,8 @@ public static class ApplicationServices
                 Description = "Inseta el Token JWT en este formato: Bearer {token}",
                 Name = "Authorization",
                 Type = SecuritySchemeType.ApiKey,
-                Scheme = "Bearer"
+                Scheme = "Bearer",
+                In = ParameterLocation.Header
             });
 
             options.AddSecurityRequirement(new OpenApiSecurityRequirement {

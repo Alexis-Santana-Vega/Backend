@@ -41,7 +41,7 @@ public class UserController : ApiController
     [ProducesResponseType(typeof(string), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(string), StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(typeof(string), StatusCodes.Status500InternalServerError)]
-    [Authorize]
+    [Authorize(Policy = "BUYER")]
     public async ValueTask<IActionResult> GetUsers()
     {
         return Ok(await _appController.UserPresenter.GetUsers());
@@ -100,6 +100,7 @@ public class UserController : ApiController
     [ProducesResponseType(typeof(string), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(string), StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(typeof(string), StatusCodes.Status500InternalServerError)]
+    [Authorize(Policy = "SELLER")]
     public async ValueTask<IActionResult> DeleteUser([FromBody] Guid id)
     {
         return Ok(await _appController.UserPresenter.DeleteUser(id));

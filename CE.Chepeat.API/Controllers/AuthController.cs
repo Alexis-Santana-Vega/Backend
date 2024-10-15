@@ -1,4 +1,5 @@
 ﻿using CE.Chepeat.Domain.Aggregates.Auth;
+using Newtonsoft.Json.Linq;
 
 /// Developer : Alexis Eduardo Santana Vega
 /// Creation Date : 01/10/2024
@@ -30,9 +31,9 @@ public class AuthController : ApiController
     ///     POST 
     ///     {
     ///         "email": "user@example.com",
-    ///         "fullname": "string",
-    ///         "password": "string",
-    ///         "confirmPassword": "string"
+    ///         "fullname": "Nombre de usuario",
+    ///         "password": "P#ssw0rd",
+    ///         "confirmPassword": "P#ssw0rd"
     ///     }
     /// </remarks>   
     /// <response code="200">string</response>  
@@ -49,28 +50,21 @@ public class AuthController : ApiController
         return Ok(await _appController.AuthPresenter.RegistrarUsuario(request));
     }
 
-    [HttpPost("BuscarPorEmail")]
-    [Consumes(MediaTypeNames.Application.Json)]
-    [Produces(MediaTypeNames.Application.Json)]
-    [ProducesResponseType(typeof(string), StatusCodes.Status200OK)]
-    [ProducesResponseType(typeof(string), StatusCodes.Status401Unauthorized)]
-    [ProducesResponseType(typeof(string), StatusCodes.Status500InternalServerError)]
-    public async ValueTask<IActionResult> BuscarPorEmail([FromBody] string email)
-    {
-        return Ok(await _appController.AuthPresenter.ObtenerPorEmail(email));
-    }
-
-    [HttpPost("BuscarPorId")]
-    [Consumes(MediaTypeNames.Application.Json)]
-    [Produces(MediaTypeNames.Application.Json)]
-    [ProducesResponseType(typeof(string), StatusCodes.Status200OK)]
-    [ProducesResponseType(typeof(string), StatusCodes.Status401Unauthorized)]
-    [ProducesResponseType(typeof(string), StatusCodes.Status500InternalServerError)]
-    public async ValueTask<IActionResult> BuscarPorId([FromBody] Guid id)
-    {
-        return Ok(await _appController.AuthPresenter.ObtenerPorId(id));
-    }
-
+    /// <summary>
+    /// Realiza el inicio de sesion del usuario y genera el JWT
+    /// </summary>
+    /// <param name="">Params de entrada</param> 
+    /// <remarks>
+    /// Sample request: 
+    ///     POST 
+    ///     {
+    ///         "email": "user@example.com",
+    ///         "password": "P#ssw0rd",
+    ///     }
+    /// </remarks>   
+    /// <response code="200">string</response>  
+    /// <response code="400">string</response> 
+    /// <response code="500">string</response> 
     [HttpPost("IniciarSesion")]
     [Consumes(MediaTypeNames.Application.Json)]
     [Produces(MediaTypeNames.Application.Json)]
@@ -79,7 +73,26 @@ public class AuthController : ApiController
     [ProducesResponseType(typeof(string), StatusCodes.Status500InternalServerError)]
     public async ValueTask<IActionResult> IniciarSesion([FromBody] LoginRequest request)
     {
-        return Ok(await _appController.AuthPresenter.IniciarSesion(request));
+        var loginRequest = await _appController.AuthPresenter.IniciarSesion(request);
+        /* Intento con CookieOptions */
+        var accessTokenCookie = new CookieOptions
+        {
+            HttpOnly = true,
+            Secure = true,
+            SameSite = SameSiteMode.Strict,
+            Expires = DateTime.UtcNow.AddMinutes(5)
+        };
+        Response.Cookies.Append("access_token", loginRequest.Token, accessTokenCookie);
+        var refreshTokenCookie = new CookieOptions
+        {
+            HttpOnly = true,
+            Secure = true,
+            SameSite = SameSiteMode.Strict,
+            Expires = DateTime.UtcNow.AddDays(20)
+        };
+        Response.Cookies.Append("refresh_token", loginRequest.RefreshToken, refreshTokenCookie);
+        return Ok(loginRequest);
+        // return Ok(await _appController.AuthPresenter.IniciarSesion(request));
     }
 
     [HttpPost("RefrescarToken")]
@@ -88,67 +101,21 @@ public class AuthController : ApiController
     [ProducesResponseType(typeof(string), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(string), StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(typeof(string), StatusCodes.Status500InternalServerError)]
-    public async ValueTask<IActionResult> RefrescarToken([FromBody] RefreshTokenRequest request)
-    {
-        return Ok(await _appController.AuthPresenter.RefrescarToken(request));
-    }
-
-    /*
-    /// <summary>
-    /// Consulta un regsitro de la tabla GI_Persona
-    /// </summary>
-    /// <param name="">Params de entrada</param> 
-    /// <remarks>
-    /// Sample request: 
-    /// 
-    ///     POST 
-    ///       {
-    ///         "User":"SysAdmin"
-    ///       }
-    /// </remarks>   
-    /// <response code="200">string</response>  
-    /// <response code="400">string</response> 
-    /// <response code="500">string</response> 
-    [HttpPost("GetPersona")]
-    [Consumes(MediaTypeNames.Application.Json)]
-    [Produces(MediaTypeNames.Application.Json)]
-    [ProducesResponseType(typeof(string), StatusCodes.Status200OK)]
-    [ProducesResponseType(typeof(string), StatusCodes.Status401Unauthorized)]
-    [ProducesResponseType(typeof(string), StatusCodes.Status500InternalServerError)]
-    public async ValueTask<IActionResult> GetPersona()
-    {
-        return Ok(await _appController.PersonaPresenter.GetPersona());
+    public async ValueTask<IActionResult> RefrescarToken([FromBody] Guid id)
+    {   
+        var refreshToken = Request.Cookies["refresh_token"];
+        var refreshTokenRequest = await _appController.AuthPresenter.RefrescarToken(new RefreshTokenRequest { RefreshToken = refreshToken }, id);
+        var accessTokenCookie = new CookieOptions
+        {
+            HttpOnly = true,
+            Secure = true,
+            SameSite = SameSiteMode.Strict,
+            Expires = DateTime.UtcNow.AddMinutes(5)
+        };
+        Response.Cookies.Append("access_token", refreshTokenRequest.Token, accessTokenCookie);
+        return Ok(refreshTokenRequest);
+        // return Ok(await _appController.AuthPresenter.RefrescarToken(request));
     }
 
 
-    /// <summary>
-    /// Agrega un regsitro a la tabla GI_Persona
-    /// </summary>
-    /// <param name="">Params de entrada</param> 
-    /// <remarks>
-    /// Sample request: 
-    /// 
-    ///     POST 
-    ///       {
-    ///         "nombre":"Joel",
-    ///         "apellidoPaterno":"Lopez",
-    ///         "apellidoMaterno":"Martinez",
-    ///         "edad":25
-    ///       }
-    /// </remarks>   
-    /// <response code="200">string</response>  
-    /// <response code="400">string</response> 
-    /// <response code="500">string</response> 
-    [HttpPost("AddPersona")]
-    [Consumes(MediaTypeNames.Application.Json)]
-    [Produces(MediaTypeNames.Application.Json)]
-    [ProducesResponseType(typeof(string), StatusCodes.Status200OK)]
-    [ProducesResponseType(typeof(string), StatusCodes.Status401Unauthorized)]
-    [ProducesResponseType(typeof(string), StatusCodes.Status500InternalServerError)]
-    public async ValueTask<IActionResult> AddPersona([FromBody] PersonaAggregate aggregate)
-    {
-        return Ok(await _appController.PersonaPresenter.AddPersona(aggregate));
-
-    }
-    */
 }

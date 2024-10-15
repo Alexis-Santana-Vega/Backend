@@ -46,8 +46,21 @@ public static class DContainer
            };
        });
 
+        services.AddAuthorization(options =>
+        {
+            options.AddPolicy("BUYER", policy =>
+            {
+                policy.RequireClaim("IsBuyer", "True");
+            });
+        });
 
-
+        services.AddAuthorization(options =>
+        {
+            options.AddPolicy("SELLER", policy =>
+            {
+                policy.RequireClaim("IsSeller", "True");
+            });
+        });
 
 
 

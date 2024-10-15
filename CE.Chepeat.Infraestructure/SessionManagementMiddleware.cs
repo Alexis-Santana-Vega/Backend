@@ -33,7 +33,7 @@ public class SessionManagementMiddleware
                 {
                     var sesion = await sesionRepository.ObtenerPorRefreshTokenAsync(refreshToken);
 
-                    if (sesion != null && sesion.ExpiresAt > DateTime.Now)
+                    if (sesion != null && sesion.ExpiresAt > DateTime.UtcNow)
                     {
                         // Refresh token válido, generar nuevo token
                         var usuarioId = sesion.IdUser;
@@ -47,8 +47,8 @@ public class SessionManagementMiddleware
 
                             // Actualizar sesión con el nuevo refresh token
                             sesion.RefreshToken = nuevoRefreshToken;
-                            sesion.CreatedAt = DateTime.Now;
-                            sesion.ExpiresAt = DateTime.Now.AddDays(1);
+                            sesion.CreatedAt = DateTime.UtcNow;
+                            sesion.ExpiresAt = DateTime.UtcNow.AddDays(20);
 
                             await sesionRepository.CrearAsync(sesion);
 
