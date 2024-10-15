@@ -80,7 +80,7 @@ public class AuthController : ApiController
             HttpOnly = true,
             Secure = true,
             SameSite = SameSiteMode.Strict,
-            Expires = DateTime.UtcNow.AddMinutes(5)
+            Expires = DateTime.UtcNow.AddMinutes(1)
         };
         Response.Cookies.Append("access_token", loginRequest.Token, accessTokenCookie);
         var refreshTokenCookie = new CookieOptions
@@ -88,7 +88,7 @@ public class AuthController : ApiController
             HttpOnly = true,
             Secure = true,
             SameSite = SameSiteMode.Strict,
-            Expires = DateTime.UtcNow.AddDays(20)
+            Expires = DateTime.UtcNow.AddMinutes(5)
         };
         Response.Cookies.Append("refresh_token", loginRequest.RefreshToken, refreshTokenCookie);
         return Ok(loginRequest);
