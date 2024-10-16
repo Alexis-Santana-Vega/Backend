@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using CE.Chepeat.Domain.Aggregates.Auth;
 using CE.Chepeat.Domain.Aggregates.User;
+using CE.Chepeat.Domain.DTOs;
 using CE.Chepeat.Domain.DTOs.Session;
 
 namespace CE.Chepeat.Infraestructure.Repositories;
@@ -17,22 +18,26 @@ public class AuthInfraestructure : IAuthInfraestructure
         _context = context;
     }
 
-    public Task<RespuestaDB> EliminarAsync(Session session)
+    public async Task ListarRefreshToken(RefreshToken refreshToken)
     {
-        throw new NotImplementedException();
+        var refreshTokens = await _context.RefreshTokens
+                .Where(r => r.Active && r.Used == false && r.UserId == refreshToken.UserId)
+        .ToListAsync();
+        foreach (var rt in refreshTokens)
+        {
+            rt.Used = true;
+            rt.Active = false;
+        }
+        await _context.SaveChangesAsync();
     }
 
-    public async Task<Session> ObtenerPorRefreshTokenAsync(string refreshToken)
+    public async Task<RefreshToken> ObtenerPorRefreshTokenAsync(RefreshTokenRequest request)
     {
-        return await _context.Sessions.FirstOrDefaultAsync(s => s.RefreshToken == refreshToken);
+        var response = await _context.RefreshTokens.FirstOrDefaultAsync(s => s.RefreshTokenValue == request.RefreshToken);
+        return response;
     }
 
-    public Task<RefreshTokenResponse> RefrescarToken(RefreshTokenRequest request, Guid id)
-    {
-        throw new NotImplementedException();
-    }
-
-    public async Task<RespuestaDB> CrearAsync(Session session)
+    public async Task<RespuestaDB> CrearAsync(RefreshToken refreshToken)
     {
         try
         {
@@ -52,14 +57,16 @@ public class AuthInfraestructure : IAuthInfraestructure
 
             SqlParameter[] parameters =
             {
-                new SqlParameter("IdUser", session.IdUser),
-                new SqlParameter("RefreshToken", session.RefreshToken),
-                new SqlParameter("CreatedAt", session.CreatedAt),
-                new SqlParameter("ExpiresAt", session.ExpiresAt),
+                new SqlParameter("RefreshTokenValue", refreshToken.RefreshTokenValue),
+                new SqlParameter("Active", refreshToken.Active),
+                new SqlParameter("Creation", refreshToken.Creation),
+                new SqlParameter("Expiration", refreshToken.Expiration),
+                new SqlParameter("Used", refreshToken.Used),
+                new SqlParameter("UserId", refreshToken.UserId),
                 NumError,
                 Result
             };
-            string sqlQuery = "EXEC dbo.sp_create_session @IdUser, @RefreshToken, @CreatedAt, @ExpiresAt, @NumError OUTPUT, @Result OUTPUT";
+            string sqlQuery = "EXEC dbo.sp_create_refreshToken @RefreshTokenValue, @Active, @Creation, @Expiration, @Used, @UserId, @NumError OUTPUT, @Result OUTPUT";
             var dataSP = await _context.respuestaDB.FromSqlRaw(sqlQuery, parameters).ToListAsync();
             return dataSP.FirstOrDefault();
         }
@@ -67,17 +74,6 @@ public class AuthInfraestructure : IAuthInfraestructure
         {
             throw;
         }
-    }
-
-    /// <summary>
-    ///     Realiza el inicio de sesion del usuario y genera el JWT
-    /// </summary>
-    /// <returns>
-    ///     new LoginResponse { NumError: 0, Result: "Mensaje", Token: "JWTTOKEN", RefreshToken: "REFRESHTOKEN" }
-    /// </returns>
-    public Task<LoginResponse> IniciarSesion(LoginRequest request)
-    {
-        throw new NotImplementedException();
     }
 
     /// <summary>
@@ -157,6 +153,4 @@ public class AuthInfraestructure : IAuthInfraestructure
             throw;
         }
     }
-
-
 }

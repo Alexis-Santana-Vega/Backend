@@ -35,8 +35,8 @@ public interface IAuthPresenter
     ///     new LoginResponse { NumError: 0, Result: "Mensaje", Token: "JWTTOKEN", RefreshToken: "REFRESHTOKEN" }
     /// </returns>
     Task<LoginResponse> IniciarSesion(LoginRequest request);
-    Task<RespuestaDB> CrearAsync(Session session);
-    Task<RefreshTokenResponse> RefrescarToken(RefreshTokenRequest request, Guid id);
-    Task<Session> ObtenerPorRefreshTokenAsync(string refreshToken);
+    Task<RespuestaDB> CrearAsync(RefreshToken refreshToken);
+    Task<RefreshTokenResponse> RefrescarToken(RefreshTokenRequest request);
+    Task<RefreshToken> ObtenerPorRefreshTokenAsync(RefreshTokenRequest request);
     Task<RespuestaDB> EliminarAsync(Session session);
 }

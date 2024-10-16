@@ -1,4 +1,4 @@
-﻿namespace CE.Chepeat.Domain.DTOs.User;
+﻿namespace CE.Chepeat.Domain.DTOs;
 public class UserDto
 {
     [Key]

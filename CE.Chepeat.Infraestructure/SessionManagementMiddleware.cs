@@ -23,7 +23,7 @@ public class SessionManagementMiddleware
         if (!string.IsNullOrEmpty(token))
         {
             var principal = jwtService.ValidarToken(token);
-
+            /*
             if (principal == null)
             {
                 // Token inválido, tratar de refrescarlo
@@ -78,6 +78,7 @@ public class SessionManagementMiddleware
                 // Token válido, añadir el usuario al contexto
                 context.User = principal;
             }
+            */
         }
 
         // Llamar al siguiente middleware en la cadena

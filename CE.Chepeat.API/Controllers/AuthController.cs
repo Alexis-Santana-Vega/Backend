@@ -75,6 +75,7 @@ public class AuthController : ApiController
     {
         var loginRequest = await _appController.AuthPresenter.IniciarSesion(request);
         /* Intento con CookieOptions */
+        /*
         var accessTokenCookie = new CookieOptions
         {
             HttpOnly = true,
@@ -91,6 +92,7 @@ public class AuthController : ApiController
             Expires = DateTime.UtcNow.AddMinutes(5)
         };
         Response.Cookies.Append("refresh_token", loginRequest.RefreshToken, refreshTokenCookie);
+        */
         return Ok(loginRequest);
         // return Ok(await _appController.AuthPresenter.IniciarSesion(request));
     }
@@ -101,10 +103,11 @@ public class AuthController : ApiController
     [ProducesResponseType(typeof(string), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(string), StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(typeof(string), StatusCodes.Status500InternalServerError)]
-    public async ValueTask<IActionResult> RefrescarToken([FromBody] Guid id)
-    {   
-        var refreshToken = Request.Cookies["refresh_token"];
-        var refreshTokenRequest = await _appController.AuthPresenter.RefrescarToken(new RefreshTokenRequest { RefreshToken = refreshToken }, id);
+    public async ValueTask<IActionResult> RefrescarToken([FromBody] RefreshTokenRequest refreshTokenRequest)
+    {
+        // var refreshToken = Request.Cookies["refresh_token"];
+        //var refreshTokenRequest = await _appController.AuthPresenter.RefrescarToken(new RefreshTokenRequest { RefreshToken = refreshToken }, id);
+        /*
         var accessTokenCookie = new CookieOptions
         {
             HttpOnly = true,
@@ -113,7 +116,9 @@ public class AuthController : ApiController
             Expires = DateTime.UtcNow.AddMinutes(5)
         };
         Response.Cookies.Append("access_token", refreshTokenRequest.Token, accessTokenCookie);
-        return Ok(refreshTokenRequest);
+         */
+        // var refreshTokenRequest = new { date = DateTime.Now };
+        return Ok(await _appController.AuthPresenter.RefrescarToken(refreshTokenRequest));
         // return Ok(await _appController.AuthPresenter.RefrescarToken(request));
     }
 

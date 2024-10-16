@@ -4,8 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CE.Chepeat.Domain.DTOs.User;
-public class User 
+namespace CE.Chepeat.Domain.DTOs;
+public class User
 {
     [Key]
     public Guid Id { get; set; }
@@ -16,5 +16,5 @@ public class User
     public bool IsBuyer { get; set; }
     public bool IsSeller { get; set; }
     public DateTime CreatedAt { get; set; }
-    public DateTime UpdatedAt { get; set;}
+    public DateTime UpdatedAt { get; set; }
 }

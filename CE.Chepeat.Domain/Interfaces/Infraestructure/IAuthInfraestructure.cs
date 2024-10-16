@@ -32,16 +32,7 @@ public interface IAuthInfraestructure
     ///     new User { Id: "ID", Email: "example@domain.ext", Password: "P#ssw0rd", Fullname: "Nombre de usuario", CreatedAt: "DateTime", UpdatedAt: "DateTime" }
     /// </returns>
     Task<User> ObtenerPorId(Guid id);
-
-    /// <summary>
-    ///     Realiza el inicio de sesion del usuario y genera el JWT
-    /// </summary>
-    /// <returns>
-    ///     new LoginResponse { NumError: 0, Result: "Mensaje", Token: "JWTTOKEN", RefreshToken: "REFRESHTOKEN" }
-    /// </returns>
-    Task<LoginResponse> IniciarSesion(LoginRequest request);
-    Task<RespuestaDB> CrearAsync(Session session);
-    Task<RefreshTokenResponse> RefrescarToken(RefreshTokenRequest request, Guid id);
-    Task<Session> ObtenerPorRefreshTokenAsync(string refreshToken);
-    Task<RespuestaDB> EliminarAsync(Session session);
+    Task<RespuestaDB> CrearAsync(RefreshToken refreshToken);
+    Task<RefreshToken> ObtenerPorRefreshTokenAsync(RefreshTokenRequest request);
+    Task ListarRefreshToken(RefreshToken refreshToken);
 }

@@ -11,4 +11,6 @@ public interface IJwtService
     string GenerarToken(User user);
     string GenerarRefreshToken();
     ClaimsPrincipal ValidarToken(string token);
+    string GenerateAccessToken(User user);
+
 }

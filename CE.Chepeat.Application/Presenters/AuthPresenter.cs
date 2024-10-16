@@ -24,9 +24,10 @@ public class AuthPresenter : IAuthPresenter
         _jwtService = jwtService;
     }
 
-    public Task<Session> ObtenerPorRefreshTokenAsync(string refreshToken)
+    public async Task<RefreshToken> ObtenerPorRefreshTokenAsync(RefreshTokenRequest request)
     {
-        throw new NotImplementedException();
+        return await _unitRepository.authInfraestructure.ObtenerPorRefreshTokenAsync(request);
+
     }
 
     public Task<RespuestaDB> EliminarAsync(Session session)
@@ -34,8 +35,57 @@ public class AuthPresenter : IAuthPresenter
         throw new NotImplementedException();
     }
 
-    public async Task<RefreshTokenResponse> RefrescarToken(RefreshTokenRequest request, Guid id)
+    public async Task<RefreshTokenResponse> RefrescarToken(RefreshTokenRequest request)
     {
+        var refreshToken = await _unitRepository.authInfraestructure.ObtenerPorRefreshTokenAsync(request);
+        // Si el refresh token no existe, expiro o lo eliminaron manualmente, igual pensando que el usuario
+        // tuviera la opcion de cerrar sesion en todos lados
+        if (refreshToken == null || refreshToken.Active == false || refreshToken.Expiration <= DateTime.UtcNow)
+        {
+            return new RefreshTokenResponse { NumError = 3, Result = "Refresh token no existe, expiro o fue eliminado" };
+        }
+        // Si se esta intentado utilizar el refresh token que ya fue utilizado anteriormente
+        // posiblemente fue robado o la aplicacion cliente no se esta implementando correctamente
+        // Por ello, por seguridad se desactivaran todos los refresh token de ese usuario por seguridad
+        Console.WriteLine(refreshToken.RefreshTokenValue);
+        if (refreshToken.Used)
+        {
+            await _unitRepository.authInfraestructure.ListarRefreshToken(refreshToken);
+            return new RefreshTokenResponse { NumError = 4, Result = "Error 403 Forbidden Access Exception - Se desactivaron todos los tokens por seguridad" };
+        }
+        // Validar que el Access Token corresponde al mismo usuario
+        refreshToken.Used = true;
+        var user = await _unitRepository.authInfraestructure.ObtenerPorId(refreshToken.UserId);
+        if (user == null) {
+            return new RefreshTokenResponse { NumError = 5, Result = "Error 403 Forbidden Access Exception" };
+        }
+        var jwt = _jwtService.GenerarToken(user);
+        var newToken = _jwtService.GenerarRefreshToken();
+
+        var newRefreshToken = new RefreshToken
+        {
+            Active = true,
+            Creation = DateTime.UtcNow,
+            Expiration = DateTime.UtcNow.AddMinutes(60),
+            RefreshTokenValue = newToken,
+            Used = false,
+            UserId = user.Id
+        };
+
+        var response = await CrearAsync(newRefreshToken);
+        Console.WriteLine(response.Result);
+
+        await _unitRepository.Complete();
+
+        return new RefreshTokenResponse
+        {
+            NumError = 1,
+            Result = "Has iniciado sesion con exito",
+            Token = jwt,
+            RefreshToken = newToken
+        };
+
+        /*
         if (string.IsNullOrEmpty(request.RefreshToken))
         {
             return new RefreshTokenResponse { NumError = 3, Result = "Refresh token vacio, no existe" };
@@ -43,7 +93,7 @@ public class AuthPresenter : IAuthPresenter
 
         var user = await _unitRepository.authInfraestructure.ObtenerPorId(id);
         var token = _jwtService.GenerarToken(user);
-
+        */
 
         /*
         var session = await _unitRepository.authInfraestructure.ObtenerPorRefreshTokenAsync(request.RefreshToken);
@@ -63,12 +113,12 @@ public class AuthPresenter : IAuthPresenter
         */
 
 
-        return new RefreshTokenResponse { NumError = 1, Result = "Refresh Token Generado con Exito", Token = token };
+        // return new RefreshTokenResponse { NumError = 1, Result = "Refresh Token Generado con Exito", Token = token };
     }
 
-    public Task<RespuestaDB> CrearAsync(Session session)
+    public Task<RespuestaDB> CrearAsync(RefreshToken refreshToken)
     {
-        return _unitRepository.authInfraestructure.CrearAsync(session);
+        return _unitRepository.authInfraestructure.CrearAsync(refreshToken);
     }
 
     /// <summary>
@@ -87,23 +137,26 @@ public class AuthPresenter : IAuthPresenter
                 Result = "Credenciales no válidas"
             };
         }
-        var token = _jwtService.GenerarToken(user);
+        var jwt = _jwtService.GenerarToken(user);
         var refreshToken = _jwtService.GenerarRefreshToken();
 
-        var session = new Session
+        var newAccessToken = new RefreshToken
         {
-            IdUser = user.Id,
-            RefreshToken = refreshToken,
-            CreatedAt = DateTime.UtcNow,
-            ExpiresAt = DateTime.UtcNow.AddMinutes(5)
+            Active = true,
+            Creation = DateTime.UtcNow,
+            Expiration = DateTime.UtcNow.AddMinutes(60),
+            RefreshTokenValue = refreshToken,
+            Used = false,
+            UserId = user.Id
         };
 
-        var response = await CrearAsync(session);
-
+        var response = await CrearAsync(newAccessToken);
+        Console.WriteLine(response.Result);
+        
         return new LoginResponse {
             NumError = 1,
             Result = "Has iniciado sesion con exito",
-            Token = token,
+            Token = jwt,
             RefreshToken = refreshToken
         };
     }
@@ -139,8 +192,10 @@ public class AuthPresenter : IAuthPresenter
     public async Task<RespuestaDB> RegistrarUsuario(RegistrationRequest request)
     {
         request.Password =  BCrypt.Net.BCrypt.HashPassword(request.Password);
-        return await _unitRepository.authInfraestructure.RegistrarUsuario(request);
+        var response = await _unitRepository.authInfraestructure.RegistrarUsuario(request);
+        return response;
     }
 
+    
 }
 
