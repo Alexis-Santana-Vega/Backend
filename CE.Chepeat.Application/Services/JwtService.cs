@@ -48,7 +48,7 @@ public class JwtService : IJwtService
             _configuration["Jwt:Issuer"],
             _configuration["Jwt:Audience"],
             claims,
-            expires: DateTime.UtcNow.AddMinutes(1),
+            expires: DateTime.UtcNow.AddDays(10),
             signingCredentials: cred);
         return new JwtSecurityTokenHandler().WriteToken(token);
     }
@@ -94,7 +94,7 @@ public class JwtService : IJwtService
             issuer: _configuration["Jwt:Issuer"],
             audience: _configuration["Jwt:Audience"],
             claims: claims,
-            expires: DateTime.Now.AddMinutes(2),
+            expires: DateTime.Now.AddDays(10),
             signingCredentials: credentials);
 
         return new JwtSecurityTokenHandler().WriteToken(tokenDescriptor);

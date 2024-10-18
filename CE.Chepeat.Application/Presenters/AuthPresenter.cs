@@ -66,7 +66,7 @@ public class AuthPresenter : IAuthPresenter
         {
             Active = true,
             Creation = DateTime.UtcNow,
-            Expiration = DateTime.UtcNow.AddMinutes(60),
+            Expiration = DateTime.UtcNow.AddDays(30),
             RefreshTokenValue = newToken,
             Used = false,
             UserId = user.Id
@@ -80,7 +80,7 @@ public class AuthPresenter : IAuthPresenter
         return new RefreshTokenResponse
         {
             NumError = 1,
-            Result = "Has iniciado sesion con exito",
+            Result = "Has refrescado tu sesion con exito",
             Token = jwt,
             RefreshToken = newToken
         };
@@ -144,7 +144,7 @@ public class AuthPresenter : IAuthPresenter
         {
             Active = true,
             Creation = DateTime.UtcNow,
-            Expiration = DateTime.UtcNow.AddMinutes(60),
+            Expiration = DateTime.UtcNow.AddDays(60),
             RefreshTokenValue = refreshToken,
             Used = false,
             UserId = user.Id

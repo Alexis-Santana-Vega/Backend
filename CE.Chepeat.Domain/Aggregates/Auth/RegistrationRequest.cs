@@ -13,7 +13,7 @@ public class RegistrationRequest
     [EmailAddress(ErrorMessage = "Email no válido")]
     public string Email { get; set; }
     [Required(ErrorMessage = "NombreCompleto requerido")]
-    [StringLength(50, ErrorMessage = "NombreCompleto máximo 120 caracteres")]
+    [StringLength(120, ErrorMessage = "NombreCompleto máximo 120 caracteres")]
     public string Fullname { get; set; }
     [Required(ErrorMessage = "Contraseña requerida")]
     [StringLength(16, ErrorMessage = "Contraseña máximo 16 caracteres")]
