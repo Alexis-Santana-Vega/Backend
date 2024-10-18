@@ -17,7 +17,6 @@ public class RegistrationRequest
     public string Fullname { get; set; }
     [Required(ErrorMessage = "Contraseña requerida")]
     [StringLength(16, ErrorMessage = "Contraseña máximo 16 caracteres")]
-    [RegularExpression(@"^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&])\S{8,16}$", ErrorMessage = "Contraseña 8-16 caracteres, mínimo una mayúscula, una minúscula, un número y un caracter especial")]
     public string Password { get; set; }
     [Required(ErrorMessage = "Confirmar contraseña requerida")]
     [StringLength(16, ErrorMessage = "ConfirmarContraseña máximo 16 caracteres")]
