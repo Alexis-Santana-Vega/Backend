@@ -153,4 +153,23 @@ public class AuthInfraestructure : IAuthInfraestructure
             throw;
         }
     }
+
+    public async Task<RespuestaDB> CerrarSesion(RefreshTokenRequest request)
+    {
+        var itemToRemove = await _context.RefreshTokens.SingleOrDefaultAsync(rt => rt.RefreshTokenValue == request.RefreshToken);
+        if (itemToRemove != null)
+        {
+            itemToRemove.Used = true;
+            itemToRemove.Active = false;
+            _context.SaveChanges();
+            return new RespuestaDB { NumError = 0, Result = "Cerrar sesión completada" };
+        }
+        return new RespuestaDB { NumError = 1, Result = "No fue posible cerrar sesión" };
+    }
+
+    public async Task<RespuestaDB> CerrarSesionTodos(Guid id)
+    {
+        await ListarRefreshToken(new RefreshToken { RefreshTokenId = Guid.NewGuid(), UserId = id });
+        return new RespuestaDB { NumError = 0, Result = "Cerrar sesión en todos los dispositivos completada" };
+    }
 }

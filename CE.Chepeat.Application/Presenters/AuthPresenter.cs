@@ -55,6 +55,7 @@ public class AuthPresenter : IAuthPresenter
         }
         // Validar que el Access Token corresponde al mismo usuario
         refreshToken.Used = true;
+        refreshToken.Active = false;
         var user = await _unitRepository.authInfraestructure.ObtenerPorId(refreshToken.UserId);
         if (user == null) {
             return new RefreshTokenResponse { NumError = 5, Result = "Error 403 Forbidden Access Exception" };
@@ -196,6 +197,14 @@ public class AuthPresenter : IAuthPresenter
         return response;
     }
 
-    
+    public async Task<RespuestaDB> CerrarSesion(RefreshTokenRequest request)
+    {
+        return await _unitRepository.authInfraestructure.CerrarSesion(request);
+    }
+
+    public async Task<RespuestaDB> CerrarSesionTodos(Guid id)
+    {
+        return await _unitRepository.authInfraestructure.CerrarSesionTodos(id);
+    }
 }
 

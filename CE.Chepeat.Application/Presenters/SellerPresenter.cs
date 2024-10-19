@@ -19,4 +19,24 @@ public class SellerPresenter : ISellerPresenter
     {
         return await _unitRepository.sellerInfraestructure.AddSeller(request);
     }
+
+    public async Task<RespuestaDB> DeleteSeller(Guid Id)
+    {
+        return await _unitRepository.sellerInfraestructure.DeleteSeller(Id);
+    }
+
+    public async Task<Seller> SelectSellerById(Guid id)
+    {
+        return await _unitRepository.sellerInfraestructure.SelectSellerById(id);
+    }
+
+    public async Task<List<Seller>> SelectSellersByRadius(SellerRadiusRequest request)
+    {
+        return await _unitRepository.sellerInfraestructure.SelectSellersByRadius(request);
+    }
+
+    public async Task<RespuestaDB> UpdateSeller(SellerRequest request)
+    {
+        return await _unitRepository.sellerInfraestructure.UpdateSeller(request);
+    }
 }

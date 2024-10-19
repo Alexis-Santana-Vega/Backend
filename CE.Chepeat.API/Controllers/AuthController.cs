@@ -122,5 +122,60 @@ public class AuthController : ApiController
         // return Ok(await _appController.AuthPresenter.RefrescarToken(request));
     }
 
+    /// <summary>
+    /// Agrega un registro a la tabla Users
+    /// </summary>
+    /// <param name="">Params de entrada</param> 
+    /// <remarks>
+    /// Sample request: 
+    ///     POST 
+    ///     {
+    ///         "email": "user@example.com",
+    ///         "fullname": "Nombre de usuario",
+    ///         "password": "P#ssw0rd",
+    ///         "confirmPassword": "P#ssw0rd"
+    ///     }
+    /// </remarks>   
+    /// <response code="200">string</response>  
+    /// <response code="400">string</response> 
+    /// <response code="500">string</response> 
+    [HttpPost("CerrarSesion")]
+    [Consumes(MediaTypeNames.Application.Json)]
+    [Produces(MediaTypeNames.Application.Json)]
+    [ProducesResponseType(typeof(string), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(string), StatusCodes.Status401Unauthorized)]
+    [ProducesResponseType(typeof(string), StatusCodes.Status500InternalServerError)]
+    public async ValueTask<IActionResult> CerrarSesion([FromBody] RefreshTokenRequest request)
+    {
+        return Ok(await _appController.AuthPresenter.CerrarSesion(request));
+    }
+
+    /// <summary>
+    /// Agrega un registro a la tabla Users
+    /// </summary>
+    /// <param name="">Params de entrada</param> 
+    /// <remarks>
+    /// Sample request: 
+    ///     POST 
+    ///     {
+    ///         "email": "user@example.com",
+    ///         "fullname": "Nombre de usuario",
+    ///         "password": "P#ssw0rd",
+    ///         "confirmPassword": "P#ssw0rd"
+    ///     }
+    /// </remarks>   
+    /// <response code="200">string</response>  
+    /// <response code="400">string</response> 
+    /// <response code="500">string</response> 
+    [HttpPost("CerrarSesionTodos")]
+    [Consumes(MediaTypeNames.Application.Json)]
+    [Produces(MediaTypeNames.Application.Json)]
+    [ProducesResponseType(typeof(string), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(string), StatusCodes.Status401Unauthorized)]
+    [ProducesResponseType(typeof(string), StatusCodes.Status500InternalServerError)]
+    public async ValueTask<IActionResult> CerrarSesionTodos([FromBody] Guid id)
+    {
+        return Ok(await _appController.AuthPresenter.CerrarSesionTodos(id));
+    }
 
 }

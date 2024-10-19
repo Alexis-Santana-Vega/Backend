@@ -9,6 +9,8 @@ using CE.Chepeat.Domain.DTOs.Session;
 namespace CE.Chepeat.Domain.Interfaces.Infraestructure;
 public interface IAuthInfraestructure
 {
+    Task<RespuestaDB> CerrarSesionTodos(Guid id);
+    Task<RespuestaDB> CerrarSesion(RefreshTokenRequest request);
     /// <summary>
     ///     Realiza la insersión de un nuevo usuario a la tabla Users
     /// </summary>
