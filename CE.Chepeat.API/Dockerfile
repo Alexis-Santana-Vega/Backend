@@ -3,7 +3,7 @@
 FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS base
 USER app
 WORKDIR /app
-ENV DB_CONNECTION_STRING="Server=34.173.108.32;Database=ChepeatDev;User Id=sa;Password='ASV5499A';TrustServerCertificate=True;"
+ENV DB_CONNECTION_STRING="Server=34.173.108.32;Database=ChepeatDev;User Id=sqlserver;Password='ASV5499A';TrustServerCertificate=True;"
 
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 ARG BUILD_CONFIGURATION=Release
