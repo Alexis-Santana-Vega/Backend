@@ -17,7 +17,8 @@ public static class DContainer
         .Configure<ConnectionsSettings>(connectionSettingsSection)
         .AddDbContext<ChepeatContext>(options =>
         {
-            options.UseSqlServer(configuration.GetConnectionString("DbConnection"),
+            //options.UseSqlServer(configuration.GetConnectionString("DbConnection"),
+            options.UseSqlServer(Environment.GetEnvironmentVariable("DB_CONNECTION_STRING"),
             sqlServerOptionsAction: sqlOptions =>
             {
                 sqlOptions.EnableRetryOnFailure(
