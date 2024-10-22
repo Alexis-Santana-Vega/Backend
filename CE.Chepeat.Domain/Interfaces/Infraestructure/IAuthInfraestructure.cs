@@ -1,15 +1,27 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using CE.Chepeat.Domain.Aggregates.Auth;
-using CE.Chepeat.Domain.DTOs.Session;
+﻿/// Developer : Alexis Eduardo Santana Vega
+/// Creation Date : 10/10/2024
+/// Creation Description:Interface
+/// Update Date : --
+/// Update Description : --
+/// CopyRight: Chepeat
 
 namespace CE.Chepeat.Domain.Interfaces.Infraestructure;
 public interface IAuthInfraestructure
 {
+    /// <summary>
+    ///     Inhabilita los refresh tokens existentes del usuario para cerrar sesión
+    /// </summary>
+    /// <returns>
+    ///     new RespuestaDB { NumError: 0, Result: "Mensaje de la BD" }
+    /// </returns>
     Task<RespuestaDB> CerrarSesionTodos(Guid id);
+
+    /// <summary>
+    ///     Inhabilita el refresh token de la sesión actual
+    /// </summary>
+    /// <returns>
+    ///     new RespuestaDB { NumError: 0, Result: "Mensaje de la BD" }
+    /// </returns>
     Task<RespuestaDB> CerrarSesion(RefreshTokenRequest request);
     /// <summary>
     ///     Realiza la insersión de un nuevo usuario a la tabla Users
@@ -18,7 +30,6 @@ public interface IAuthInfraestructure
     ///     new RespuestaDB { NumError: 0, Result: "Mensaje de la BD" }
     /// </returns>
     Task<RespuestaDB> RegistrarUsuario(RegistrationRequest request);
-
     /// <summary>
     ///     Consulta el usuario a traves de su Email
     /// </summary>
@@ -26,7 +37,6 @@ public interface IAuthInfraestructure
     ///     new User { Id: "ID", Email: "example@domain.ext", Password: "P#ssw0rd", Fullname: "Nombre de usuario", CreatedAt: "DateTime", UpdatedAt: "DateTime" }
     /// </returns>
     Task<User> ObtenerPorEmail(string email);
-
     /// <summary>
     ///     Consulta el usuario a traves de su ID
     /// </summary>
@@ -34,7 +44,25 @@ public interface IAuthInfraestructure
     ///     new User { Id: "ID", Email: "example@domain.ext", Password: "P#ssw0rd", Fullname: "Nombre de usuario", CreatedAt: "DateTime", UpdatedAt: "DateTime" }
     /// </returns>
     Task<User> ObtenerPorId(Guid id);
+    /// <summary>
+    ///     Crea el registro para guardar el estado de la sesión, es decir, del refresh token
+    /// </summary>
+    /// <returns>
+    ///     new RespuestaDB { NumError: 0, Result: "Mensaje de la BD" }
+    /// </returns>
     Task<RespuestaDB> CrearAsync(RefreshToken refreshToken);
+    /// <summary>
+    ///     Consulta el refresh token en la base de datos
+    /// </summary>
+    /// <returns>
+    ///     new RespuestaDB { NumError: 0, Result: "Mensaje de la BD" }
+    /// </returns>
     Task<RefreshToken> ObtenerPorRefreshTokenAsync(RefreshTokenRequest request);
+    /// <summary>
+    ///     Consulta los tokens del usuario y los inhabilita
+    /// </summary>
+    /// <returns>
+    ///     new RespuestaDB { NumError: 0, Result: "Mensaje de la BD" }
+    /// </returns>
     Task ListarRefreshToken(RefreshToken refreshToken);
 }

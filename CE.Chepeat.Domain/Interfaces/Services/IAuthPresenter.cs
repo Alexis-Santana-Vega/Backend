@@ -1,10 +1,26 @@
-﻿using CE.Chepeat.Domain.Aggregates.Auth;
-using CE.Chepeat.Domain.DTOs.Session;
+﻿/// Developer : Alexis Eduardo Santana Vega
+/// Creation Date : 10/10/2024
+/// Creation Description:Interface
+/// Update Date : --
+/// Update Description : --
+/// CopyRight: Chepeat
 
 namespace CE.Chepeat.Domain.Interfaces.Services;
 public interface IAuthPresenter
 {
+    /// <summary>
+    ///     Inhabilita los refresh tokens existentes del usuario para cerrar sesión
+    /// </summary>
+    /// <returns>
+    ///     new RespuestaDB { NumError: 0, Result: "Mensaje de la BD" }
+    /// </returns>
     Task<RespuestaDB> CerrarSesionTodos(Guid id);
+    /// <summary>
+    ///     Inhabilita el refresh token de la sesión actual
+    /// </summary>
+    /// <returns>
+    ///     new RespuestaDB { NumError: 0, Result: "Mensaje de la BD" }
+    /// </returns>
     Task<RespuestaDB> CerrarSesion(RefreshTokenRequest request);
     /// <summary>
     ///     Realiza la insersión de un nuevo usuario a la tabla Users
@@ -37,8 +53,25 @@ public interface IAuthPresenter
     ///     new LoginResponse { NumError: 0, Result: "Mensaje", Token: "JWTTOKEN", RefreshToken: "REFRESHTOKEN" }
     /// </returns>
     Task<LoginResponse> IniciarSesion(LoginRequest request);
+    /// <summary>
+    ///     Crea el registro para guardar el estado de la sesión, es decir, del refresh token
+    /// </summary>
+    /// <returns>
+    ///     new RespuestaDB { NumError: 0, Result: "Mensaje de la BD" }
+    /// </returns>
     Task<RespuestaDB> CrearAsync(RefreshToken refreshToken);
+    /// <summary>
+    ///     Crea el registro para guardar el estado de la sesión, es decir, del refresh token
+    /// </summary>
+    /// <returns>
+    ///     new RefreshTokenResponse { NumError: 0, Result: "Mensaje de la BD", Token: "", RefreshToken: "" }
+    /// </returns>
     Task<RefreshTokenResponse> RefrescarToken(RefreshTokenRequest request);
+    /// <summary>
+    ///     Consulta el refresh token en la base de datos
+    /// </summary>
+    /// <returns>
+    ///     new RefreshToken {};
+    /// </returns>
     Task<RefreshToken> ObtenerPorRefreshTokenAsync(RefreshTokenRequest request);
-    Task<RespuestaDB> EliminarAsync(Session session);
 }

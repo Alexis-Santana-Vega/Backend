@@ -1,4 +1,5 @@
-﻿using CE.Chepeat.Domain.DTOs.Session;
+﻿using CE.Chepeat.Domain.DTOs.Product;
+using CE.Chepeat.Domain.DTOs.Session;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using NetTopologySuite.Geometries;
@@ -19,6 +20,7 @@ public class ChepeatContext : DbContext
     public DbSet<Session> Sessions { get; set; }
     public DbSet<RefreshToken> RefreshTokens { get; set; }
     public DbSet<Seller> Sellers { get; set; }
+    public DbSet<Product> Products { get; set; }
     #endregion
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {

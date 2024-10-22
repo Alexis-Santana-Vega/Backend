@@ -9,7 +9,7 @@ namespace CE.Chepeat.Domain.Aggregates.Auth;
 public class LoginRequest
 {
     [Required(ErrorMessage = "Email requerido")]
-    [StringLength(50, ErrorMessage = "Email máximo 255 caracteres")]
+    [StringLength(255, ErrorMessage = "Email máximo 255 caracteres")]
     [EmailAddress(ErrorMessage = "Email no válido")]
     public string Email { get; set; }
     [Required(ErrorMessage = "Contraseña requerida")]
