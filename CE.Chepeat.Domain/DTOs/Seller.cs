@@ -22,7 +22,7 @@ public class Seller
     //public Point Location { get; set; }
     public double Latitude { get; set; }
     public double Longitude { get; set; }
-    public double Rating { get; set; }
+    public decimal Rating { get; set; }
     public DateTime CreatedAt { get; set; }
     public DateTime UpdatedAt { get; set; }
     public Guid IdUser { get; set; }
