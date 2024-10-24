@@ -26,6 +26,7 @@ public class EmailController : ApiController
     [ProducesResponseType(typeof(string), StatusCodes.Status500InternalServerError)]
     public async ValueTask<IActionResult> EnviarEmailDePrueba(string email)
     {
-        return Ok(await _appController.EmailPresenter.SendEmailAsync(email));
+        await _appController.EmailPresenter.SendEmailAsync(email);
+        return Ok();
     }
 }
