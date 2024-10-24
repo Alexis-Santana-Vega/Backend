@@ -19,6 +19,7 @@ public class EmailService : IEmailService
         _razorLightEngine = new RazorLightEngineBuilder()
             .UseEmbeddedResourcesProject(typeof(EmailService))
             .UseMemoryCachingProvider()
+            .EnableDebugMode()
             .Build();
     }
 

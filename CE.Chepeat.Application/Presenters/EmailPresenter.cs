@@ -19,6 +19,6 @@ public class EmailPresenter : IEmailPresenter
     public async Task SendEmailAsync(string to)
     {
         var user = await _unitRepository.authInfraestructure.ObtenerPorEmail(to);
-        await _emailService.SendEmailAsync(to, "Bienvenido", "WelcomeTemplate.cshtml", user);
+        await _emailService.SendEmailAsync(to, "Bienvenido", "/Views/Emails/WelcomeTemplate.cshtml", user);
     }
 }
