@@ -24,7 +24,7 @@ public class EmailController : ApiController
     [ProducesResponseType(typeof(string), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(string), StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(typeof(string), StatusCodes.Status500InternalServerError)]
-    public async ValueTask<IActionResult> EnviarEmailDePrueba(string email)
+    public async ValueTask<IActionResult> EnviarEmailDePrueba([FromBody] string email)
     {
         await _appController.EmailPresenter.SendEmailAsync(email);
         return Ok();
