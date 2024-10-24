@@ -1,5 +1,6 @@
 ﻿using CE.Chepeat.Application.Commons;
 using MailKit.Net.Smtp;
+using Microsoft.Extensions.Options;
 using MimeKit;
 using RazorLight;
 using System.Threading.Tasks;
@@ -11,11 +12,10 @@ public class EmailService : IEmailService
     private readonly SmtpSettings _smtpSettings;
     private readonly RazorLightEngine _razorLightEngine;
 
-    public EmailService(SmtpSettings smtpSettings)
+    public EmailService(IOptions<SmtpSettings> smtpSettings)
     {
-        _smtpSettings = smtpSettings;
+        _smtpSettings = smtpSettings.Value;
 
-        // Configuración del motor de RazorLight
         _razorLightEngine = new RazorLightEngineBuilder()
             .UseEmbeddedResourcesProject(typeof(EmailService))
             .UseMemoryCachingProvider()
