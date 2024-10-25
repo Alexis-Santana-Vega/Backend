@@ -1,4 +1,6 @@
-﻿namespace CE.Chepeat.Infraestructure;
+﻿using CE.Chepeat.Infraestructure.Repositories;
+
+namespace CE.Chepeat.Infraestructure;
 public class UnitRepository:BaseDisposable, IUnitRepository
 {
     private readonly ChepeatContext _context;
@@ -33,7 +35,8 @@ public class UnitRepository:BaseDisposable, IUnitRepository
     public IAuthInfraestructure authInfraestructure => new AuthInfraestructure(_context);
     public ISellerInfraestructure sellerInfraestructure => new SellerInfraestructure(_context);
     public IProductInfraestructure productInfraestructure => new ProductInfraestructure(_context);
-
+    public IPurchaseRequestInfraestructure purchaseRequestInfraestructure => new PurchaseRequestInfraestructure(_context);
+    public ITransactionInfraestructure transactionInfraestructure => new TransactionInfraestructure(_context);
 
 
     public async ValueTask<bool> Complete()
