@@ -19,22 +19,6 @@ options.IdleTimeout = TimeSpan.FromMinutes(20);
 });
 //-------------------------------------------------
 
-builder.Services.AddCors(options =>
-{
-    options.AddPolicy("AllowOrigins",
-        builder =>
-        {
-            builder
-            .AllowCredentials()
-                   .AllowAnyHeader()
-                   .AllowAnyMethod()
-                   .WithMethods("GET", "POST", "OPTIONS")  // Asegúrate de que 'OPTIONS' esté permitido
-                   .SetIsOriginAllowed(origin => true);
-        });
-});
-
-
-
 //Configuration Azure Key Vault
 //builder.Configuration.AzureKeyVault(builder);
 // DependencyContainers classes, it's a run time dependency
@@ -45,10 +29,6 @@ builder.Services.AddEndpointsApiExplorer();
 //Configure CORS
 // Configure the HTTP request pipeline 
 var app = builder.Build();
-
-// Agregado por Alexis
-var port = Environment.GetEnvironmentVariable("PORT") ?? "8080";  // Usa 8080 como valor por defecto si no se define el puerto
-app.Urls.Add($"http://*:{port}");
 
 // Agregado por Alexis
 app.UseMiddleware<SessionManagementMiddleware>();
@@ -71,7 +51,7 @@ c.DisplayRequestDuration();
 c.RoutePrefix = string.Empty;
 });
 }
-app.UseCors("AllowOrigins");
+app.UseCors("AllowedOrigins");
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseRouting();

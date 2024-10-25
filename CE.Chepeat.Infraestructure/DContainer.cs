@@ -1,5 +1,4 @@
-﻿using CE.Chepeat.Application.Services;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
+﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 
@@ -18,8 +17,7 @@ public static class DContainer
         .Configure<ConnectionsSettings>(connectionSettingsSection)
         .AddDbContext<ChepeatContext>(options =>
         {
-            //options.UseSqlServer(configuration.GetConnectionString("DbConnection"),
-            options.UseSqlServer(Environment.GetEnvironmentVariable("DB_CONNECTION_STRING"),
+            options.UseSqlServer(configuration.GetConnectionString("DbConnection"),
             sqlServerOptionsAction: sqlOptions =>
             {
                 sqlOptions.EnableRetryOnFailure(
@@ -65,8 +63,6 @@ public static class DContainer
             });
         });
 
-        services.Configure<SmtpSettings>(configuration.GetSection("SmtpSettings"));
-        services.AddTransient<IEmailService, EmailService>();
 
 
         services.AddScoped<IUnitRepository, UnitRepository>();

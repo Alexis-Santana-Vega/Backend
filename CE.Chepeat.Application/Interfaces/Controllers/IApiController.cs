@@ -7,10 +7,6 @@ public interface IApiController
     IAuthPresenter AuthPresenter { get; }
     ISellerPresenter SellerPresenter { get; }
     IProductPresenter ProductPresenter { get; }
-<<<<<<< HEAD
     IPurchaseRequestPresenter PurchaseRequestPresenter { get; }
     ITransactionPresenter TransactionPresenter { get; }
-=======
-    IEmailPresenter EmailPresenter { get; }
->>>>>>> 338fefee81e048b7bb74a4181ea65eed8348a27b
 }
