@@ -15,22 +15,28 @@ namespace CE.Chepeat.Application.Controllers
         private readonly IMapper _mapper;
         private readonly IConfiguration _configuration;
         private readonly IJwtService _jwtService;
+        private readonly IEmailService _emailService;
 
 
-        public ApiController(IUnitRepository unitRepository, IMapper mapper, IConfiguration configuration, IJwtService jwtService)
+        public ApiController(IUnitRepository unitRepository, IMapper mapper, IConfiguration configuration, IJwtService jwtService, IEmailService emailService)
         {
             _unitRepository = unitRepository;
             _mapper = mapper;
             _configuration = configuration;
             _jwtService = jwtService;
+            _emailService = emailService;
         }
 
         public IUserPresenter UserPresenter => new UserPresenter(_unitRepository, _mapper);    //
         public IAuthPresenter AuthPresenter => new AuthPresenter(_unitRepository, _mapper, _jwtService);
         public ISellerPresenter SellerPresenter => new SellerPresenter(_unitRepository);
         public IProductPresenter ProductPresenter => new ProductPresenter(_unitRepository);
+<<<<<<< HEAD
         public IPurchaseRequestPresenter PurchaseRequestPresenter => new PurchaseRequestPresenter(_unitRepository, _mapper);
         public ITransactionPresenter TransactionPresenter => new TransactionPresenter(_unitRepository, _mapper);
 
+=======
+        public IEmailPresenter EmailPresenter => new EmailPresenter(_emailService, _unitRepository);
+>>>>>>> 338fefee81e048b7bb74a4181ea65eed8348a27b
     }
 }
