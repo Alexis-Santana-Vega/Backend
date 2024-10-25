@@ -1,6 +1,6 @@
 ﻿/// Developer : Hector Nuñez Cruz
 /// Creation Date : 20/10/2024
-/// Creation Description:DTO de Producto
+/// Creation Description:Aggregate de Producto
 /// Update Date : --
 /// Update Description : --
 /// CopyRight: Chepeat

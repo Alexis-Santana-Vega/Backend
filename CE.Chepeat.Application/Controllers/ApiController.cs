@@ -29,5 +29,8 @@ namespace CE.Chepeat.Application.Controllers
         public IAuthPresenter AuthPresenter => new AuthPresenter(_unitRepository, _mapper, _jwtService);
         public ISellerPresenter SellerPresenter => new SellerPresenter(_unitRepository);
         public IProductPresenter ProductPresenter => new ProductPresenter(_unitRepository);
+        public IPurchaseRequestPresenter PurchaseRequestPresenter => new PurchaseRequestPresenter(_unitRepository, _mapper);
+        public ITransactionPresenter TransactionPresenter => new TransactionPresenter(_unitRepository, _mapper);
+
     }
 }
