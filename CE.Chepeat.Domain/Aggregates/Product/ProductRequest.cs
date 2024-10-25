@@ -23,5 +23,13 @@ public class ProductRequest
     [Range(0, 9999999.99, ErrorMessage = "Rango de precio de 0 a 9,999,999.99")]
     public decimal Price { get; set; }
 
+    [Required(ErrorMessage = "Stock requerido")]
+    [Range(0, 10000, ErrorMessage = "Rango de stock de 0 a 10,000")]
+    public int Stock {  get; set; }
+
+    [Required(ErrorMessage = "Medida requerida")]
+    [StringLength(10, ErrorMessage = "Medida máxima 10 caracteres")]
+    public string Measure { get; set; }
+
     public Guid IdSeller { get; set; }
 }
