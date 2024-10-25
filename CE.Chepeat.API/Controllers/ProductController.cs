@@ -82,4 +82,16 @@ public class ProductController : ApiController
     {
         return Ok(await _appController.ProductPresenter.GetProductsByIdSeller(id));
     }
+
+    [HttpPost("GetProductsByRadius")]
+    [Consumes(MediaTypeNames.Application.Json)]
+    [Produces(MediaTypeNames.Application.Json)]
+    [ProducesResponseType(typeof(string), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(string), StatusCodes.Status401Unauthorized)]
+    [ProducesResponseType(typeof(string), StatusCodes.Status500InternalServerError)]
+    [Authorize]
+    public async ValueTask<IActionResult> GetProductsByRadius([FromBody] ProductRadiusRequest request)
+    {
+        return Ok(await _appController.ProductPresenter.GetProductsByRadius(request));
+    }
 }

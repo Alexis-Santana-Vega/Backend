@@ -148,6 +148,26 @@ public class ProductInfraestructure : IProductInfraestructure
         }
     }
 
+    public async Task<List<Product>> GetProductsByRadius(ProductRadiusRequest request)
+    {
+        try
+        {
+            SqlParameter[] parameters =
+            {
+                new SqlParameter("Latitude", request.Latitude),
+                new SqlParameter("Longitude", request.Longitude),
+                new SqlParameter("RadiusKm", request.RadiusKm)
+            };
+            string sqlQuery = "EXEC dbo.sp_select_products_by_radius @Latitude, @Longitude, @RadiusKm";
+            var dataSP = await _context.Products.FromSqlRaw(sqlQuery, parameters).ToListAsync();
+            return dataSP;
+        }
+        catch (SqlException ex)
+        {
+            throw;
+        }
+    }
+
     public async Task<RespuestaDB> UpdateProduct(ProductRequest request)
     {
         try

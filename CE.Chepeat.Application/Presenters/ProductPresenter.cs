@@ -54,4 +54,9 @@ public class ProductPresenter : IProductPresenter
     {
         return await _unitRepository.productInfraestructure.GetProductsByIdSeller(id);
     }
+
+    public async Task<List<Product>> GetProductsByRadius(ProductRadiusRequest request)
+    {
+        return await _unitRepository.productInfraestructure.GetProductsByRadius(request);
+    }
 }
