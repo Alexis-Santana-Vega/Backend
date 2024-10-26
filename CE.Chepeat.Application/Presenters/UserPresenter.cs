@@ -1,5 +1,4 @@
-﻿using CE.Chepeat.Domain.Aggregates.Email;
-using CE.Chepeat.Domain.Aggregates.User;
+﻿using CE.Chepeat.Domain.Aggregates.User;
 
 namespace CE.Chepeat.Application.Presenters;
 public class UserPresenter : IUserPresenter
@@ -28,29 +27,10 @@ public class UserPresenter : IUserPresenter
     /// <returns></returns>
     public async Task<RespuestaDB> AddUser(UserAggregate userAggregate)
     {
-        var emailModel = new EmailModel
-        {
-            To = "20300706@uttt.edu.mx",
-            Subject = "Bienvenido a MyApp, ",
-            ModelData = new { Username = $"{userAggregate.Fullname}" }
-        };
-
-        // string templatePath = Path.Combine(Directory.GetCurrentDirectory(), "Templates", "WelcomeTemplate.cshtml");
-        string templatePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Templates", "WelcomeTemplate.cshtml");
-
-
-        if (!File.Exists(templatePath))
-        {
-            throw new FileNotFoundException($"La plantilla no se encontró en la ruta especificada: {templatePath}");
-        }
-
-        await _unitRepository.emailServiceInfraestructure.SendEmailAsync(emailModel, templatePath);
-        return new RespuestaDB { NumError = 0, Result = "Todo salio bien" };
-
         //var lista = new Lista();
         //var respuestaDB = new RespuestaDB();
         //respuestaDB.Lista.Add(new Lista { Apellido = 'Nombre', Nombre = 'Nombrso' });
-        // return await _unitRepository.userInfraestructure.AddUser(userAggregate);
+        return await _unitRepository.userInfraestructure.AddUser(userAggregate);
     }
 
     /// <summary>
