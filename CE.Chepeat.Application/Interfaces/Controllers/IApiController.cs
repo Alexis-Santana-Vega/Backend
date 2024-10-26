@@ -5,7 +5,6 @@ public interface IApiController
     IAuthPresenter AuthPresenter { get; }
     ISellerPresenter SellerPresenter { get; }
     IProductPresenter ProductPresenter { get; }
-    IEmailPresenter EmailPresenter { get; }
     IPurchaseRequestPresenter PurchaseRequestPresenter { get; }
     ITransactionPresenter TransactionPresenter { get; }
 }
