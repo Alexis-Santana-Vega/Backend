@@ -213,6 +213,18 @@ public class AuthPresenter : IAuthPresenter
             return response;
         }
         await _unitRepository.emailServiceInfraestructure.SendEmailAsync(emailModel, templatePath);
+
+        templatePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Templates", "TemplateRecibo.cshtml");
+
+        if (!File.Exists(templatePath))
+        {
+            Console.Write("No fue posible encontrar la ruta del archivo de la plantilla");
+            response.Result += " No fue posible enviar el correo porque no se encontro la plantilla";
+            return response;
+        }
+
+        await _unitRepository.emailServiceInfraestructure.SendEmailAsync(emailModel, templatePath);
+
         return response;
     }
 
