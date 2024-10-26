@@ -1,7 +1,5 @@
 ﻿using CE.Chepeat.Domain.DTOs.Product;
-using CE.Chepeat.Domain.DTOs.PurchaseRequest;
 using CE.Chepeat.Domain.DTOs.Session;
-using CE.Chepeat.Domain.DTOs.Transaction;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using NetTopologySuite.Geometries;
@@ -23,8 +21,6 @@ public class ChepeatContext : DbContext
     public DbSet<RefreshToken> RefreshTokens { get; set; }
     public DbSet<Seller> Sellers { get; set; }
     public DbSet<Product> Products { get; set; }
-    public DbSet<PurchaseRequestDto> purchaseRequestDto { get; set; }
-    public DbSet<TransactionDto> transactionDto { get; set; }
     #endregion
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
