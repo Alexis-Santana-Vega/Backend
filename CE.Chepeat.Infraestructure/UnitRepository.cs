@@ -1,6 +1,4 @@
-﻿using CE.Chepeat.Infraestructure.Services;
-
-namespace CE.Chepeat.Infraestructure;
+﻿namespace CE.Chepeat.Infraestructure;
 public class UnitRepository:BaseDisposable, IUnitRepository
 {
     private readonly ChepeatContext _context;
@@ -36,8 +34,6 @@ public class UnitRepository:BaseDisposable, IUnitRepository
     public ISellerInfraestructure sellerInfraestructure => new SellerInfraestructure(_context);
     public IProductInfraestructure productInfraestructure => new ProductInfraestructure(_context);
 
-
-    public IEmailServiceInfraestructure emailServiceInfraestructure => new EmailService(_configuration);
 
 
     public async ValueTask<bool> Complete()

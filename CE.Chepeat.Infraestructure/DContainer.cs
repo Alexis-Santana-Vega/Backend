@@ -65,6 +65,9 @@ public static class DContainer
             });
         });
 
+        services.Configure<SmtpSettings>(configuration.GetSection("SmtpSettings"));
+        services.AddTransient<IEmailService, EmailService>();
+
 
         services.AddScoped<IUnitRepository, UnitRepository>();
         return services;
