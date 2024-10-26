@@ -6,7 +6,6 @@
 		<ImplicitUsings>enable</ImplicitUsings>
 		<UserSecretsId>9cf40579-c0d6-4363-b243-d433057ee3b8</UserSecretsId>
 		<DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
-		<PreserveCompilationContext>true</PreserveCompilationContext>
 	</PropertyGroup>
 
 	<ItemGroup>
@@ -26,12 +25,6 @@
 	<ItemGroup>
 		<Folder Include="Extensions\" />
 		<Folder Include="Swagger\" />
-	</ItemGroup>
-
-	<ItemGroup>
-	  <Content Update="Templates\WelcomeTemplate.cshtml">
-	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-	  </Content>
 	</ItemGroup>
 
 </Project>
