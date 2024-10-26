@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 using Azure;
 using CE.Chepeat.Application.Services;
 using CE.Chepeat.Domain.Aggregates.Auth;
+using CE.Chepeat.Domain.Aggregates.Email;
+using CE.Chepeat.Domain.Aggregates.User;
 using CE.Chepeat.Domain.DTOs.Session;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -194,6 +196,22 @@ public class AuthPresenter : IAuthPresenter
     {
         request.Password =  BCrypt.Net.BCrypt.HashPassword(request.Password);
         var response = await _unitRepository.authInfraestructure.RegistrarUsuario(request);
+
+        var emailModel = new EmailModel
+        {
+            To = request.Email,
+            Subject = "Bienvenido a Chepeat",
+            ModelData = new { Fullname = request.Fullname }
+        };
+
+        string templatePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Templates", "TemplateBienvenida.cshtml");
+
+        if (!File.Exists(templatePath))
+        {
+            Console.Write("No fue posible encontrar la ruta del archivo de la plantilla");
+            return response;
+        }
+        await _unitRepository.emailServiceInfraestructure.SendEmailAsync(emailModel, templatePath);
         return response;
     }
 
