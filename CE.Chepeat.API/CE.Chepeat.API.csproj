@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+<Project Sdk="Microsoft.NET.Sdk.Web">
 
 	<PropertyGroup>
 		<TargetFramework>net8.0</TargetFramework>
@@ -10,6 +10,7 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+	  <Content Remove="Templates\TemplateBienvenida.cshtml" />
 	  <Content Remove="Templates\WelcomeTemplate.cshtml" />
 	</ItemGroup>
 
@@ -33,6 +34,9 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <None Include="Templates\TemplateBienvenida.cshtml">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </None>
 	  <None Include="Templates\WelcomeTemplate.cshtml">
 	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 	  </None>

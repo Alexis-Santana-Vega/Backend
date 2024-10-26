@@ -34,7 +34,7 @@ public class EmailService : IEmailServiceInfraestructure
         string emailBody = await engine.CompileRenderStringAsync(templatePath, templateContent, emailModel.ModelData);
 
         var message = new MimeMessage();
-        message.From.Add(new MailboxAddress("MyApp", _smtpUser));
+        message.From.Add(new MailboxAddress("Chepeat", _smtpUser));
         message.To.Add(new MailboxAddress(null, emailModel.To));
         message.Subject = emailModel.Subject;
 

@@ -209,6 +209,7 @@ public class AuthPresenter : IAuthPresenter
         if (!File.Exists(templatePath))
         {
             Console.Write("No fue posible encontrar la ruta del archivo de la plantilla");
+            response.Result += " No fue posible enviar el correo porque no se encontro la plantilla";
             return response;
         }
         await _unitRepository.emailServiceInfraestructure.SendEmailAsync(emailModel, templatePath);
