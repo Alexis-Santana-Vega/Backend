@@ -17,12 +17,13 @@ public class ImageController : ApiController
     [ProducesResponseType(typeof(string), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(string), StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(typeof(string), StatusCodes.Status500InternalServerError)]
-    public async ValueTask<IActionResult> Upload([FromForm] IFormFile file)
+    public async ValueTask<IActionResult> Upload()
     {
-        if (file == null || file.Length == 0) return BadRequest("File is empty");
-        var fileName = $"{Guid.NewGuid()}_{file.FileName}";
-        var url = await _appController.ImageServicePresenter.UploadImageAsync(file.OpenReadStream(), fileName);
-        return Ok(new { Url = url });
+        //if (file == null || file.Length == 0) return BadRequest("File is empty");
+        //var fileName = $"{Guid.NewGuid()}_{file.FileName}";
+        //var url = await _appController.ImageServicePresenter.UploadImageAsync(file.OpenReadStream(), fileName);
+        //return Ok(new { Url = url });
+        return Ok(new { Url = "ruta" });
     }
 
     [HttpPost("Delete")]
