@@ -8,28 +8,37 @@ using System.Threading.Tasks;
 namespace CE.Chepeat.Infraestructure.Services;
 public class ImageService : IImageServiceInfraestructure
 {
-    private readonly string _bucketName = "gs://chepeat-c9a5c.appspot.com";  // Cambia por tu bucket de Firebase
+    private readonly string _bucketName = "chepeat-c9a5c";  // Cambia por tu bucket de Firebase
     private readonly StorageClient _storageClient;
     private readonly IConfiguration _configuration;
 
     public ImageService(IConfiguration configuration)
     {
         _configuration = configuration;
-        // Obtener el JSON de las credenciales desde appsettings.json
-        string credentialsJson = configuration["Firebase:CredentialsJson"];
-
-        GoogleCredential credential = GoogleCredential.FromJson(credentialsJson);
-
-        // Configurar Firebase con las credenciales
-        if (FirebaseApp.DefaultInstance == null)
+        try
         {
-            FirebaseApp.Create(new AppOptions
-            {
-                Credential = credential
-            });
-        }
+            // Obtener el JSON de las credenciales desde appsettings.json
+            string credentialsJson = configuration["Firebase:CredentialsJson"];
 
-        _storageClient = StorageClient.Create(credential);
+            GoogleCredential credential = GoogleCredential.FromJson(credentialsJson);
+
+            // Configurar Firebase con las credenciales
+            if (FirebaseApp.DefaultInstance == null)
+            {
+                FirebaseApp.Create(new AppOptions
+                {
+                    Credential = credential
+                });
+            }
+
+            _storageClient = StorageClient.Create(credential);
+        }
+        catch (Exception ex)
+        {
+            // Logear el error
+            Console.WriteLine($"Error al inicializar Firebase: {ex.Message}");
+            throw;
+        }
     }
 
     public async Task<string> UploadImageAsync(Stream imageStream, string fileName)
