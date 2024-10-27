@@ -15,17 +15,21 @@ public class ImageService : IImageServiceInfraestructure
     public ImageService(IConfiguration configuration)
     {
         _configuration = configuration;
-        string credentialsPath = _configuration["Firebase:CredentialsPath"];
+        // Obtener el JSON de las credenciales desde appsettings.json
+        string credentialsJson = configuration["Firebase:CredentialsJson"];
 
+        GoogleCredential credential = GoogleCredential.FromJson(credentialsJson);
+
+        // Configurar Firebase con las credenciales
         if (FirebaseApp.DefaultInstance == null)
         {
             FirebaseApp.Create(new AppOptions
             {
-                Credential = GoogleCredential.FromFile(credentialsPath)
+                Credential = credential
             });
         }
 
-        _storageClient = StorageClient.Create(GoogleCredential.FromFile(credentialsPath));
+        _storageClient = StorageClient.Create(credential);
     }
 
     public async Task<string> UploadImageAsync(Stream imageStream, string fileName)
