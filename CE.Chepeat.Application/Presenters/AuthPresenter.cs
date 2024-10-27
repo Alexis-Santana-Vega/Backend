@@ -222,7 +222,6 @@ public class AuthPresenter : IAuthPresenter
             response.Result += " No fue posible enviar el correo porque no se encontro la plantilla";
             return response;
         }
-
         await _unitRepository.emailServiceInfraestructure.SendEmailAsync(emailModel, templatePath);
 
         return response;

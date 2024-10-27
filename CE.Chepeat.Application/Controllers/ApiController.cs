@@ -31,5 +31,8 @@ namespace CE.Chepeat.Application.Controllers
         public IProductPresenter ProductPresenter => new ProductPresenter(_unitRepository);
         public IPurchaseRequestPresenter PurchaseRequestPresenter => new PurchaseRequestPresenter(_unitRepository, _mapper);
         public ITransactionPresenter TransactionPresenter => new TransactionPresenter(_unitRepository, _mapper);
+
+
+        public IImageServicePresenter ImageServicePresenter => new ImageServicePresenter(_unitRepository);
     }
 }
