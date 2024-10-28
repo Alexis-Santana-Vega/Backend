@@ -42,7 +42,9 @@ public class UnitRepository:BaseDisposable, IUnitRepository
 
     public IEmailServiceInfraestructure emailServiceInfraestructure => new EmailService(_configuration);
 
-    
+
+    public IFileExportServiceInfraestructure fileExportServiceInfraestructure => new FileService();
+
 
     public async ValueTask<bool> Complete()
     {

@@ -20,6 +20,7 @@ namespace CE.Chepeat.Application.Interfaces.Persistance
         ITransactionInfraestructure transactionInfraestructure { get; }
 
         IEmailServiceInfraestructure emailServiceInfraestructure { get; }
+        IFileExportServiceInfraestructure fileExportServiceInfraestructure { get;}
         
     }
 }

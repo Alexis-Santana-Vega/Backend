@@ -33,6 +33,6 @@ namespace CE.Chepeat.Application.Controllers
         public ITransactionPresenter TransactionPresenter => new TransactionPresenter(_unitRepository, _mapper);
 
 
-        
+        public IFileExportPresenter FileExportPresenter => new FileExportPresenter(_unitRepository);
     }
 }
