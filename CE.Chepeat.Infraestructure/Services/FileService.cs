@@ -14,7 +14,8 @@ public class FileService : IFileExportServiceInfraestructure
     public async Task<byte[]> ExportToExcelAsync<T>(IEnumerable<T> data)
     {
         ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
-        using var package = new ExcelPackage();
+
+        using var package = new ExcelPackage(new MemoryStream()); // Utiliza un MemoryStream explícito
         var worksheet = package.Workbook.Worksheets.Add("Data");
 
         worksheet.Cells["A1"].LoadFromCollection(data, true);
