@@ -1,11 +1,8 @@
 ﻿using System.Text;
-using System.Collections.Generic;
-using System.IO;
-using System.Threading.Tasks;
 using CsvHelper;
 using CsvHelper.Configuration;
 using System.Globalization;
-using OfficeOpenXml;
+using ClosedXML.Excel;
 
 namespace CE.Chepeat.Infraestructure.Services;
 
@@ -13,14 +10,16 @@ public class FileService : IFileExportServiceInfraestructure
 {
     public async Task<byte[]> ExportToExcelAsync<T>(IEnumerable<T> data)
     {
-        ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
+        using var workbook = new XLWorkbook();
+        var worksheet = workbook.Worksheets.Add("Data");
 
-        using var package = new ExcelPackage(new MemoryStream()); // Utiliza un MemoryStream explícito
-        var worksheet = package.Workbook.Worksheets.Add("Data");
+        // Cargar los datos en la primera fila con nombres de columnas
+        worksheet.Cell(1, 1).InsertTable(data);
 
-        worksheet.Cells["A1"].LoadFromCollection(data, true);
-
-        return await Task.FromResult(package.GetAsByteArray());
+        // Guardar en un MemoryStream y devolver como byte array
+        using var stream = new MemoryStream();
+        workbook.SaveAs(stream);
+        return stream.ToArray();
     }
 
     public async Task<byte[]> ExportToCsvAsync<T>(IEnumerable<T> data)
