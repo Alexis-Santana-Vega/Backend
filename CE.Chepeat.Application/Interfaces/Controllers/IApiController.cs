@@ -8,5 +8,5 @@ public interface IApiController
     IPurchaseRequestPresenter PurchaseRequestPresenter { get; }
     ITransactionPresenter TransactionPresenter { get; }
 
-    IImageServicePresenter ImageServicePresenter { get; }
+    
 }
