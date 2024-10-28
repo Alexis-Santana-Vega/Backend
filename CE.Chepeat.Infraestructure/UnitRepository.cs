@@ -42,6 +42,8 @@ public class UnitRepository:BaseDisposable, IUnitRepository
 
     public IEmailServiceInfraestructure emailServiceInfraestructure => new EmailService(_configuration);
 
+    public IImageServiceInfraestructure imageServiceInfraestructure => new ImageService(_configuration);
+
     public async ValueTask<bool> Complete()
     {
         return await _context.SaveChangesAsync() > 0;
