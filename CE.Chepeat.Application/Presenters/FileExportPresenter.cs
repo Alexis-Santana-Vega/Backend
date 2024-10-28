@@ -10,6 +10,6 @@ public class FileExportPresenter : IFileExportPresenter
     public async Task<byte[]> ExportToCsvProductsBySeller(Guid idSeller)
     {
         var data = await _unitRepository.productInfraestructure.GetProductsByIdSeller(idSeller);
-        return await _unitRepository.fileExportServiceInfraestructure.ExportToExcelAsync(data);
+        return await _unitRepository.fileExportServiceInfraestructure.ExportToCsvAsync(data);
     }
 }
