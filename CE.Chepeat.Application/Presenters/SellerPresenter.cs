@@ -18,7 +18,7 @@ public class SellerPresenter : ISellerPresenter
     public async Task<SellerResponse> AddSeller(SellerRequest request)
     {
         var response = await _unitRepository.sellerInfraestructure.AddSeller(request);
-        var user = await _unitRepository.authInfraestructure.ObtenerPorId(request.Id);
+        var user = await _unitRepository.authInfraestructure.ObtenerPorId(request.IdUser);
         if (user == null) return new SellerResponse { NumError = 1, Result = "Usuario no encontrado"};
         var seller = await _unitRepository.sellerInfraestructure.SelectSellerById(Guid.Parse(response.Result));
         if (user == null) return new SellerResponse { NumError = 1, Result = "Vendedor no encontrado" };
