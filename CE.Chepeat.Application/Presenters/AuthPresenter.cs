@@ -160,7 +160,8 @@ public class AuthPresenter : IAuthPresenter
             NumError = 1,
             Result = "Has iniciado sesion con exito",
             Token = jwt,
-            RefreshToken = refreshToken
+            RefreshToken = refreshToken,
+            User = user
         };
     }
 
