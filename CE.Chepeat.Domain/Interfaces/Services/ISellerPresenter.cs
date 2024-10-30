@@ -4,7 +4,7 @@ using CE.Chepeat.Domain.Aggregates.User;
 namespace CE.Chepeat.Domain.Interfaces.Services;
 public interface ISellerPresenter
 {
-    Task<RespuestaDB> AddSeller(SellerRequest request);
+    Task<SellerResponse> AddSeller(SellerRequest request);
     Task<RespuestaDB> UpdateSeller(SellerRequest request);
     Task<Seller> SelectSellerById(Guid id);
     Task<List<Seller>> SelectSellersByRadius(SellerRadiusRequest request);

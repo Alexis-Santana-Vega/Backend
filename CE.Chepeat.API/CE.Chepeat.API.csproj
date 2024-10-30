@@ -11,6 +11,7 @@
 
 	<ItemGroup>
 	  <Content Remove="Templates\TemplateBienvenida.cshtml" />
+	  <Content Remove="Templates\TemplatePassword.cshtml" />
 	  <Content Remove="Templates\TemplateRecibo.cshtml" />
 	  <Content Remove="Templates\WelcomeTemplate.cshtml" />
 	</ItemGroup>
@@ -38,12 +39,23 @@
 	  <None Include="Templates\TemplateBienvenida.cshtml">
 	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 	  </None>
+	  <None Include="Templates\TemplatePassword.cshtml">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </None>
 	  <None Include="Templates\TemplateRecibo.cshtml">
 	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 	  </None>
 	  <None Include="Templates\WelcomeTemplate.cshtml">
 	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 	  </None>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <UpToDateCheckInput Remove="Templates\TemplatePassword.cshtml" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <_ContentIncludedByDefault Remove="Templates\TemplatePassword.cshtml" />
 	</ItemGroup>
 
 </Project>
