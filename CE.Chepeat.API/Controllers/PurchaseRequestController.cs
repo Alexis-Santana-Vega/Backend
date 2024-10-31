@@ -34,7 +34,7 @@ namespace CE.Chepeat.API.Controllers
         }
 
         // Método para visualizar solicitudes de un comprador
-        [HttpPost("GetByBuyer")]
+        [HttpPost("GetRequestsByBuyer")]
         [Authorize(Policy = "BUYER")]
         public async ValueTask<IActionResult> GetRequestsByBuyer([FromBody] Guid idBuyer)
         {

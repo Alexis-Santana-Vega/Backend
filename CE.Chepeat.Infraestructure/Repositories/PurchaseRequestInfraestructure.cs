@@ -83,26 +83,10 @@ namespace CE.Chepeat.Infraestructure.Repositories
         {
             try
             {
-                var NumError = new SqlParameter
-                {
-                    ParameterName = "NumError",
-                    SqlDbType = SqlDbType.Int,
-                    Direction = ParameterDirection.Output
-                };
-                var Result = new SqlParameter
-                {
-                    ParameterName = "Result",
-                    SqlDbType = SqlDbType.VarChar,
-                    Size = 100,
-                    Direction = ParameterDirection.Output
-                };
-
                 SqlParameter[] parameters =
                 {
-            new SqlParameter("IdBuyer", idBuyer),
-            NumError,
-            Result
-        };
+                    new SqlParameter("IdBuyer", idBuyer)
+                };
 
                 string sqlQuery = "EXEC dbo.SP_PurchaseRequests_ViewByBuyer @IdBuyer";
                 var dataSP = await _context.purchaseRequestDto.FromSqlRaw(sqlQuery, parameters).ToListAsync();
