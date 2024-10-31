@@ -26,12 +26,12 @@ namespace CE.Chepeat.Application.Presenters
             return await _unitRepository.purchaseRequestInfraestructure.CreatePurchaseRequest(request);
         }
 
-        public async Task<IEnumerable<PurchaseRequestDto>> GetRequestsBySeller(Guid idSeller)
+        public async Task<List<PurchaseRequestDto>> GetRequestsBySeller(Guid idSeller)
         {
             return await _unitRepository.purchaseRequestInfraestructure.GetRequestsBySeller(idSeller);
         }
 
-        public async Task<IEnumerable<PurchaseRequestDto>> GetRequestsByBuyer(Guid idBuyer)
+        public async Task<List<PurchaseRequestDto>> GetRequestsByBuyer(Guid idBuyer)
         {
             return await _unitRepository.purchaseRequestInfraestructure.GetRequestsByBuyer(idBuyer);
         }
