@@ -9,4 +9,5 @@ public interface ISellerPresenter
     Task<Seller> SelectSellerById(Guid id);
     Task<List<Seller>> SelectSellersByRadius(SellerRadiusRequest request);
     Task<RespuestaDB> DeleteSeller(Guid Id);
+    Task<Seller> SelectSellerByIdUser(Guid idUser);
 }

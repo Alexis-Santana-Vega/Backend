@@ -50,4 +50,9 @@ public class SellerPresenter : ISellerPresenter
     {
         return await _unitRepository.sellerInfraestructure.UpdateSeller(request);
     }
+
+    public async Task<Seller> SelectSellerByIdUser(Guid idUser)
+    {
+        return await _unitRepository.sellerInfraestructure.SelectSellerByIdUser(idUser);
+    }
 }
