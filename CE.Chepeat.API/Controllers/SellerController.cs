@@ -177,13 +177,13 @@ public class SellerController : ApiController
         return Ok(await _appController.SellerPresenter.DeleteSeller(id));
     }
 
-    [HttpPost("SelectSellerById")]
+    [HttpPost("SelectSellerByIdUser")]
     [Consumes(MediaTypeNames.Application.Json)]
     [Produces(MediaTypeNames.Application.Json)]
     [ProducesResponseType(typeof(string), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(string), StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(typeof(string), StatusCodes.Status500InternalServerError)]
-    public async ValueTask<IActionResult> SelectSellerByIdUSer([FromBody] Guid idUser)
+    public async ValueTask<IActionResult> SelectSellerByIdUser([FromBody] Guid idUser)
     {
         return Ok(await _appController.SellerPresenter.SelectSellerByIdUser(idUser));
     }
