@@ -85,7 +85,7 @@ namespace CE.Chepeat.Infraestructure.Repositories
                 Result
             };
 
-                string sqlQuery = "EXEC dbo.SP_PurchaseRequests_ViewBySeller @IdSeller, @NumError OUTPUT, @Result OUTPUT";
+                string sqlQuery = "EXEC dbo.SP_PurchaseRequests_ViewBySeller @IdSeller";
                 var dataSP = await _context.purchaseRequestDto.FromSqlRaw(sqlQuery, parameters).ToListAsync();
                 return dataSP;
             }
@@ -120,7 +120,7 @@ namespace CE.Chepeat.Infraestructure.Repositories
             Result
         };
 
-                string sqlQuery = "EXEC dbo.SP_PurchaseRequests_ViewByBuyer @IdBuyer, @NumError OUTPUT, @Result OUTPUT";
+                string sqlQuery = "EXEC dbo.SP_PurchaseRequests_ViewByBuyer @IdBuyer";
                 var dataSP = await _context.purchaseRequestDto.FromSqlRaw(sqlQuery, parameters).ToListAsync();
                 return dataSP;
             }
