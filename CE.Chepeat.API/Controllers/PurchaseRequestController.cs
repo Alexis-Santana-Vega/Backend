@@ -25,7 +25,7 @@ namespace CE.Chepeat.API.Controllers
             return BadRequest(response.Result);
         }
 
-        [HttpPost("GetBySeller")]
+        [HttpPost("GetRequestsBySeller")]
         [Authorize(Policy = "SELLER")]
         public async ValueTask<IActionResult> GetRequestsBySeller([FromBody] Guid idSeller)
         {

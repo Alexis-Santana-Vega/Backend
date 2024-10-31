@@ -45,15 +45,5 @@ namespace CE.Chepeat.Application.Presenters
         {
             return await _unitRepository.purchaseRequestInfraestructure.CancelRequest(idRequest);
         }
-
-        Task<List<PurchaseRequestDto>> IPurchaseRequestPresenter.GetRequestsBySeller(Guid idSeller)
-        {
-            throw new NotImplementedException();
-        }
-
-        Task<List<PurchaseRequestDto>> IPurchaseRequestPresenter.GetRequestsByBuyer(Guid idBuyer)
-        {
-            throw new NotImplementedException();
-        }
     }
 }
