@@ -10,6 +10,7 @@ using CE.Chepeat.Domain.Aggregates.Email;
 using CE.Chepeat.Domain.Aggregates.User;
 using CE.Chepeat.Domain.DTOs.Session;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CE.Chepeat.Application.Presenters;
@@ -160,7 +161,8 @@ public class AuthPresenter : IAuthPresenter
             NumError = 1,
             Result = "Has iniciado sesion con exito",
             Token = jwt,
-            RefreshToken = refreshToken
+            RefreshToken = refreshToken,
+            User = user
         };
     }
 
@@ -235,6 +237,13 @@ public class AuthPresenter : IAuthPresenter
     public async Task<RespuestaDB> CerrarSesionTodos(Guid id)
     {
         return await _unitRepository.authInfraestructure.CerrarSesionTodos(id);
+    }
+
+    public async Task<RespuestaDB> InitiateRecovery(string email)
+    {
+        var user = await ObtenerPorEmail(email);
+        if (user == null) return new RespuestaDB { NumError = 2, Result = "Email no registrado" };
+        return new RespuestaDB { NumError = 0, Result = "Correo de recuperacion enviado" };
     }
 }
 

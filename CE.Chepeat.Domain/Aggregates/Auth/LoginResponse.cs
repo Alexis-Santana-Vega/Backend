@@ -11,4 +11,5 @@ public class LoginResponse
     public string Result { get; set; }
     public string Token { get; set; } = string.Empty;
     public string RefreshToken { get; set; } = string.Empty;
+    public DTOs.User? User { get; set; } = null;
 }

@@ -25,25 +25,25 @@ namespace CE.Chepeat.API.Controllers
             return BadRequest(response.Result);
         }
 
-        [HttpGet("GetBySeller")]
+        [HttpPost("GetRequestsBySeller")]
         [Authorize(Policy = "SELLER")]
-        public async ValueTask<IActionResult> GetRequestsBySeller([FromQuery] Guid idSeller)
+        public async ValueTask<IActionResult> GetRequestsBySeller([FromBody] Guid idSeller)
         {
             var requests = await _appController.PurchaseRequestPresenter.GetRequestsBySeller(idSeller);
             return Ok(requests);
         }
 
         // Método para visualizar solicitudes de un comprador
-        [HttpGet("GetByBuyer")]
+        [HttpPost("GetRequestsByBuyer")]
         [Authorize(Policy = "BUYER")]
-        public async ValueTask<IActionResult> GetRequestsByBuyer([FromQuery] Guid idBuyer)
+        public async ValueTask<IActionResult> GetRequestsByBuyer([FromBody] Guid idBuyer)
         {
             var requests = await _appController.PurchaseRequestPresenter.GetRequestsByBuyer(idBuyer);
             return Ok(requests);
         }
 
         // Método para rechazar una solicitud (vendedor)
-        [HttpPut("Reject")]
+        [HttpPost("Reject")]
         [Authorize(Policy = "SELLER")]
         public async ValueTask<IActionResult> RejectRequest([FromQuery] Guid idRequest)
         {
@@ -56,7 +56,7 @@ namespace CE.Chepeat.API.Controllers
         }
 
         // Método para cancelar una solicitud (comprador)
-        [HttpPut("Cancel")]
+        [HttpPost("Cancel")]
         [Authorize(Policy = "BUYER")]
         public async ValueTask<IActionResult> CancelRequest([FromQuery] Guid idRequest)
         {

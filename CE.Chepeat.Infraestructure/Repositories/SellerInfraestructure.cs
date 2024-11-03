@@ -114,6 +114,25 @@ public class SellerInfraestructure : ISellerInfraestructure
         }
     }
 
+    public async Task<Seller> SelectSellerByIdUser(Guid idUser)
+    {
+        try
+        {
+            SqlParameter[] parameters =
+            {
+                new SqlParameter("IdUser", idUser)
+            };
+            string sqlQuery = "EXEC dbo.sp_consultar_vendedor_por_idUser @IdUser";
+            var dataSP = await _context.Sellers.FromSqlRaw(sqlQuery, parameters).ToListAsync();
+            var r = dataSP.FirstOrDefault();
+            return r;
+        }
+        catch (SqlException ex)
+        {
+            throw;
+        }
+    }
+
     public async Task<List<Seller>> SelectSellersByRadius(SellerRadiusRequest request)
     {
         try

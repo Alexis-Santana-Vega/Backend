@@ -8,6 +8,7 @@
 namespace CE.Chepeat.Domain.Interfaces.Services;
 public interface IAuthPresenter
 {
+    Task<RespuestaDB> InitiateRecovery(string email);
     /// <summary>
     ///     Inhabilita los refresh tokens existentes del usuario para cerrar sesión
     /// </summary>
