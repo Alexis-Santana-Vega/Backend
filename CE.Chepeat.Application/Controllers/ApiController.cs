@@ -32,7 +32,7 @@ namespace CE.Chepeat.Application.Controllers
         public IPurchaseRequestPresenter PurchaseRequestPresenter => new PurchaseRequestPresenter(_unitRepository, _mapper);
         public ITransactionPresenter TransactionPresenter => new TransactionPresenter(_unitRepository, _mapper);
 
-
+        public ICommentPresenter CommentPresenter => new CommentPresenter(_unitRepository, _mapper);
         public IFileExportPresenter FileExportPresenter => new FileExportPresenter(_unitRepository);
     }
 }
