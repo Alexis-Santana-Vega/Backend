@@ -118,10 +118,10 @@ namespace CE.Chepeat.Infraestructure.Repositories
 
                 SqlParameter[] parameters =
                 {
-            new SqlParameter("IdRequest", idRequest),
-            NumError,
-            Result
-        };
+                    new SqlParameter("IdRequest", idRequest),
+                    NumError,
+                    Result
+            };
 
                 string sqlQuery = "EXEC dbo.SP_PurchaseRequest_Reject @IdRequest, @NumError OUTPUT, @Result OUTPUT";
                 var dataSP = await _context.respuestaDB.FromSqlRaw(sqlQuery, parameters).ToListAsync();

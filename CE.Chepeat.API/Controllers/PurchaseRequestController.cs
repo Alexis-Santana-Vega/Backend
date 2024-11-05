@@ -52,15 +52,15 @@ namespace CE.Chepeat.API.Controllers
 
         // Método para rechazar una solicitud (vendedor)
         [HttpPost("Reject")]
+        [Consumes(MediaTypeNames.Application.Json)]
+        [Produces(MediaTypeNames.Application.Json)]
+        [ProducesResponseType(typeof(string), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(string), StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(typeof(string), StatusCodes.Status500InternalServerError)]
         [Authorize(Policy = "SELLER")]
-        public async ValueTask<IActionResult> RejectRequest([FromQuery] Guid idRequest)
+        public async ValueTask<IActionResult> RejectRequest([FromBody] Guid idRequest)
         {
-            var response = await _appController.PurchaseRequestPresenter.RejectRequest(idRequest);
-            if (response.NumError == 1)
-            {
-                return Ok(response.Result);
-            }
-            return BadRequest(response.Result);
+            return Ok(await _appController.PurchaseRequestPresenter.RejectRequest(idRequest));
         }
 
         // Método para cancelar una solicitud (comprador)
