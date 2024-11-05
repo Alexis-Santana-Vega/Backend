@@ -34,8 +34,7 @@ namespace CE.Chepeat.API.Controllers
         [Authorize(Policy = "SELLER")]
         public async ValueTask<IActionResult> GetRequestsBySeller([FromBody] Guid idSeller)
         {
-            var requests = await _appController.PurchaseRequestPresenter.GetRequestsBySeller(idSeller);
-            return Ok(requests);
+            return Ok(await _appController.PurchaseRequestPresenter.GetRequestsBySeller(idSeller));
         }
 
         // Método para visualizar solicitudes de un comprador
@@ -48,8 +47,7 @@ namespace CE.Chepeat.API.Controllers
         [Authorize(Policy = "BUYER")]
         public async ValueTask<IActionResult> GetRequestsByBuyer([FromBody] Guid idBuyer)
         {
-            var requests = await _appController.PurchaseRequestPresenter.GetRequestsByBuyer(idBuyer);
-            return Ok(requests);
+            return Ok(await _appController.PurchaseRequestPresenter.GetRequestsByBuyer(idBuyer));
         }
 
         // Método para rechazar una solicitud (vendedor)
