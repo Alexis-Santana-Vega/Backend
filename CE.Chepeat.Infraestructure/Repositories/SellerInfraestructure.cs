@@ -79,8 +79,8 @@ public class SellerInfraestructure : ISellerInfraestructure
                 new SqlParameter("AddressNotes", request.AddressNotes),
                 new SqlParameter("Latitude", request.Latitude),
                 new SqlParameter("Longitude", request.Longitude),
-                new SqlParameter("CreatedAt", request.CreatedAt),
-                new SqlParameter("UpdatedAt", request.UpdatedAt),
+                new SqlParameter("CreatedAt", DateTime.UtcNow),
+                new SqlParameter("UpdatedAt", DateTime.UtcNow),
                 new SqlParameter("IdUser", request.IdUser),
                 NumError,
                 Result
