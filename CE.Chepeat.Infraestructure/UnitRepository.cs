@@ -38,6 +38,7 @@ public class UnitRepository:BaseDisposable, IUnitRepository
     public IProductInfraestructure productInfraestructure => new ProductInfraestructure(_context);
     public IPurchaseRequestInfraestructure purchaseRequestInfraestructure => new PurchaseRequestInfraestructure(_context);
     public ITransactionInfraestructure transactionInfraestructure => new TransactionInfraestructure(_context);
+    public ICommentInfraestructure commentInfraestructure => new CommentInfraestructure(_context);
 
 
     public IEmailServiceInfraestructure emailServiceInfraestructure => new EmailService(_configuration);

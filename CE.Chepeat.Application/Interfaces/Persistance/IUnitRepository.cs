@@ -18,6 +18,7 @@ namespace CE.Chepeat.Application.Interfaces.Persistance
         IProductInfraestructure productInfraestructure { get; }
         IPurchaseRequestInfraestructure purchaseRequestInfraestructure { get; }
         ITransactionInfraestructure transactionInfraestructure { get; }
+        ICommentInfraestructure commentInfraestructure { get;}
 
         IEmailServiceInfraestructure emailServiceInfraestructure { get; }
         IFileExportServiceInfraestructure fileExportServiceInfraestructure { get;}
