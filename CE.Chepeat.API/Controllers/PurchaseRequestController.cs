@@ -65,15 +65,15 @@ namespace CE.Chepeat.API.Controllers
 
         // Método para cancelar una solicitud (comprador)
         [HttpPost("Cancel")]
+        [Consumes(MediaTypeNames.Application.Json)]
+        [Produces(MediaTypeNames.Application.Json)]
+        [ProducesResponseType(typeof(string), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(string), StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(typeof(string), StatusCodes.Status500InternalServerError)]
         [Authorize(Policy = "BUYER")]
-        public async ValueTask<IActionResult> CancelRequest([FromQuery] Guid idRequest)
+        public async ValueTask<IActionResult> CancelRequest([FromBody] Guid idRequest)
         {
-            var response = await _appController.PurchaseRequestPresenter.CancelRequest(idRequest);
-            if (response.NumError == 1)
-            {
-                return Ok(response.Result);
-            }
-            return BadRequest(response.Result);
+            return Ok(await _appController.PurchaseRequestPresenter.CancelRequest(idRequest));
         }
     }
 }
