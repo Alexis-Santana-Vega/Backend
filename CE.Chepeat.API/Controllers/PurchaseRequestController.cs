@@ -14,18 +14,23 @@ namespace CE.Chepeat.API.Controllers
         }
 
         [HttpPost("Create")]
+        [Consumes(MediaTypeNames.Application.Json)]
+        [Produces(MediaTypeNames.Application.Json)]
+        [ProducesResponseType(typeof(string), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(string), StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(typeof(string), StatusCodes.Status500InternalServerError)]
         [Authorize(Policy = "BUYER")]
         public async ValueTask<IActionResult> CreatePurchaseRequest([FromBody] PurchaseRequestAggregate request)
         {
-            var response = await _appController.PurchaseRequestPresenter.CreatePurchaseRequest(request);
-            if (response.NumError == 1)
-            {
-                return Ok(response.Result);
-            }
-            return BadRequest(response.Result);
+            return Ok(await _appController.PurchaseRequestPresenter.CreatePurchaseRequest(request));
         }
 
         [HttpPost("GetRequestsBySeller")]
+        [Consumes(MediaTypeNames.Application.Json)]
+        [Produces(MediaTypeNames.Application.Json)]
+        [ProducesResponseType(typeof(string), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(string), StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(typeof(string), StatusCodes.Status500InternalServerError)]
         [Authorize(Policy = "SELLER")]
         public async ValueTask<IActionResult> GetRequestsBySeller([FromBody] Guid idSeller)
         {
@@ -35,6 +40,11 @@ namespace CE.Chepeat.API.Controllers
 
         // Método para visualizar solicitudes de un comprador
         [HttpPost("GetRequestsByBuyer")]
+        [Consumes(MediaTypeNames.Application.Json)]
+        [Produces(MediaTypeNames.Application.Json)]
+        [ProducesResponseType(typeof(string), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(string), StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(typeof(string), StatusCodes.Status500InternalServerError)]
         [Authorize(Policy = "BUYER")]
         public async ValueTask<IActionResult> GetRequestsByBuyer([FromBody] Guid idBuyer)
         {
