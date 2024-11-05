@@ -18,7 +18,7 @@ namespace CE.Chepeat.Application.Presenters
             _mapper = mapper;
         }
 
-        public async Task<RespuestaDB> AddTransaction(TransactionAggregate transactionAggregate)
+        public async Task<RespuestaDB> AddTransaction(TransactionRequest transactionAggregate)
         {
             return await _unitRepository.transactionInfraestructure.AddTransaction(transactionAggregate);
         }

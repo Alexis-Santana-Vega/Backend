@@ -12,7 +12,7 @@ namespace CE.Chepeat.Domain.Interfaces.Infraestructure
         /// <summary>
         /// Agrega una nueva transacción
         /// </summary>
-        Task<RespuestaDB> AddTransaction(TransactionAggregate transactionAggregate);
+        Task<RespuestaDB> AddTransaction(TransactionRequest transactionAggregate);
 
         /// <summary>
         /// Obtiene el estado de una transacción
