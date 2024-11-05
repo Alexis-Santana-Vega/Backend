@@ -23,7 +23,7 @@ namespace CE.Chepeat.API.Controllers
             return Ok(await _appController.TransactionPresenter.AddTransaction(transactionAggregate));
         }
 
-        [HttpGet("GetTransactionStatus")]
+        [HttpPost("GetTransactionStatus")]
         [Consumes(MediaTypeNames.Application.Json)]
         [Produces(MediaTypeNames.Application.Json)]
         [ProducesResponseType(typeof(string), StatusCodes.Status200OK)]
