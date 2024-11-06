@@ -78,11 +78,12 @@ namespace CE.Chepeat.Infraestructure.Repositories
                 new SqlParameter("CommentId", updateMessage.CommentId),
                 new SqlParameter("IdUser", updateMessage.IdUser),
                 new SqlParameter("NewMessage", updateMessage.NewMessage),
+                new SqlParameter("NewRating", updateMessage.NewRating),
                 NumError,
                 Result
             };
 
-                string sqlQuery = "EXEC dbo.SP_Comments_Edit @CommentId, @IdUser, @NewMessage, @NumError OUTPUT, @Result OUTPUT";
+                string sqlQuery = "EXEC dbo.SP_Comments_Edit @CommentId, @IdUser, @NewMessage, @NewRating, @NumError OUTPUT, @Result OUTPUT";
                 var dataSP = await _context.respuestaDB.FromSqlRaw(sqlQuery, parameters).ToListAsync();
                 return dataSP.FirstOrDefault();
             }
