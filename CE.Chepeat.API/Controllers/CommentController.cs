@@ -69,19 +69,7 @@ namespace CE.Chepeat.API.Controllers
             return Ok(await _appController.CommentPresenter.UpdateCommentMessage(updateMessage));
         }
 
-        /// <summary>
-        /// Actualiza el rating de un comentario existente
-        /// </summary>
-        /// <remarks>
-        /// Sample request:
-        /// 
-        ///     PUT
-        ///     {
-        ///         "commentId": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
-        ///         "idUser": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
-        ///         "newRating": 4.8
-        ///     }
-        /// </remarks>
+        
         [HttpPost("UpdateRating")]
         [Consumes(MediaTypeNames.Application.Json)]
         [Produces(MediaTypeNames.Application.Json)]
