@@ -188,7 +188,7 @@ public class AuthController : ApiController
     [ProducesResponseType(typeof(string), StatusCodes.Status500InternalServerError)]
     public async ValueTask<IActionResult> PasswordRecovery([FromBody] string email)
     {
-        return Ok();
+        return Ok(await _appController.AuthPresenter.InitiateRecovery(email));
     }
 
 }

@@ -241,9 +241,20 @@ public class AuthPresenter : IAuthPresenter
 
     public async Task<RespuestaDB> InitiateRecovery(string email)
     {
-        var user = await ObtenerPorEmail(email);
-        if (user == null) return new RespuestaDB { NumError = 2, Result = "Email no registrado" };
-        return new RespuestaDB { NumError = 0, Result = "Correo de recuperacion enviado" };
+        var emailModel = new EmailModel
+        {
+            To = email,
+            Subject = "Recuperación de contraseña",
+            ModelData = new { Link = "https://www.vasconsultant.com/" }
+        };
+        string templatePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Templates", "TemplatePassword.cshtml");
+        if (!File.Exists(templatePath))
+        {
+            Console.Write("No fue posible encontrar la ruta del archivo de la plantilla");
+            return new RespuestaDB { NumError = 2, Result = "No se encontro la plantilla" };
+        }
+        await _unitRepository.emailServiceInfraestructure.SendEmailAsync(emailModel, templatePath);
+        return new RespuestaDB { NumError = 1, Result = "Correo de recuperacion enviado con exito" };
     }
 }
 
