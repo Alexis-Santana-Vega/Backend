@@ -2,15 +2,18 @@
 
 using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.SwaggerGen;
+using System.Linq;
 
 public class FileUploadOperationFilter : IOperationFilter
 {
     public void Apply(OpenApiOperation operation, OperationFilterContext context)
     {
-        var fileParams = context.MethodInfo.GetParameters()
-            .Where(p => p.ParameterType == typeof(IFormFile));
+        if (operation == null || context == null) return;
 
-        if (fileParams.Any())
+        var formFileParameters = context.MethodInfo.GetParameters()
+            .Where(p => p.ParameterType == typeof(IFormFile) || p.ParameterType == typeof(IFormFileCollection));
+
+        if (formFileParameters.Any())
         {
             operation.RequestBody = new OpenApiRequestBody
             {
@@ -36,4 +39,5 @@ public class FileUploadOperationFilter : IOperationFilter
         }
     }
 }
+
 

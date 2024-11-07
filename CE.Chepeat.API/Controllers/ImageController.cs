@@ -13,15 +13,14 @@ namespace CE.Chepeat.API.Controllers
         {
         }
 
-        [HttpPost("AddComment")]
-        [Consumes(MediaTypeNames.Application.Json)]
-        [Produces(MediaTypeNames.Application.Json)]
-        [ProducesResponseType(typeof(RespuestaDB), StatusCodes.Status200OK)]
-        [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
-        [ProducesResponseType(typeof(string), StatusCodes.Status500InternalServerError)]
-        public async ValueTask<IActionResult> SubirImagen([FromForm] IFormFile image)
+        [HttpPost("upload")]
+        public async Task<IActionResult> UploadImage([FromForm] IFormFile image)
         {
-            return Ok();
+            if (image == null || image.Length == 0)
+                return BadRequest("No se ha proporcionado ninguna imagen");
+
+            // Aquí procesarías la imagen
+            return Ok("Imagen subida con éxito");
         }
     }
 }
