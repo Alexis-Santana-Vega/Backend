@@ -76,6 +76,8 @@ public static class ApplicationServices
             var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
             // options.OperationFilter<OperationFilter>();
             options.DocumentFilter<DocumentFilter>();
+
+            options.OperationFilter<FileUploadOperationFilter>();
         });
 
         return services;
