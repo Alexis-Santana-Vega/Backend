@@ -23,6 +23,7 @@
 
 
 	<ItemGroup>
+		<Folder Include="Aggregates\Image\" />
 		<Folder Include="Constants\" />
 		<Folder Include="DTOs\Auth\" />
 		<Folder Include="Enums\" />

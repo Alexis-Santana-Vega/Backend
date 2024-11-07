@@ -14,11 +14,8 @@ namespace CE.Chepeat.API.Controllers
         }
 
         [HttpPost("upload")]
-        public async Task<IActionResult> UploadImage([FromForm] IFormFile image)
+        public async Task<IActionResult> UploadImage()
         {
-            if (image == null || image.Length == 0)
-                return BadRequest("No se ha proporcionado ninguna imagen");
-
             // Aquí procesarías la imagen
             return Ok("Imagen subida con éxito");
         }
