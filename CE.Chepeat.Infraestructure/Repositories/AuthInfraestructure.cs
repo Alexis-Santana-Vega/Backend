@@ -216,7 +216,7 @@ public class AuthInfraestructure : IAuthInfraestructure
     {
         var token = await _context.PasswordResetTokens.Where(prt => request.Token == prt.Token).FirstOrDefaultAsync();
         if (token == null || token.IsUsed || token.ExpirationDate < DateTime.UtcNow) 
-            return new RespuestaDB { NumError = 1, Result = "Token no encontrado o expirado"};
+            return new RespuestaDB { NumError = 1, Result = "Token no encontrado, expirado o utilizado"};
         var user = await _context.Users.Where(u => u.Id == token.UserId).FirstOrDefaultAsync();
         if (user == null)
             return new RespuestaDB { NumError = 2, Result = "Usuario no encontrado" };
