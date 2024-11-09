@@ -1,13 +1,16 @@
-﻿/// Developer : Alexis Eduardo Santana Vega
+﻿
+using CE.Chepeat.Domain.DTOs.PasswordToken;
+
+/// Developer : Alexis Eduardo Santana Vega
 /// Creation Date : 10/10/2024
 /// Creation Description:Interface
 /// Update Date : --
 /// Update Description : --
 /// CopyRight: Chepeat
-
 namespace CE.Chepeat.Domain.Interfaces.Infraestructure;
 public interface IAuthInfraestructure
 {
+    Task<RespuestaDB> AddPasswordResetToken(PasswordResetToken passwordResetToken); 
     /// <summary>
     ///     Inhabilita los refresh tokens existentes del usuario para cerrar sesión
     /// </summary>

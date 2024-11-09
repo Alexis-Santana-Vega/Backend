@@ -8,6 +8,7 @@ using CE.Chepeat.Application.Services;
 using CE.Chepeat.Domain.Aggregates.Auth;
 using CE.Chepeat.Domain.Aggregates.Email;
 using CE.Chepeat.Domain.Aggregates.User;
+using CE.Chepeat.Domain.DTOs.PasswordToken;
 using CE.Chepeat.Domain.DTOs.Session;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
@@ -239,22 +240,33 @@ public class AuthPresenter : IAuthPresenter
         return await _unitRepository.authInfraestructure.CerrarSesionTodos(id);
     }
 
-    public async Task<RespuestaDB> InitiateRecovery(string email)
+    public async Task<RespuestaDB> RequestPasswordResetAsync(string email)
     {
+        var user = await _unitRepository.authInfraestructure.ObtenerPorEmail(email);
+        if (user == null) return new RespuestaDB { NumError = 1, Result = "Usuario no encontrado" };
+        var token = new PasswordResetToken
+        {
+            UserId = user.Id,
+            Token = Guid.NewGuid().ToString(),
+            ExpirationDate = DateTime.UtcNow.AddMinutes(30),
+            IsUsed = false
+        };
+        var response = await _unitRepository.authInfraestructure.AddPasswordResetToken(token);
         var emailModel = new EmailModel
         {
             To = email,
             Subject = "Recuperación de contraseña",
-            ModelData = new { Link = "https://www.vasconsultant.com/" }
+            ModelData = new { Link = $"https://backend-j959.onrender.com/api/Auth/PasswordRecovery?token={token.Token}" }
         };
         string templatePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Templates", "TemplatePassword.cshtml");
         if (!File.Exists(templatePath))
         {
             Console.Write("No fue posible encontrar la ruta del archivo de la plantilla");
-            return new RespuestaDB { NumError = 2, Result = "No se encontro la plantilla" };
+            return new RespuestaDB { NumError = 2, Result = "No se encontro la plantilla pero se guardo el token" };
         }
         await _unitRepository.emailServiceInfraestructure.SendEmailAsync(emailModel, templatePath);
-        return new RespuestaDB { NumError = 1, Result = "Correo de recuperacion enviado con exito" };
+        response.Result = "Correo enviado con exito";
+        return response;
     }
 }
 
