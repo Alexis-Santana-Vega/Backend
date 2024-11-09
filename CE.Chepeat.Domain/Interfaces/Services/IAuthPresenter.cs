@@ -1,4 +1,7 @@
-﻿/// Developer : Alexis Eduardo Santana Vega
+﻿
+using CE.Chepeat.Domain.Aggregates.PasswordResetToken;
+
+/// Developer : Alexis Eduardo Santana Vega
 /// Creation Date : 10/10/2024
 /// Creation Description:Interface
 /// Update Date : --
@@ -8,6 +11,7 @@
 namespace CE.Chepeat.Domain.Interfaces.Services;
 public interface IAuthPresenter
 {
+    Task<RespuestaDB> ResetPasswordAsync(ResetPasswordRequest request);
     Task<RespuestaDB> RequestPasswordResetAsync(string email);
     /// <summary>
     ///     Inhabilita los refresh tokens existentes del usuario para cerrar sesión

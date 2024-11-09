@@ -1,4 +1,5 @@
 ﻿
+using CE.Chepeat.Domain.Aggregates.PasswordResetToken;
 using CE.Chepeat.Domain.DTOs.PasswordToken;
 
 /// Developer : Alexis Eduardo Santana Vega
@@ -10,6 +11,7 @@ using CE.Chepeat.Domain.DTOs.PasswordToken;
 namespace CE.Chepeat.Domain.Interfaces.Infraestructure;
 public interface IAuthInfraestructure
 {
+    Task<RespuestaDB> ResetPasswordAsync(ResetPasswordRequest request);
     Task<RespuestaDB> AddPasswordResetToken(PasswordResetToken passwordResetToken); 
     /// <summary>
     ///     Inhabilita los refresh tokens existentes del usuario para cerrar sesión

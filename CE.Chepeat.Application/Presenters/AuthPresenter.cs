@@ -7,6 +7,7 @@ using Azure;
 using CE.Chepeat.Application.Services;
 using CE.Chepeat.Domain.Aggregates.Auth;
 using CE.Chepeat.Domain.Aggregates.Email;
+using CE.Chepeat.Domain.Aggregates.PasswordResetToken;
 using CE.Chepeat.Domain.Aggregates.User;
 using CE.Chepeat.Domain.DTOs.PasswordToken;
 using CE.Chepeat.Domain.DTOs.Session;
@@ -267,6 +268,12 @@ public class AuthPresenter : IAuthPresenter
         await _unitRepository.emailServiceInfraestructure.SendEmailAsync(emailModel, templatePath);
         response.Result = "Correo enviado con exito";
         return response;
+    }
+
+    public async Task<RespuestaDB> ResetPasswordAsync(ResetPasswordRequest request)
+    {
+        request.NewPassword = BCrypt.Net.BCrypt.HashPassword(request.NewPassword);
+        return await _unitRepository.authInfraestructure.ResetPasswordAsync(request);
     }
 }
 

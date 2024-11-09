@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using CE.Chepeat.Domain.Aggregates.Auth;
+using CE.Chepeat.Domain.Aggregates.PasswordResetToken;
 using CE.Chepeat.Domain.Aggregates.User;
 using CE.Chepeat.Domain.DTOs;
 using CE.Chepeat.Domain.DTOs.PasswordToken;
@@ -209,5 +210,18 @@ public class AuthInfraestructure : IAuthInfraestructure
         {
             throw;
         }
+    }
+
+    public async Task<RespuestaDB> ResetPasswordAsync(ResetPasswordRequest request)
+    {
+        var token = await _context.PasswordResetTokens.Where(prt => request.Token == prt.Token).FirstOrDefaultAsync();
+        if (token == null || token.IsUsed || token.ExpirationDate < DateTime.UtcNow) 
+            return new RespuestaDB { NumError = 1, Result = "Token no encontrado o expirado"};
+        var user = await _context.Users.Where(u => u.Id == token.UserId).FirstOrDefaultAsync();
+        if (user == null)
+            return new RespuestaDB { NumError = 2, Result = "Usuario no encontrado" };
+        user.Password = request.NewPassword;
+        await _context.SaveChangesAsync();
+        return new RespuestaDB { NumError = 0, Result = "Contraseña actualizada con éxito" };
     }
 }
