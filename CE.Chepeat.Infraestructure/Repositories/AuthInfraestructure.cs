@@ -221,6 +221,7 @@ public class AuthInfraestructure : IAuthInfraestructure
         if (user == null)
             return new RespuestaDB { NumError = 2, Result = "Usuario no encontrado" };
         user.Password = request.NewPassword;
+        token.IsUsed = true;
         await _context.SaveChangesAsync();
         return new RespuestaDB { NumError = 0, Result = "Contraseña actualizada con éxito" };
     }
