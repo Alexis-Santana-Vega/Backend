@@ -18,6 +18,9 @@ namespace CE.Chepeat.API.Controllers
         [ProducesResponseType(typeof(string), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(string), StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(typeof(string), StatusCodes.Status500InternalServerError)]
+        /// <summary>
+        /// Endpoint para agregar una nueva transacción.
+        /// </summary>
         public async ValueTask<IActionResult> AddTransaction([FromBody] TransactionRequest transactionAggregate)
         {
             return Ok(await _appController.TransactionPresenter.AddTransaction(transactionAggregate));
@@ -29,6 +32,9 @@ namespace CE.Chepeat.API.Controllers
         [ProducesResponseType(typeof(string), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(string), StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(typeof(string), StatusCodes.Status500InternalServerError)]
+        /// <summary>
+        /// Endpoint para obtener el estado de una transacción.
+        /// </summary>
         public async ValueTask<IActionResult> GetTransactionStatus([FromBody] Guid idTransaction)
         {
             return Ok(await _appController.TransactionPresenter.GetTransactionStatus(idTransaction));

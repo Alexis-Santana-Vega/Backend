@@ -15,11 +15,14 @@ namespace CE.Chepeat.Infraestructure.Repositories
         {
             _context = context;
         }
-
+        /// <summary>
+        /// Implementación del método para agregar una transacción 
+        /// </summary>
         public async Task<RespuestaDB> AddTransaction(TransactionRequest transactionAggregate)
         {
             try
             {
+                // Parámetros de salida del SP
                 var NumError = new SqlParameter
                 {
                     ParameterName = "NumError",
@@ -33,7 +36,7 @@ namespace CE.Chepeat.Infraestructure.Repositories
                     Size = 100,
                     Direction = ParameterDirection.Output
                 };
-
+                // Parámetros de entrada del SP
                 SqlParameter[] parameters =
                 {
                 new SqlParameter("IdPurchaseRequest", transactionAggregate.IdPurchaseRequest),
@@ -41,6 +44,7 @@ namespace CE.Chepeat.Infraestructure.Repositories
                 NumError,
                 Result
             };
+                // Query para ejecutar el procedimiento almacenado
                 string sqlQuery = "EXEC dbo.SP_Transaction_Add @IdPurchaseRequest, @Status, @NumError OUTPUT, @Result OUTPUT";
                 var dataSP = await _context.respuestaDB.FromSqlRaw(sqlQuery, parameters).ToListAsync();
                 return dataSP.FirstOrDefault();
@@ -50,11 +54,14 @@ namespace CE.Chepeat.Infraestructure.Repositories
                 throw;
             }
         }
-
+        /// <summary>
+        /// Implementación del método para obtener el estado de una transacción
+        /// </summary>
         public async Task<RespuestaDB> GetTransactionStatus(Guid idTransaction)
         {
             try
             {
+                // Parámetros de salida del SP
                 var NumError = new SqlParameter
                 {
                     ParameterName = "NumError",
@@ -68,13 +75,14 @@ namespace CE.Chepeat.Infraestructure.Repositories
                     Size = 100,
                     Direction = ParameterDirection.Output
                 };
-
+                // Parámetros de entrada del SP
                 SqlParameter[] parameters =
                 {
                 new SqlParameter("IdTransaction", idTransaction),
                 NumError,
                 Result
             };
+                // Query para ejecutar el procedimiento almacenado
                 string sqlQuery = "EXEC dbo.SP_Transaction_GetStatus @IdTransaction, @NumError OUTPUT, @Result OUTPUT";
                 var dataSP = await _context.respuestaDB.FromSqlRaw(sqlQuery, parameters).ToListAsync();
                 return dataSP.FirstOrDefault();

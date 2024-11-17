@@ -10,12 +10,12 @@ namespace CE.Chepeat.Domain.Interfaces.Infraestructure
     public interface ITransactionInfraestructure
     {
         /// <summary>
-        /// Agrega una nueva transacción
+        /// Método para agregar una nueva transacción.
         /// </summary>
         Task<RespuestaDB> AddTransaction(TransactionRequest transactionAggregate);
 
         /// <summary>
-        /// Obtiene el estado de una transacción
+        /// Obtiene el estado de una transacción especifica
         /// </summary>
         Task<RespuestaDB> GetTransactionStatus(Guid idTransaction);
     }
