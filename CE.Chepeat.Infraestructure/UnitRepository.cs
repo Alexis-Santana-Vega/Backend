@@ -1,4 +1,5 @@
 ﻿using CE.Chepeat.Infraestructure.Repositories;
+using CE.Chepeat.Infraestructure.Services;
 
 namespace CE.Chepeat.Infraestructure;
 public class UnitRepository:BaseDisposable, IUnitRepository
@@ -37,6 +38,13 @@ public class UnitRepository:BaseDisposable, IUnitRepository
     public IProductInfraestructure productInfraestructure => new ProductInfraestructure(_context);
     public IPurchaseRequestInfraestructure purchaseRequestInfraestructure => new PurchaseRequestInfraestructure(_context);
     public ITransactionInfraestructure transactionInfraestructure => new TransactionInfraestructure(_context);
+    public ICommentInfraestructure commentInfraestructure => new CommentInfraestructure(_context);
+
+
+    public IEmailServiceInfraestructure emailServiceInfraestructure => new EmailService(_configuration);
+
+
+    public IFileExportServiceInfraestructure fileExportServiceInfraestructure => new FileService();
 
 
     public async ValueTask<bool> Complete()

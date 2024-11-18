@@ -14,58 +14,66 @@ namespace CE.Chepeat.API.Controllers
         }
 
         [HttpPost("Create")]
+        [Consumes(MediaTypeNames.Application.Json)]
+        [Produces(MediaTypeNames.Application.Json)]
+        [ProducesResponseType(typeof(string), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(string), StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(typeof(string), StatusCodes.Status500InternalServerError)]
         [Authorize(Policy = "BUYER")]
         public async ValueTask<IActionResult> CreatePurchaseRequest([FromBody] PurchaseRequestAggregate request)
         {
-            var response = await _appController.PurchaseRequestPresenter.CreatePurchaseRequest(request);
-            if (response.NumError == 1)
-            {
-                return Ok(response.Result);
-            }
-            return BadRequest(response.Result);
+            return Ok(await _appController.PurchaseRequestPresenter.CreatePurchaseRequest(request));
         }
 
-        [HttpGet("GetBySeller")]
+        [HttpPost("GetRequestsBySeller")]
+        [Consumes(MediaTypeNames.Application.Json)]
+        [Produces(MediaTypeNames.Application.Json)]
+        [ProducesResponseType(typeof(string), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(string), StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(typeof(string), StatusCodes.Status500InternalServerError)]
         [Authorize(Policy = "SELLER")]
-        public async ValueTask<IActionResult> GetRequestsBySeller([FromQuery] Guid idSeller)
+        public async ValueTask<IActionResult> GetRequestsBySeller([FromBody] Guid idSeller)
         {
-            var requests = await _appController.PurchaseRequestPresenter.GetRequestsBySeller(idSeller);
-            return Ok(requests);
+            return Ok(await _appController.PurchaseRequestPresenter.GetRequestsBySeller(idSeller));
         }
 
         // Método para visualizar solicitudes de un comprador
-        [HttpGet("GetByBuyer")]
+        [HttpPost("GetRequestsByBuyer")]
+        [Consumes(MediaTypeNames.Application.Json)]
+        [Produces(MediaTypeNames.Application.Json)]
+        [ProducesResponseType(typeof(string), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(string), StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(typeof(string), StatusCodes.Status500InternalServerError)]
         [Authorize(Policy = "BUYER")]
-        public async ValueTask<IActionResult> GetRequestsByBuyer([FromQuery] Guid idBuyer)
+        public async ValueTask<IActionResult> GetRequestsByBuyer([FromBody] Guid idBuyer)
         {
-            var requests = await _appController.PurchaseRequestPresenter.GetRequestsByBuyer(idBuyer);
-            return Ok(requests);
+            return Ok(await _appController.PurchaseRequestPresenter.GetRequestsByBuyer(idBuyer));
         }
 
         // Método para rechazar una solicitud (vendedor)
-        [HttpPut("Reject")]
+        [HttpPost("Reject")]
+        [Consumes(MediaTypeNames.Application.Json)]
+        [Produces(MediaTypeNames.Application.Json)]
+        [ProducesResponseType(typeof(string), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(string), StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(typeof(string), StatusCodes.Status500InternalServerError)]
         [Authorize(Policy = "SELLER")]
-        public async ValueTask<IActionResult> RejectRequest([FromQuery] Guid idRequest)
+        public async ValueTask<IActionResult> RejectRequest([FromBody] Guid idRequest)
         {
-            var response = await _appController.PurchaseRequestPresenter.RejectRequest(idRequest);
-            if (response.NumError == 1)
-            {
-                return Ok(response.Result);
-            }
-            return BadRequest(response.Result);
+            return Ok(await _appController.PurchaseRequestPresenter.RejectRequest(idRequest));
         }
 
         // Método para cancelar una solicitud (comprador)
-        [HttpPut("Cancel")]
+        [HttpPost("Cancel")]
+        [Consumes(MediaTypeNames.Application.Json)]
+        [Produces(MediaTypeNames.Application.Json)]
+        [ProducesResponseType(typeof(string), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(string), StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(typeof(string), StatusCodes.Status500InternalServerError)]
         [Authorize(Policy = "BUYER")]
-        public async ValueTask<IActionResult> CancelRequest([FromQuery] Guid idRequest)
+        public async ValueTask<IActionResult> CancelRequest([FromBody] Guid idRequest)
         {
-            var response = await _appController.PurchaseRequestPresenter.CancelRequest(idRequest);
-            if (response.NumError == 1)
-            {
-                return Ok(response.Result);
-            }
-            return BadRequest(response.Result);
+            return Ok(await _appController.PurchaseRequestPresenter.CancelRequest(idRequest));
         }
     }
 }

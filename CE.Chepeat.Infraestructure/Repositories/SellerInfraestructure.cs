@@ -79,8 +79,8 @@ public class SellerInfraestructure : ISellerInfraestructure
                 new SqlParameter("AddressNotes", request.AddressNotes),
                 new SqlParameter("Latitude", request.Latitude),
                 new SqlParameter("Longitude", request.Longitude),
-                new SqlParameter("CreatedAt", request.CreatedAt),
-                new SqlParameter("UpdatedAt", request.UpdatedAt),
+                new SqlParameter("CreatedAt", DateTime.UtcNow),
+                new SqlParameter("UpdatedAt", DateTime.UtcNow),
                 new SqlParameter("IdUser", request.IdUser),
                 NumError,
                 Result
@@ -104,6 +104,25 @@ public class SellerInfraestructure : ISellerInfraestructure
                 new SqlParameter("Id", id)
             };
             string sqlQuery = "EXEC dbo.sp_consultar_vendedor_por_id @Id";
+            var dataSP = await _context.Sellers.FromSqlRaw(sqlQuery, parameters).ToListAsync();
+            var r = dataSP.FirstOrDefault();
+            return r;
+        }
+        catch (SqlException ex)
+        {
+            throw;
+        }
+    }
+
+    public async Task<Seller> SelectSellerByIdUser(Guid idUser)
+    {
+        try
+        {
+            SqlParameter[] parameters =
+            {
+                new SqlParameter("IdUser", idUser)
+            };
+            string sqlQuery = "EXEC dbo.sp_consultar_vendedor_por_idUser @IdUser";
             var dataSP = await _context.Sellers.FromSqlRaw(sqlQuery, parameters).ToListAsync();
             var r = dataSP.FirstOrDefault();
             return r;

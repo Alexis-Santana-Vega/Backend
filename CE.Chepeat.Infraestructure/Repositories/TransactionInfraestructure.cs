@@ -16,7 +16,7 @@ namespace CE.Chepeat.Infraestructure.Repositories
             _context = context;
         }
 
-        public async Task<RespuestaDB> AddTransaction(TransactionAggregate transactionAggregate)
+        public async Task<RespuestaDB> AddTransaction(TransactionRequest transactionAggregate)
         {
             try
             {

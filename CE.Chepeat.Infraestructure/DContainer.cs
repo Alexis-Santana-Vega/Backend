@@ -1,5 +1,4 @@
-﻿using CE.Chepeat.Application.Services;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
+﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 
@@ -64,10 +63,6 @@ public static class DContainer
                 policy.RequireClaim("IsSeller", "True");
             });
         });
-
-        services.Configure<SmtpSettings>(configuration.GetSection("SmtpSettings"));
-        services.AddTransient<IEmailService, EmailService>();
-
 
         services.AddScoped<IUnitRepository, UnitRepository>();
         return services;

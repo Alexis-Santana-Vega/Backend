@@ -1,4 +1,6 @@
-﻿using CE.Chepeat.Domain.DTOs.Product;
+﻿using CE.Chepeat.Domain.DTOs.Comment;
+using CE.Chepeat.Domain.DTOs.PasswordToken;
+using CE.Chepeat.Domain.DTOs.Product;
 using CE.Chepeat.Domain.DTOs.PurchaseRequest;
 using CE.Chepeat.Domain.DTOs.Session;
 using CE.Chepeat.Domain.DTOs.Transaction;
@@ -25,6 +27,8 @@ public class ChepeatContext : DbContext
     public DbSet<Product> Products { get; set; }
     public DbSet<PurchaseRequestDto> purchaseRequestDto { get; set; }
     public DbSet<TransactionDto> transactionDto { get; set; }
+    public DbSet<CommentDto> commentDto { get; set; }
+    public DbSet<PasswordResetToken> PasswordResetTokens { get; set; }
     #endregion
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {

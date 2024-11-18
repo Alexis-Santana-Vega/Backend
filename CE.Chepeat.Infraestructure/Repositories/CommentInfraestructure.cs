@@ -1,30 +1,22 @@
-﻿using CE.Chepeat.Domain.Aggregates.PurchaseRequest;
-using CE.Chepeat.Domain.DTOs.PurchaseRequest;
+﻿using CE.Chepeat.Domain.Aggregates.Comments;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-/// Developer : Hector Nuñez Cruz
-/// Creation Date : 23/10/2024
-/// Creation Description:Repositorie de Solicitud
-/// Update Date : 23/10/2024
-/// Update Description : --
-/// CopyRight: Chepeat
-
 namespace CE.Chepeat.Infraestructure.Repositories
 {
-    public class PurchaseRequestInfraestructure : IPurchaseRequestInfraestructure
+    public class CommentInfraestructure : ICommentInfraestructure
     {
         private readonly ChepeatContext _context;
 
-        public PurchaseRequestInfraestructure(ChepeatContext context)
+        public CommentInfraestructure(ChepeatContext context)
         {
             _context = context;
         }
 
-        public async Task<RespuestaDB> CreatePurchaseRequest(PurchaseRequestAggregate request)
+        public async Task<RespuestaDB> AddComment(CommentAggregate commentAggregate)
         {
             try
             {
@@ -44,13 +36,16 @@ namespace CE.Chepeat.Infraestructure.Repositories
 
                 SqlParameter[] parameters =
                 {
-                new SqlParameter("IdProduct", request.IdProduct),
-                new SqlParameter("IdBuyer", request.IdBuyer),
+                new SqlParameter("IdUser", commentAggregate.IdUser),
+                new SqlParameter("IdSeller", commentAggregate.IdSeller),
+                new SqlParameter("IdTransaction", commentAggregate.IdTransaction),
+                new SqlParameter("Message", commentAggregate.Message),
+                new SqlParameter("Rating", commentAggregate.Rating),
                 NumError,
                 Result
             };
 
-                string sqlQuery = "EXEC dbo.SP_PurchaseRequest_Create @IdProduct, @IdBuyer, @NumError OUTPUT, @Result OUTPUT";
+                string sqlQuery = "EXEC dbo.SP_Comments_Add @IdUser, @IdSeller, @IdTransaction, @Message, @Rating, @NumError OUTPUT, @Result OUTPUT";
                 var dataSP = await _context.respuestaDB.FromSqlRaw(sqlQuery, parameters).ToListAsync();
                 return dataSP.FirstOrDefault();
             }
@@ -60,45 +55,7 @@ namespace CE.Chepeat.Infraestructure.Repositories
             }
         }
 
-        public async Task<List<PurchaseRequestDto>> GetRequestsBySeller(Guid idSeller)
-        {
-            try
-            {
-                SqlParameter[] parameters =
-                {
-                    new SqlParameter("IdSeller", idSeller)
-                };
-
-                string sqlQuery = "EXEC dbo.SP_PurchaseRequests_ViewBySeller @IdSeller";
-                var dataSP = await _context.purchaseRequestDto.FromSqlRaw(sqlQuery, parameters).ToListAsync();
-                return dataSP;
-            }
-            catch (SqlException ex)
-            {
-                throw;
-            }
-        }
-
-        public async Task<List<PurchaseRequestDto>> GetRequestsByBuyer(Guid idBuyer)
-        {
-            try
-            {
-                SqlParameter[] parameters =
-                {
-                    new SqlParameter("IdBuyer", idBuyer)
-                };
-
-                string sqlQuery = "EXEC dbo.SP_PurchaseRequests_ViewByBuyer @IdBuyer";
-                var dataSP = await _context.purchaseRequestDto.FromSqlRaw(sqlQuery, parameters).ToListAsync();
-                return dataSP;
-            }
-            catch (SqlException ex)
-            {
-                throw;
-            }
-        }
-
-        public async Task<RespuestaDB> RejectRequest(Guid idRequest)
+        public async Task<RespuestaDB> UpdateCommentMessage(UpdateCommentMessageAggregate updateMessage)
         {
             try
             {
@@ -118,12 +75,15 @@ namespace CE.Chepeat.Infraestructure.Repositories
 
                 SqlParameter[] parameters =
                 {
-                    new SqlParameter("IdRequest", idRequest),
-                    NumError,
-                    Result
+                new SqlParameter("CommentId", updateMessage.CommentId),
+                new SqlParameter("IdUser", updateMessage.IdUser),
+                new SqlParameter("NewMessage", updateMessage.NewMessage),
+                new SqlParameter("NewRating", updateMessage.NewRating),
+                NumError,
+                Result
             };
 
-                string sqlQuery = "EXEC dbo.SP_PurchaseRequest_Reject @IdRequest, @NumError OUTPUT, @Result OUTPUT";
+                string sqlQuery = "EXEC dbo.SP_Comments_Edit @CommentId, @IdUser, @NewMessage, @NewRating, @NumError OUTPUT, @Result OUTPUT";
                 var dataSP = await _context.respuestaDB.FromSqlRaw(sqlQuery, parameters).ToListAsync();
                 return dataSP.FirstOrDefault();
             }
@@ -133,7 +93,7 @@ namespace CE.Chepeat.Infraestructure.Repositories
             }
         }
 
-        public async Task<RespuestaDB> CancelRequest(Guid idRequest)
+        public async Task<RespuestaDB> UpdateCommentRating(UpdateCommentRatingAggregate updateRating)
         {
             try
             {
@@ -153,12 +113,14 @@ namespace CE.Chepeat.Infraestructure.Repositories
 
                 SqlParameter[] parameters =
                 {
-            new SqlParameter("IdRequest", idRequest),
-            NumError,
-            Result
-        };
+                new SqlParameter("CommentId", updateRating.CommentId),
+                new SqlParameter("IdUser", updateRating.IdUser),
+                new SqlParameter("NewRating", updateRating.NewRating),
+                NumError,
+                Result
+            };
 
-                string sqlQuery = "EXEC dbo.SP_PurchaseRequest_Cancel @IdRequest, @NumError OUTPUT, @Result OUTPUT";
+                string sqlQuery = "EXEC dbo.SP_Comments_UpdateRating @CommentId, @IdUser, @NewRating, @NumError OUTPUT, @Result OUTPUT";
                 var dataSP = await _context.respuestaDB.FromSqlRaw(sqlQuery, parameters).ToListAsync();
                 return dataSP.FirstOrDefault();
             }
@@ -167,7 +129,5 @@ namespace CE.Chepeat.Infraestructure.Repositories
                 throw;
             }
         }
-
     }
-
 }

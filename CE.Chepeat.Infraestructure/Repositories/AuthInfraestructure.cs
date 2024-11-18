@@ -4,8 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using CE.Chepeat.Domain.Aggregates.Auth;
+using CE.Chepeat.Domain.Aggregates.PasswordResetToken;
 using CE.Chepeat.Domain.Aggregates.User;
 using CE.Chepeat.Domain.DTOs;
+using CE.Chepeat.Domain.DTOs.PasswordToken;
 using CE.Chepeat.Domain.DTOs.Session;
 
 namespace CE.Chepeat.Infraestructure.Repositories;
@@ -171,5 +173,56 @@ public class AuthInfraestructure : IAuthInfraestructure
     {
         await ListarRefreshToken(new RefreshToken { RefreshTokenId = Guid.NewGuid(), UserId = id });
         return new RespuestaDB { NumError = 0, Result = "Cerrar sesión en todos los dispositivos completada" };
+    }
+
+    public async Task<RespuestaDB> AddPasswordResetToken(PasswordResetToken passwordResetToken)
+    {
+        try
+        {
+            var NumError = new SqlParameter
+            {
+                ParameterName = "NumError",
+                SqlDbType = SqlDbType.Int,
+                Direction = ParameterDirection.Output
+            };
+            var Result = new SqlParameter
+            {
+                ParameterName = "Result",
+                SqlDbType = SqlDbType.VarChar,
+                Size = 100,
+                Direction = ParameterDirection.Output
+            };
+
+            SqlParameter[] parameters =
+            {
+                new SqlParameter("UserId", passwordResetToken.UserId),
+                new SqlParameter("Token", passwordResetToken.Token),
+                new SqlParameter("ExpirationDate", passwordResetToken.ExpirationDate),
+                new SqlParameter("IsUsed", passwordResetToken.IsUsed),
+                NumError,
+                Result
+            };
+            string sqlQuery = "EXEC dbo.SP_Create_PasswordResetToken @UserId, @Token, @ExpirationDate, @IsUsed, @NumError OUTPUT, @Result OUTPUT";
+            var dataSP = await _context.respuestaDB.FromSqlRaw(sqlQuery, parameters).ToListAsync();
+            return dataSP.FirstOrDefault();
+        }
+        catch (SqlException ex)
+        {
+            throw;
+        }
+    }
+
+    public async Task<RespuestaDB> ResetPasswordAsync(ResetPasswordRequest request)
+    {
+        var token = await _context.PasswordResetTokens.Where(prt => request.Token == prt.Token).FirstOrDefaultAsync();
+        if (token == null || token.IsUsed || token.ExpirationDate < DateTime.UtcNow) 
+            return new RespuestaDB { NumError = 1, Result = "Token no encontrado, expirado o utilizado"};
+        var user = await _context.Users.Where(u => u.Id == token.UserId).FirstOrDefaultAsync();
+        if (user == null)
+            return new RespuestaDB { NumError = 2, Result = "Usuario no encontrado" };
+        user.Password = request.NewPassword;
+        token.IsUsed = true;
+        await _context.SaveChangesAsync();
+        return new RespuestaDB { NumError = 0, Result = "Contraseña actualizada con éxito" };
     }
 }

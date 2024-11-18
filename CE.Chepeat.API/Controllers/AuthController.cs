@@ -1,4 +1,6 @@
 ﻿using CE.Chepeat.Domain.Aggregates.Auth;
+using CE.Chepeat.Domain.Aggregates.PasswordResetToken;
+using Microsoft.AspNetCore.Identity;
 using Newtonsoft.Json.Linq;
 
 /// Developer : Alexis Eduardo Santana Vega
@@ -176,6 +178,29 @@ public class AuthController : ApiController
     public async ValueTask<IActionResult> CerrarSesionTodos([FromBody] Guid id)
     {
         return Ok(await _appController.AuthPresenter.CerrarSesionTodos(id));
+    }
+
+
+    [HttpPost("PasswordRecovery")]
+    [Consumes(MediaTypeNames.Application.Json)]
+    [Produces(MediaTypeNames.Application.Json)]
+    [ProducesResponseType(typeof(string), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(string), StatusCodes.Status401Unauthorized)]
+    [ProducesResponseType(typeof(string), StatusCodes.Status500InternalServerError)]
+    public async ValueTask<IActionResult> PasswordRecovery([FromBody] string email)
+    {
+        return Ok(await _appController.AuthPresenter.RequestPasswordResetAsync(email));
+    }
+
+    [HttpPost("ResetPassword")]
+    [Consumes(MediaTypeNames.Application.Json)]
+    [Produces(MediaTypeNames.Application.Json)]
+    [ProducesResponseType(typeof(string), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(string), StatusCodes.Status401Unauthorized)]
+    [ProducesResponseType(typeof(string), StatusCodes.Status500InternalServerError)]
+    public async ValueTask<IActionResult> ResetPassword([FromBody] ResetPasswordRequest request)
+    {
+        return Ok(await _appController.AuthPresenter.ResetPasswordAsync(request));
     }
 
 }

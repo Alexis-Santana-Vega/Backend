@@ -65,16 +65,12 @@ public class SellerRequest
     [Required]
     public double Longitude { get; set; }
     
-    
-    [Required]
-    [FechaNoAnteriorAtributo(ErrorMessage = "La fecha de creación no puede ser anterior a la actual")]
+
     public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
     
-    
-    [Required]
-    [FechaNoAnteriorAtributo(ErrorMessage = "La fecha de actualización no puede ser anterior a la actual")]
+
     public DateTime UpdatedAt { get; set; } = DateTime.UtcNow;
     
-    
+
     public Guid IdUser { get; set; } = Guid.Empty;
 }

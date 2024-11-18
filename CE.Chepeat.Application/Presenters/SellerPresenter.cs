@@ -15,9 +15,20 @@ public class SellerPresenter : ISellerPresenter
         _unitRepository = unitRepository;
     }
 
-    public async Task<RespuestaDB> AddSeller(SellerRequest request)
+    public async Task<SellerResponse> AddSeller(SellerRequest request)
     {
-        return await _unitRepository.sellerInfraestructure.AddSeller(request);
+        var response = await _unitRepository.sellerInfraestructure.AddSeller(request);
+        var user = await _unitRepository.authInfraestructure.ObtenerPorId(request.IdUser);
+        if (user == null) return new SellerResponse { NumError = 1, Result = "Usuario no encontrado"};
+        var seller = await _unitRepository.sellerInfraestructure.SelectSellerById(Guid.Parse(response.Result));
+        if (user == null) return new SellerResponse { NumError = 1, Result = "Vendedor no encontrado" };
+        return new SellerResponse
+        {
+            NumError = 0,
+            Result = "Vendedor creado con éxito",
+            User = user,
+            Seller = seller
+        };
     }
 
     public async Task<RespuestaDB> DeleteSeller(Guid Id)
@@ -38,5 +49,10 @@ public class SellerPresenter : ISellerPresenter
     public async Task<RespuestaDB> UpdateSeller(SellerRequest request)
     {
         return await _unitRepository.sellerInfraestructure.UpdateSeller(request);
+    }
+
+    public async Task<Seller> SelectSellerByIdUser(Guid idUser)
+    {
+        return await _unitRepository.sellerInfraestructure.SelectSellerByIdUser(idUser);
     }
 }
