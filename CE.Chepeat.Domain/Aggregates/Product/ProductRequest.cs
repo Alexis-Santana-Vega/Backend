@@ -31,5 +31,8 @@ public class ProductRequest
     [StringLength(10, ErrorMessage = "Medida máxima 10 caracteres")]
     public string Measure { get; set; }
 
+    public string? ImagenUrl { get; set; } = null;
+
+    [Required]
     public Guid IdSeller { get; set; }
 }

@@ -38,11 +38,12 @@ public class ProductInfraestructure : IProductInfraestructure
                 new SqlParameter("Price", request.Price),
                 new SqlParameter("Stock", request.Stock),
                 new SqlParameter("Measure", request.Measure),
+                new SqlParameter("ImagenUrl", request.ImagenUrl),
                 new SqlParameter("IdSeller", request.IdSeller),
                 NumError,
                 Result
             };
-            string sqlQuery = "EXEC dbo.SP_Products_Insert @Name, @Description, @Price, @Stock, @Measure, @IdSeller, @NumError OUTPUT, @Result OUTPUT";
+            string sqlQuery = "EXEC dbo.SP_Products_Insert @Name, @Description, @Price, @Stock, @Measure, @ImagenUrl, @IdSeller, @NumError OUTPUT, @Result OUTPUT";
             var dataSP = await _context.respuestaDB.FromSqlRaw(sqlQuery, parameters).ToListAsync();
             return dataSP.FirstOrDefault();
         }
