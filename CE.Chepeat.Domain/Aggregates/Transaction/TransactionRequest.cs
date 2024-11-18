@@ -9,6 +9,5 @@ namespace CE.Chepeat.Domain.Aggregates.Transaction
     public class TransactionRequest
     {
         public Guid IdPurchaseRequest { get; set; }
-        public string Status { get; set; } = "COMPLETED";
     }
 }
