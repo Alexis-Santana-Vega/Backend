@@ -11,7 +11,7 @@ public class Product
     public string Measure { get; set; }
     public DateTime CreatedAt { get; set; }
     public DateTime UpdatedAt { get; set; }
-    public string ImagenUrl { get; set; }
+    public string? ImagenUrl { get; set; }
     public string Status { get; set; }
     public Guid IdSeller { get; set; }
 }
