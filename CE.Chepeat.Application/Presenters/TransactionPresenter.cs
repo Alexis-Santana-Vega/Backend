@@ -23,9 +23,9 @@ namespace CE.Chepeat.Application.Presenters
             return await _unitRepository.transactionInfraestructure.AddTransaction(transactionAggregate);
         }
 
-        public Task<RespuestaDB> CompleteTransaction(TransactionCompleteRequest request)
+        public async Task<RespuestaDB> CompleteTransaction(TransactionCompleteRequest request)
         {
-            throw new NotImplementedException();
+            return await _unitRepository.transactionInfraestructure.CompleteTransaction(request);
         }
 
         public async Task<RespuestaDB> GetTransactionStatus(Guid idTransaction)
