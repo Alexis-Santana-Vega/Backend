@@ -1,9 +1,10 @@
-﻿/// Developer : Nombre desarrollador
-/// Creation Date : 25/09/2024
-/// Creation Description:Dto class
-/// Update Date : --
-/// Update Description : --
-///CopyRight: Nombre proyecto
+﻿/// Developer : Alexis Eduardo Santana Vega
+/// Creation Date : 01/10/2024
+/// Creation Description : Modelo de peticion
+/// Update Date : -
+/// Update Description : -
+/// CopyRight : CE-Chepeat
+/// 
 namespace CE.Chepeat.Domain.DTOs
 {
     public class RespuestaDB

@@ -3,7 +3,7 @@
 /// Creation Description:Aggregate de Solicitud
 /// Update Date : 23/10/2024
 /// Update Description : --
-/// CopyRight: Chepeat
+/// CopyRight: CE-Chepeat
 
 namespace CE.Chepeat.Domain.Aggregates.PurchaseRequest
 {

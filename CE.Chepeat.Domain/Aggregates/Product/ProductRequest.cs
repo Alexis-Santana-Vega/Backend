@@ -1,9 +1,9 @@
 ﻿/// Developer : Hector Nuñez Cruz
 /// Creation Date : 20/10/2024
 /// Creation Description:DTO de Producto
-/// Update Date : --
-/// Update Description : --
-/// CopyRight: Chepeat
+/// Update Date : 15/10/2024
+/// Update Description : Implementacion de validaciones
+/// CopyRight: CE-Chepeat
 
 namespace CE.Chepeat.Domain.Aggregates.Product;
 

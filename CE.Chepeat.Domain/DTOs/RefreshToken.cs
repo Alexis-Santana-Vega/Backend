@@ -1,8 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿/// Developer : Alexis Eduardo Santana Vega
+/// Creation Date : 10/10/2024
+/// Creation Description : Modelo de peticion
+/// Update Date : -
+/// Update Description : -
+/// CopyRight : CE-Chepeat
 
 namespace CE.Chepeat.Domain.DTOs;
 public class RefreshToken
