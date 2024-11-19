@@ -85,7 +85,7 @@ public class AuthPresenter : IAuthPresenter
 
         return new RefreshTokenResponse
         {
-            NumError = 1,
+            NumError = 0,
             Result = "Has refrescado tu sesion con exito",
             Token = jwt,
             RefreshToken = newToken
@@ -160,7 +160,7 @@ public class AuthPresenter : IAuthPresenter
         Console.WriteLine(response.Result);
         
         return new LoginResponse {
-            NumError = 1,
+            NumError = 0,
             Result = "Has iniciado sesion con exito",
             Token = jwt,
             RefreshToken = refreshToken,
