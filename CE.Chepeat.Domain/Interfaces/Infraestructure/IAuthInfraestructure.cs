@@ -4,14 +4,27 @@ using CE.Chepeat.Domain.DTOs.PasswordToken;
 
 /// Developer : Alexis Eduardo Santana Vega
 /// Creation Date : 10/10/2024
-/// Creation Description:Interface
+/// Creation Description: Interface
 /// Update Date : --
 /// Update Description : --
-/// CopyRight: Chepeat
+/// CopyRight: CE-Chepeat
+
 namespace CE.Chepeat.Domain.Interfaces.Infraestructure;
 public interface IAuthInfraestructure
 {
+    /// <summary>
+    ///     Realiza el cambio de contraseña
+    /// </summary>
+    /// <returns>
+    ///     new RespuestaDB { NumError: 0, Result: "Mensaje de la BD" }
+    /// </returns>
     Task<RespuestaDB> ResetPasswordAsync(ResetPasswordRequest request);
+    /// <summary>
+    ///     Guarda un token temporal de cambio de contraseña en la base de datos
+    /// </summary>
+    /// <returns>
+    ///     new RespuestaDB { NumError: 0, Result: "Mensaje de la BD" }
+    /// </returns>
     Task<RespuestaDB> AddPasswordResetToken(PasswordResetToken passwordResetToken); 
     /// <summary>
     ///     Inhabilita los refresh tokens existentes del usuario para cerrar sesión

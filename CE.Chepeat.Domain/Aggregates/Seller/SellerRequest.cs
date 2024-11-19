@@ -64,13 +64,7 @@ public class SellerRequest
     
     [Required]
     public double Longitude { get; set; }
-    
 
-    public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
-    
-
-    public DateTime UpdatedAt { get; set; } = DateTime.UtcNow;
-    
 
     public Guid IdUser { get; set; } = Guid.Empty;
 }
