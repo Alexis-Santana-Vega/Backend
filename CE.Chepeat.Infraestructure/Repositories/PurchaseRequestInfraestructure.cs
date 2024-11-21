@@ -1,4 +1,5 @@
 ﻿using CE.Chepeat.Domain.Aggregates.PurchaseRequest;
+using CE.Chepeat.Domain.DTOs;
 using CE.Chepeat.Domain.DTOs.PurchaseRequest;
 using System;
 using System.Collections.Generic;
@@ -28,8 +29,16 @@ namespace CE.Chepeat.Infraestructure.Repositories
         {
             try
             {
-                return await _context.purchaseRequestDto.Where(pr => pr.IdProduct == id).ToListAsync();
-            } catch (Exception ex)
+                SqlParameter[] parameters =
+                {
+                    new SqlParameter("IdProduct", id)
+                };
+
+                string sqlQuery = "EXEC dbo.SP_PurchaseRequests_ViewByProduct @IdProduct";
+                var dataSP = await _context.purchaseRequestDto.FromSqlRaw(sqlQuery, parameters).ToListAsync();
+                return dataSP;
+            }
+            catch (SqlException ex)
             {
                 throw;
             }
