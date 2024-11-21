@@ -15,7 +15,8 @@ public class ProductPresenter : IProductPresenter
     {
         return new 
         {
-            Product = await _unitRepository.productInfraestructure.GetProductById(id)
+            Product = await _unitRepository.productInfraestructure.GetProductById(id),
+            PurchaseRequests = await _unitRepository.purchaseRequestInfraestructure.GetRequestsByProduct(id)
         };
     }
     /// <summary>

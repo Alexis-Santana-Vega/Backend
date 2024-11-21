@@ -21,6 +21,11 @@ namespace CE.Chepeat.Application.Presenters
             _mapper = mapper;
         }
 
+        public async Task<List<PurchaseRequestDto>> GetRequestsByProduct(Guid id)
+        {
+            return await _unitRepository.purchaseRequestInfraestructure.GetRequestsByProduct(id);
+        }
+
         public async Task<RespuestaDB> CreatePurchaseRequest(PurchaseRequestAggregate request)
         {
             return await _unitRepository.purchaseRequestInfraestructure.CreatePurchaseRequest(request);

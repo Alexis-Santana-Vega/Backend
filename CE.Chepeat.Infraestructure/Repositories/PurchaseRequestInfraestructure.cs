@@ -24,6 +24,17 @@ namespace CE.Chepeat.Infraestructure.Repositories
             _context = context;
         }
 
+        public async Task<List<PurchaseRequestDto>> GetRequestsByProduct(Guid id)
+        {
+            try
+            {
+                return await _context.purchaseRequestDto.Where(pr => pr.IdProduct == id).ToListAsync();
+            } catch (Exception ex)
+            {
+                throw;
+            }
+        }
+
         public async Task<RespuestaDB> CreatePurchaseRequest(PurchaseRequestAggregate request)
         {
             try
