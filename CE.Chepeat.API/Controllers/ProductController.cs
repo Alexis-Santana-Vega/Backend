@@ -11,6 +11,18 @@ public class ProductController : ApiController
 
     }
 
+    [HttpPost("GetProductDetails")]
+    [Consumes(MediaTypeNames.Application.Json)]
+    [Produces(MediaTypeNames.Application.Json)]
+    [ProducesResponseType(typeof(string), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(string), StatusCodes.Status401Unauthorized)]
+    [ProducesResponseType(typeof(string), StatusCodes.Status500InternalServerError)]
+    [Authorize]
+    public async ValueTask<IActionResult> GetProductDetails([FromBody] Guid id)
+    {
+        return Ok(await _appController.ProductPresenter.GetProductDetails(id));
+    }
+
     [HttpPost("GetProducts")]
     [Consumes(MediaTypeNames.Application.Json)]
     [Produces(MediaTypeNames.Application.Json)]
