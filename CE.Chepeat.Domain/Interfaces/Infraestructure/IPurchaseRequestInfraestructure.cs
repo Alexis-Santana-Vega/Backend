@@ -13,6 +13,7 @@ namespace CE.Chepeat.Domain.Interfaces.Infraestructure
 {
     public interface IPurchaseRequestInfraestructure
     {
+        Task<PurchaseRequestDto> GetRequestById(Guid id);
         Task<List<PurchaseRequestDto>> GetRequestsByProduct(Guid id);
         /// <summary>
         /// Solicitud de compra

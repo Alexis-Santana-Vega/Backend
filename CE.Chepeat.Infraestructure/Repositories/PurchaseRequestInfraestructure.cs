@@ -25,6 +25,25 @@ namespace CE.Chepeat.Infraestructure.Repositories
             _context = context;
         }
 
+        public async Task<PurchaseRequestDto> GetRequestById(Guid id)
+        {
+            try
+            {
+                SqlParameter[] parameters =
+                {
+                    new SqlParameter("Id", id)
+                };
+
+                string sqlQuery = "EXEC dbo.SP_PurchaseRequests_ViewById @Id";
+                var dataSP = await _context.purchaseRequestDto.FromSqlRaw(sqlQuery, parameters).ToListAsync();
+                return dataSP.FirstOrDefault();
+            }
+            catch (SqlException ex)
+            {
+                throw;
+            }
+        }
+
         public async Task<List<PurchaseRequestDto>> GetRequestsByProduct(Guid id)
         {
             try

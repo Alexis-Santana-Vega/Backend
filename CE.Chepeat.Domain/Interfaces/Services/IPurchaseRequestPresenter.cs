@@ -10,6 +10,7 @@ namespace CE.Chepeat.Domain.Interfaces.Services
 {
     public interface IPurchaseRequestPresenter
     {
+        Task<PurchaseRequestDto> GetRequestById(Guid id);
         Task<List<PurchaseRequestDto>> GetRequestsByProduct(Guid id);
         /// <summary>
         /// Solicitud de compra
