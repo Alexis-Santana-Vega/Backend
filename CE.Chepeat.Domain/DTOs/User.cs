@@ -1,9 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿/// Developer : Alexis Eduardo Santana Vega
+/// Creation Date : 01/10/2024
+/// Creation Description : Modelo de peticion
+/// Update Date : -
+/// Update Description : -
+/// CopyRight : CE-Chepeat
+
+
 using System.Text.Json.Serialization;
-using System.Threading.Tasks;
 
 namespace CE.Chepeat.Domain.DTOs;
 public class User

@@ -6,12 +6,24 @@ using CE.Chepeat.Domain.Aggregates.PasswordResetToken;
 /// Creation Description:Interface
 /// Update Date : --
 /// Update Description : --
-/// CopyRight: Chepeat
+/// CopyRight: CE-Chepeat
 
 namespace CE.Chepeat.Domain.Interfaces.Services;
 public interface IAuthPresenter
 {
+    /// <summary>
+    ///     Realiza el cambio de contraseña
+    /// </summary>
+    /// <returns>
+    ///     new RespuestaDB { NumError: 0, Result: "Mensaje de la BD" }
+    /// </returns>
     Task<RespuestaDB> ResetPasswordAsync(ResetPasswordRequest request);
+    /// <summary>
+    ///     Envia una solicitud de cambio de contraseña junto con un correo
+    /// </summary>
+    /// <returns>
+    ///     new RespuestaDB { NumError: 0, Result: "Mensaje de la BD" }
+    /// </returns>
     Task<RespuestaDB> RequestPasswordResetAsync(string email);
     /// <summary>
     ///     Inhabilita los refresh tokens existentes del usuario para cerrar sesión

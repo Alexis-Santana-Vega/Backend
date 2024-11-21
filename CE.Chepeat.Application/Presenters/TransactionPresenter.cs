@@ -23,6 +23,11 @@ namespace CE.Chepeat.Application.Presenters
             return await _unitRepository.transactionInfraestructure.AddTransaction(transactionAggregate);
         }
 
+        public async Task<RespuestaDB> CompleteTransaction(TransactionCompleteRequest request)
+        {
+            return await _unitRepository.transactionInfraestructure.CompleteTransaction(request);
+        }
+
         public async Task<RespuestaDB> GetTransactionStatus(Guid idTransaction)
         {
             return await _unitRepository.transactionInfraestructure.GetTransactionStatus(idTransaction);

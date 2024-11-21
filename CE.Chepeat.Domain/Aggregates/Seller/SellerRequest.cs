@@ -1,9 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using CE.Chepeat.Domain.ValidationAttributes;
+﻿/// Developer : Alexis Eduardo Santana Vega
+/// Creation Date : 20/10/2024
+/// Creation Description : Modelo de peticion
+/// Update Date : 20/10/2024
+/// Update Description : Implementacion de validaciones
+/// CopyRight : CE-Chepeat
 
 namespace CE.Chepeat.Domain.Aggregates.Seller;
 public class SellerRequest
@@ -64,13 +64,7 @@ public class SellerRequest
     
     [Required]
     public double Longitude { get; set; }
-    
 
-    public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
-    
-
-    public DateTime UpdatedAt { get; set; } = DateTime.UtcNow;
-    
 
     public Guid IdUser { get; set; } = Guid.Empty;
 }

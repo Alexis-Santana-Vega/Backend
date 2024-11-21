@@ -18,6 +18,8 @@ namespace CE.Chepeat.Domain.Interfaces.Infraestructure
         /// Obtiene el estado de una transacción
         /// </summary>
         Task<RespuestaDB> GetTransactionStatus(Guid idTransaction);
+
+        Task<RespuestaDB> CompleteTransaction(TransactionCompleteRequest request);
     }
 }
 

@@ -1,8 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿/// Developer : Alexis Eduardo Santana Vega
+/// Creation Date : 09/10/2024
+/// Creation Description : Modelo de petición
+/// Update Date : 11/10/2024
+/// Update Description : Generacion de clases
+/// CopyRight : CE-Chepeat
 
 namespace CE.Chepeat.Domain.Aggregates.Auth;
 public class LoginResponse

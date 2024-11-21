@@ -37,11 +37,46 @@ namespace CE.Chepeat.Infraestructure.Repositories
                 SqlParameter[] parameters =
                 {
                 new SqlParameter("IdPurchaseRequest", transactionAggregate.IdPurchaseRequest),
-                new SqlParameter("Status", transactionAggregate.Status),
                 NumError,
                 Result
             };
-                string sqlQuery = "EXEC dbo.SP_Transaction_Add @IdPurchaseRequest, @Status, @NumError OUTPUT, @Result OUTPUT";
+                string sqlQuery = "EXEC dbo.SP_Transaction_Add @IdPurchaseRequest, @NumError OUTPUT, @Result OUTPUT";
+                var dataSP = await _context.respuestaDB.FromSqlRaw(sqlQuery, parameters).ToListAsync();
+                return dataSP.FirstOrDefault();
+            }
+            catch (SqlException ex)
+            {
+                throw;
+            }
+        }
+
+        public async Task<RespuestaDB> CompleteTransaction(TransactionCompleteRequest request)
+        {
+            try
+            {
+                var NumError = new SqlParameter
+                {
+                    ParameterName = "NumError",
+                    SqlDbType = SqlDbType.Int,
+                    Direction = ParameterDirection.Output
+                };
+                var Result = new SqlParameter
+                {
+                    ParameterName = "Result",
+                    SqlDbType = SqlDbType.VarChar,
+                    Size = 100,
+                    Direction = ParameterDirection.Output
+                };
+
+                SqlParameter[] parameters =
+                {
+                new SqlParameter("Id", request.Id),
+                new SqlParameter("WasDelivered", request.WasDelivered),
+                new SqlParameter("WasPaid", request.WasPaid),
+                NumError,
+                Result
+            };
+                string sqlQuery = "EXEC dbo.SP_Transaction_CompleteTransaction @Id, @WasDelivered, @WasPaid, @NumError OUTPUT, @Result OUTPUT";
                 var dataSP = await _context.respuestaDB.FromSqlRaw(sqlQuery, parameters).ToListAsync();
                 return dataSP.FirstOrDefault();
             }

@@ -7,9 +7,21 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+	  <Compile Remove="Aggregates\Image\**" />
+	  <Compile Remove="Constants\**" />
 	  <Compile Remove="DTOs\User\**" />
+	  <Compile Remove="Enums\**" />
+	  <Compile Remove="Updated\**" />
+	  <EmbeddedResource Remove="Aggregates\Image\**" />
+	  <EmbeddedResource Remove="Constants\**" />
 	  <EmbeddedResource Remove="DTOs\User\**" />
+	  <EmbeddedResource Remove="Enums\**" />
+	  <EmbeddedResource Remove="Updated\**" />
+	  <None Remove="Aggregates\Image\**" />
+	  <None Remove="Constants\**" />
 	  <None Remove="DTOs\User\**" />
+	  <None Remove="Enums\**" />
+	  <None Remove="Updated\**" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -23,11 +35,7 @@
 
 
 	<ItemGroup>
-		<Folder Include="Aggregates\Image\" />
-		<Folder Include="Constants\" />
 		<Folder Include="DTOs\Auth\" />
-		<Folder Include="Enums\" />
-		<Folder Include="Updated\" />
 	</ItemGroup>
 
 </Project>
