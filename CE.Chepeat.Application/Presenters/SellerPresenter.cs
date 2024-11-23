@@ -17,10 +17,12 @@ public class SellerPresenter : ISellerPresenter
 
     public async Task<object> GetSellerDetails(Guid id)
     {
+        var seller = await _unitRepository.sellerInfraestructure.SelectSellerById(id);
+        var comments = await _unitRepository.commentInfraestructure.GetCommentsBySeller(id);
         return new
         {
-            Seller = SelectSellerById(id),
-            Comments = _unitRepository.commentInfraestructure.GetCommentsBySeller(id)
+            Seller = seller,
+            Comments = comments
         };
     }
 
