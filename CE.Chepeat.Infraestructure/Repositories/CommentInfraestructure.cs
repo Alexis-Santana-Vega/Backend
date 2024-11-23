@@ -17,6 +17,24 @@ namespace CE.Chepeat.Infraestructure.Repositories
             _context = context;
         }
 
+        public async Task<List<PublicComment>> GetCommentsBySeller(Guid id)
+        {
+            try
+            {
+                SqlParameter[] parameters =
+                {
+                new SqlParameter("IdSeller", id)
+                };
+
+                string sqlQuery = "EXEC dbo.SP_Comments_CommentsBySeller @IdSeller";
+                return await _context.PublicComments.FromSqlRaw(sqlQuery, parameters).ToListAsync();
+            }
+            catch (SqlException ex)
+            {
+                throw;
+            }
+        }
+
         public async Task<Comments> GetCommentById(Guid id)
         {
             try

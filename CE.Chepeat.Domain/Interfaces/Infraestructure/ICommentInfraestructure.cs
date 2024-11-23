@@ -16,5 +16,6 @@ namespace CE.Chepeat.Domain.Interfaces.Infraestructure
         Task<RespuestaDB> UpdateCommentMessage(UpdateCommentMessageAggregate updateMessage);
         Task<RespuestaDB> UpdateCommentRating(UpdateCommentRatingAggregate updateRating);
         Task<Comments> GetCommentById(Guid id);
+        Task<List<PublicComment>> GetCommentsBySeller(Guid id);
     }
 }

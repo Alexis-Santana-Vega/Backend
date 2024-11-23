@@ -30,6 +30,7 @@ public class ChepeatContext : DbContext
     public DbSet<Comments> Comments { get; set; }
     public DbSet<PasswordResetToken> PasswordResetTokens { get; set; }
     public DbSet<SalesHistory> SalesHistoy { get; set; }
+    public DbSet<PublicComment> PublicComments { get; set; }
     #endregion
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {

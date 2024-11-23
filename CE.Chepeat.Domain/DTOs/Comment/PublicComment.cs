@@ -6,4 +6,5 @@ public class PublicComment
     public decimal Rating { get; set; }
     public DateTime CreatedAt { get; set; }
     public string BuyerName { get; set; }
+    public string SellerName { get; set; }
 }

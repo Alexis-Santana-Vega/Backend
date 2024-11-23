@@ -18,7 +18,10 @@ namespace CE.Chepeat.Application.Presenters
             _unitRepository = unitRepository;
             _mapper = mapper;
         }
-
+        public async Task<List<PublicComment>> GetCommentsBySeller(Guid id)
+        {
+            return await _unitRepository.commentInfraestructure.GetCommentsBySeller(id);
+        }
         public async Task<Comments> GetCommentById(Guid id)
         {
             return await _unitRepository.commentInfraestructure.GetCommentById(id);
