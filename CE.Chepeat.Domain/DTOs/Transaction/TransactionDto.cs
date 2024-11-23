@@ -14,5 +14,7 @@ namespace CE.Chepeat.Domain.DTOs.Transaction
         public Guid IdPurchaseRequest { get; set; }
         public DateTime TransactionDate { get; set; }
         public string Status { get; set; }
+        public string ProductName { get; set; }
+        public string BuyerName { get; set; }
     }
 }

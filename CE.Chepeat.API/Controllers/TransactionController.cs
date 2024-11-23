@@ -44,5 +44,27 @@ namespace CE.Chepeat.API.Controllers
         {
             return Ok(await _appController.TransactionPresenter.CompleteTransaction(request));
         }
+
+        [HttpPost("ViewBySeller")]
+        [Consumes(MediaTypeNames.Application.Json)]
+        [Produces(MediaTypeNames.Application.Json)]
+        [ProducesResponseType(typeof(string), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(string), StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(typeof(string), StatusCodes.Status500InternalServerError)]
+        public async ValueTask<IActionResult> ViewBySeller([FromBody] Guid id)
+        {
+            return Ok(await _appController.TransactionPresenter.GetTransactionsBySeller(id));
+        }
+
+        [HttpPost("ViewByBuyer")]
+        [Consumes(MediaTypeNames.Application.Json)]
+        [Produces(MediaTypeNames.Application.Json)]
+        [ProducesResponseType(typeof(string), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(string), StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(typeof(string), StatusCodes.Status500InternalServerError)]
+        public async ValueTask<IActionResult> ViewByBuyer([FromBody] Guid id)
+        {
+            return Ok(await _appController.TransactionPresenter.GetTransactionsByBuyer(id));
+        }
     }
 }
