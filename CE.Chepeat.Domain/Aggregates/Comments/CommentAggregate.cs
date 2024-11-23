@@ -16,8 +16,7 @@ namespace CE.Chepeat.Domain.Aggregates.Comments
 
     public class UpdateCommentMessageAggregate
     {
-        public Guid CommentId { get; set; }
-        public Guid IdUser { get; set; }
+        public Guid Id { get; set; }
         public string NewMessage { get; set; }
         public decimal NewRating { get; set; }
     }
