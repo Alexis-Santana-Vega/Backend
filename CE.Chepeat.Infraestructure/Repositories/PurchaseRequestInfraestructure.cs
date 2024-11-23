@@ -1,4 +1,5 @@
 ﻿using CE.Chepeat.Domain.Aggregates.PurchaseRequest;
+using CE.Chepeat.Domain.DTOs;
 using CE.Chepeat.Domain.DTOs.PurchaseRequest;
 using System;
 using System.Collections.Generic;
@@ -22,6 +23,44 @@ namespace CE.Chepeat.Infraestructure.Repositories
         public PurchaseRequestInfraestructure(ChepeatContext context)
         {
             _context = context;
+        }
+
+        public async Task<PurchaseRequestDto> GetRequestById(Guid id)
+        {
+            try
+            {
+                SqlParameter[] parameters =
+                {
+                    new SqlParameter("Id", id)
+                };
+
+                string sqlQuery = "EXEC dbo.SP_PurchaseRequests_ViewById @Id";
+                var dataSP = await _context.purchaseRequestDto.FromSqlRaw(sqlQuery, parameters).ToListAsync();
+                return dataSP.FirstOrDefault();
+            }
+            catch (SqlException ex)
+            {
+                throw;
+            }
+        }
+
+        public async Task<List<PurchaseRequestDto>> GetRequestsByProduct(Guid id)
+        {
+            try
+            {
+                SqlParameter[] parameters =
+                {
+                    new SqlParameter("IdProduct", id)
+                };
+
+                string sqlQuery = "EXEC dbo.SP_PurchaseRequests_ViewByProduct @IdProduct";
+                var dataSP = await _context.purchaseRequestDto.FromSqlRaw(sqlQuery, parameters).ToListAsync();
+                return dataSP;
+            }
+            catch (SqlException ex)
+            {
+                throw;
+            }
         }
 
         public async Task<RespuestaDB> CreatePurchaseRequest(PurchaseRequestAggregate request)

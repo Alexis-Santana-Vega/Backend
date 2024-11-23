@@ -246,7 +246,7 @@ public class AuthPresenter : IAuthPresenter
         {
             To = email,
             Subject = "Recuperación de contraseña",
-            ModelData = new { Link = $"https://backend-j959.onrender.com/api/Auth/PasswordRecovery?token={token.Token}" }
+            ModelData = new { Link = $"https://localhost:3000/newContra?token={token.Token}" }
         };
         string templatePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Templates", "TemplatePassword.cshtml");
         if (!File.Exists(templatePath))
