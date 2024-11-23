@@ -9,6 +9,7 @@ namespace CE.Chepeat.Domain.DTOs.Comment
 {
     public class CommentDto
     {
+        [Key]
         public Guid Id { get; set; }
         public Guid IdSeller { get; set; }
         public Guid IdBuyer { get; set; }
