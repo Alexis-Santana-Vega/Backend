@@ -36,16 +36,15 @@ namespace CE.Chepeat.Infraestructure.Repositories
 
                 SqlParameter[] parameters =
                 {
-                new SqlParameter("IdUser", commentAggregate.IdUser),
-                new SqlParameter("IdSeller", commentAggregate.IdSeller),
                 new SqlParameter("IdTransaction", commentAggregate.IdTransaction),
                 new SqlParameter("Message", commentAggregate.Message),
                 new SqlParameter("Rating", commentAggregate.Rating),
+                new SqlParameter("CreatedAt", DateTime.UtcNow),
                 NumError,
                 Result
             };
 
-                string sqlQuery = "EXEC dbo.SP_Comments_Add @IdUser, @IdSeller, @IdTransaction, @Message, @Rating, @NumError OUTPUT, @Result OUTPUT";
+                string sqlQuery = "EXEC dbo.SP_Comments_Add @IdTransaction, @Message, @Rating, @CreatedAt, @NumError OUTPUT, @Result OUTPUT";
                 var dataSP = await _context.respuestaDB.FromSqlRaw(sqlQuery, parameters).ToListAsync();
                 return dataSP.FirstOrDefault();
             }

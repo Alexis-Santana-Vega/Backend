@@ -9,9 +9,6 @@ namespace CE.Chepeat.Domain.Aggregates.Comments
 {
     public class CommentAggregate
     {
-        public Guid Id { get; set; }
-        public Guid IdUser { get; set; }
-        public Guid IdSeller { get; set; }
         public Guid IdTransaction { get; set; }
         public string Message { get; set; }
         public decimal Rating { get; set; }
