@@ -1,4 +1,5 @@
 ﻿using CE.Chepeat.Domain.Aggregates.Comments;
+using CE.Chepeat.Domain.DTOs.Comment;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,6 +15,18 @@ namespace CE.Chepeat.Infraestructure.Repositories
         public CommentInfraestructure(ChepeatContext context)
         {
             _context = context;
+        }
+
+        public async Task<CommentDto> GetCommentById(Guid id)
+        {
+            try
+            {
+                var comment = await _context.commentDto.Where(c => c.Id == id).ToListAsync();
+                return comment.FirstOrDefault();
+            } catch (Exception ex)
+            {
+                throw;
+            }
         }
 
         public async Task<RespuestaDB> AddComment(CommentAggregate commentAggregate)

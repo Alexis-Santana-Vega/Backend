@@ -69,6 +69,18 @@ namespace CE.Chepeat.API.Controllers
             return Ok(await _appController.CommentPresenter.UpdateCommentMessage(updateMessage));
         }
 
-        
+
+        [HttpPost("GetCommentById")]
+        [Consumes(MediaTypeNames.Application.Json)]
+        [Produces(MediaTypeNames.Application.Json)]
+        [ProducesResponseType(typeof(RespuestaDB), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(typeof(string), StatusCodes.Status500InternalServerError)]
+        [Authorize]
+        public async ValueTask<IActionResult> GetCommentById([FromBody] Guid id)
+        {
+            return Ok(await _appController.CommentPresenter.GetCommentById(id));
+        }
+
     }
 }
