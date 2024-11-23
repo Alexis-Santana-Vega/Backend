@@ -27,7 +27,8 @@ namespace CE.Chepeat.Infraestructure.Repositories
                 };
 
                 string sqlQuery = "EXEC dbo.SP_Comments_CommentsBySeller @IdSeller";
-                return await _context.PublicComments.FromSqlRaw(sqlQuery, parameters).ToListAsync();
+                var sp = await _context.PublicComments.FromSqlRaw(sqlQuery, parameters).ToListAsync();
+                return sp;
             }
             catch (SqlException ex)
             {
