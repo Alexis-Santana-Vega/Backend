@@ -10,6 +10,7 @@ namespace CE.Chepeat.Domain.Interfaces.Infraestructure
 {
     public interface ITransactionInfraestructure
     {
+        Task<List<TransactionDto>> GetSalesHistoryBySeller(Guid idSeller);
         Task<List<TransactionDto>> GetTransactionsByBuyer(Guid id);
         Task<List<TransactionDto>> GetTransactionsBySeller(Guid id);
         /// <summary>

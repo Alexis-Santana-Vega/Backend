@@ -17,6 +17,24 @@ namespace CE.Chepeat.Infraestructure.Repositories
         {
             _context = context;
         }
+        public async Task<List<TransactionDto>> GetSalesHistoryBySeller(Guid idSeller)
+        {
+            try
+            {
+                SqlParameter[] parameters =
+                {
+                    new SqlParameter("IdSeller", idSeller)
+                };
+
+                string sqlQuery = "EXEC dbo.SP_Transaction_SalesHistoryBySeller @IdSeller";
+                var dataSP = await _context.transactionDto.FromSqlRaw(sqlQuery, parameters).ToListAsync();
+                return dataSP;
+            }
+            catch (SqlException ex)
+            {
+                throw;
+            }
+        }
 
         public async Task<List<TransactionDto>> GetTransactionsBySeller(Guid id)
         {
