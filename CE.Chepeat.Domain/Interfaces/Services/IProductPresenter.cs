@@ -4,6 +4,7 @@ using CE.Chepeat.Domain.DTOs.Product;
 namespace CE.Chepeat.Domain.Interfaces.Services;
 public interface IProductPresenter
 {
+    public Task<object> GetProductDetails(Guid id);
     /// <summary>
     /// Consulta todos los productos en cierto radio
     /// </summary>

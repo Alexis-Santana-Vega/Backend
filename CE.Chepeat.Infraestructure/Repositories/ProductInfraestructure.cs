@@ -38,11 +38,12 @@ public class ProductInfraestructure : IProductInfraestructure
                 new SqlParameter("Price", request.Price),
                 new SqlParameter("Stock", request.Stock),
                 new SqlParameter("Measure", request.Measure),
+                new SqlParameter("ImagenUrl", request.ImagenUrl),
                 new SqlParameter("IdSeller", request.IdSeller),
                 NumError,
                 Result
             };
-            string sqlQuery = "EXEC dbo.SP_Products_Insert @Name, @Description, @Price, @Stock, @Measure, @IdSeller, @NumError OUTPUT, @Result OUTPUT";
+            string sqlQuery = "EXEC dbo.SP_Products_Insert @Name, @Description, @Price, @Stock, @Measure, @ImagenUrl, @IdSeller, @NumError OUTPUT, @Result OUTPUT";
             var dataSP = await _context.respuestaDB.FromSqlRaw(sqlQuery, parameters).ToListAsync();
             return dataSP.FirstOrDefault();
         }
@@ -194,10 +195,11 @@ public class ProductInfraestructure : IProductInfraestructure
                 new SqlParameter("Price", request.Price),
                 new SqlParameter("Stock", request.Stock),
                 new SqlParameter("Measure", request.Measure),
+                new SqlParameter("ImagenUrl", request.ImagenUrl),
                 NumError,
                 Result
             };
-            string sqlQuery = "EXEC dbo.SP_Products_Update @Id, @Name, @Description, @Price, @Stock, @Measure, @NumError OUTPUT, @Result OUTPUT";
+            string sqlQuery = "EXEC dbo.SP_Products_Update @Id, @Name, @Description, @Price, @Stock, @Measure, @ImagenUrl, @NumError OUTPUT, @Result OUTPUT";
             var dataSP = await _context.respuestaDB.FromSqlRaw(sqlQuery, parameters).ToListAsync();
             return dataSP.FirstOrDefault();
         }

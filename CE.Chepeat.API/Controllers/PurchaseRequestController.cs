@@ -13,6 +13,30 @@ namespace CE.Chepeat.API.Controllers
         {
         }
 
+        [HttpPost("GetRequestById")]
+        [Consumes(MediaTypeNames.Application.Json)]
+        [Produces(MediaTypeNames.Application.Json)]
+        [ProducesResponseType(typeof(string), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(string), StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(typeof(string), StatusCodes.Status500InternalServerError)]
+        [Authorize(Policy = "BUYER")]
+        public async ValueTask<IActionResult> GetRequestById([FromBody] Guid id)
+        {
+            return Ok(await _appController.PurchaseRequestPresenter.GetRequestById(id));
+        }
+
+        [HttpPost("GetRequestsByProduct")]
+        [Consumes(MediaTypeNames.Application.Json)]
+        [Produces(MediaTypeNames.Application.Json)]
+        [ProducesResponseType(typeof(string), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(string), StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(typeof(string), StatusCodes.Status500InternalServerError)]
+        [Authorize(Policy = "BUYER")]
+        public async ValueTask<IActionResult> GetRequestsByProduct([FromBody] Guid id)
+        {
+            return Ok(await _appController.PurchaseRequestPresenter.GetRequestsByProduct(id));
+        }
+
         [HttpPost("Create")]
         [Consumes(MediaTypeNames.Application.Json)]
         [Produces(MediaTypeNames.Application.Json)]

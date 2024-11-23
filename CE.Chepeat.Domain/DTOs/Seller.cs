@@ -1,7 +1,9 @@
-﻿using NetTopologySuite.Geometries;
-using Microsoft.EntityFrameworkCore;
-using NetTopologySuite.IO;
-using System.Text.Json.Serialization;
+﻿/// Developer : Alexis Eduardo Santana Vega
+/// Creation Date : 08/10/2024
+/// Creation Description : Modelo de peticion
+/// Update Date : -
+/// Update Description : -
+/// CopyRight : CE-Chepeat
 
 namespace CE.Chepeat.Domain.DTOs;
 public class Seller

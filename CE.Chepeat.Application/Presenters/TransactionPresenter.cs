@@ -1,4 +1,5 @@
 ﻿using CE.Chepeat.Domain.Aggregates.Transaction;
+using CE.Chepeat.Domain.DTOs.Transaction;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,9 +19,24 @@ namespace CE.Chepeat.Application.Presenters
             _mapper = mapper;
         }
 
+        public async Task<List<TransactionDto>> GetTransactionsByBuyer(Guid id)
+        {
+            return await _unitRepository.transactionInfraestructure.GetTransactionsByBuyer(id);
+        }
+
+        public async Task<List<TransactionDto>> GetTransactionsBySeller(Guid id)
+        {
+            return await _unitRepository.transactionInfraestructure.GetTransactionsBySeller(id);
+        }
+
         public async Task<RespuestaDB> AddTransaction(TransactionRequest transactionAggregate)
         {
             return await _unitRepository.transactionInfraestructure.AddTransaction(transactionAggregate);
+        }
+
+        public async Task<RespuestaDB> CompleteTransaction(TransactionCompleteRequest request)
+        {
+            return await _unitRepository.transactionInfraestructure.CompleteTransaction(request);
         }
 
         public async Task<RespuestaDB> GetTransactionStatus(Guid idTransaction)

@@ -1,9 +1,11 @@
-﻿using CE.Chepeat.Domain.Aggregates.Comments;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿/// Developer : Hector Nuñez Cruz
+/// Creation Date : 01/11/2024
+/// Creation Description:Interface
+/// Update Date : --
+/// Update Description : --
+/// CopyRight: CE-Chepeat
+
+using CE.Chepeat.Domain.Aggregates.Comments;
 
 namespace CE.Chepeat.Domain.Interfaces.Services
 {

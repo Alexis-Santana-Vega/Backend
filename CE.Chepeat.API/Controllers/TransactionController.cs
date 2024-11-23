@@ -33,5 +33,16 @@ namespace CE.Chepeat.API.Controllers
         {
             return Ok(await _appController.TransactionPresenter.GetTransactionStatus(idTransaction));
         }
+
+        [HttpPost("CompleteTransaction")]
+        [Consumes(MediaTypeNames.Application.Json)]
+        [Produces(MediaTypeNames.Application.Json)]
+        [ProducesResponseType(typeof(string), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(string), StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(typeof(string), StatusCodes.Status500InternalServerError)]
+        public async ValueTask<IActionResult> CompleteTransaction([FromBody] TransactionCompleteRequest request)
+        {
+            return Ok(await _appController.TransactionPresenter.CompleteTransaction(request));
+        }
     }
 }

@@ -1,5 +1,6 @@
 ﻿
 using CE.Chepeat.Domain.Aggregates.PurchaseRequest;
+using CE.Chepeat.Domain.DTOs.Product;
 using CE.Chepeat.Domain.DTOs.PurchaseRequest;
 
 /// Developer : Hector Nuñez Cruz
@@ -12,6 +13,8 @@ namespace CE.Chepeat.Domain.Interfaces.Infraestructure
 {
     public interface IPurchaseRequestInfraestructure
     {
+        Task<PurchaseRequestDto> GetRequestById(Guid id);
+        Task<List<PurchaseRequestDto>> GetRequestsByProduct(Guid id);
         /// <summary>
         /// Solicitud de compra
         /// </summary>

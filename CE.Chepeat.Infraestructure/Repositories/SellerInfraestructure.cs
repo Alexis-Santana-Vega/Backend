@@ -186,7 +186,7 @@ public class SellerInfraestructure : ISellerInfraestructure
                 new SqlParameter("AddressNotes", request.AddressNotes),
                 new SqlParameter("Latitude", request.Latitude),
                 new SqlParameter("Longitude", request.Longitude),
-                new SqlParameter("UpdatedAt", request.UpdatedAt),
+                new SqlParameter("UpdatedAt", DateTime.UtcNow),
                 NumError,
                 Result
             };

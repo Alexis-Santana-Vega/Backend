@@ -11,6 +11,14 @@ public class ProductPresenter : IProductPresenter
     {
         _unitRepository = unitRepository;
     }
+    public async Task<object> GetProductDetails(Guid id)
+    {
+        return new 
+        {
+            Product = await _unitRepository.productInfraestructure.GetProductById(id),
+            PurchaseRequests = await _unitRepository.purchaseRequestInfraestructure.GetRequestsByProduct(id)
+        };
+    }
     /// <summary>
     /// Consulta un registro de la tabla CE_Products
     /// </summary>
