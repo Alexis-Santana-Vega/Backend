@@ -29,6 +29,7 @@ public class ChepeatContext : DbContext
     public DbSet<TransactionDto> transactionDto { get; set; }
     public DbSet<CommentDto> commentDto { get; set; }
     public DbSet<PasswordResetToken> PasswordResetTokens { get; set; }
+    public DbSet<SalesHistory> SalesHistoy { get; set; }
     #endregion
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
