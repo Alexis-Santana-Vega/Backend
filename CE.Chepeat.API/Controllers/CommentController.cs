@@ -57,29 +57,18 @@ namespace CE.Chepeat.API.Controllers
         ///         "newMessage": "Actualización del comentario"
         ///     }
         /// </remarks>
-        [HttpPost("UpdateMessage")]
+        [HttpPost("UpdateComment")]
         [Consumes(MediaTypeNames.Application.Json)]
         [Produces(MediaTypeNames.Application.Json)]
         [ProducesResponseType(typeof(RespuestaDB), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(string), StatusCodes.Status500InternalServerError)]
         [Authorize]
-        public async ValueTask<IActionResult> UpdateCommentMessage([FromBody] UpdateCommentMessageAggregate updateMessage)
+        public async ValueTask<IActionResult> UpdateComment([FromBody] UpdateCommentMessageAggregate updateMessage)
         {
             return Ok(await _appController.CommentPresenter.UpdateCommentMessage(updateMessage));
         }
 
         
-        [HttpPost("UpdateRating")]
-        [Consumes(MediaTypeNames.Application.Json)]
-        [Produces(MediaTypeNames.Application.Json)]
-        [ProducesResponseType(typeof(RespuestaDB), StatusCodes.Status200OK)]
-        [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
-        [ProducesResponseType(typeof(string), StatusCodes.Status500InternalServerError)]
-        [Authorize]
-        public async ValueTask<IActionResult> UpdateCommentRating([FromBody] UpdateCommentRatingAggregate updateRating)
-        {
-            return Ok(await _appController.CommentPresenter.UpdateCommentRating(updateRating));
-        }
     }
 }
