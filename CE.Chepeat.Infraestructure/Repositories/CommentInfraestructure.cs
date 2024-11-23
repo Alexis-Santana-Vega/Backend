@@ -17,11 +17,11 @@ namespace CE.Chepeat.Infraestructure.Repositories
             _context = context;
         }
 
-        public async Task<CommentDto> GetCommentById(Guid id)
+        public async Task<Comments> GetCommentById(Guid id)
         {
             try
             {
-                var comment = await _context.commentDto.Where(c => c.Id == id).ToListAsync();
+                var comment = await _context.Comments.Where(c => c.Id == id).ToListAsync();
                 return comment.FirstOrDefault();
             } catch (Exception ex)
             {

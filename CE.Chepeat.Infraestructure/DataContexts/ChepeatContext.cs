@@ -27,7 +27,7 @@ public class ChepeatContext : DbContext
     public DbSet<Product> Products { get; set; }
     public DbSet<PurchaseRequestDto> purchaseRequestDto { get; set; }
     public DbSet<TransactionDto> transactionDto { get; set; }
-    public DbSet<CommentDto> commentDto { get; set; }
+    public DbSet<Comments> Comments { get; set; }
     public DbSet<PasswordResetToken> PasswordResetTokens { get; set; }
     public DbSet<SalesHistory> SalesHistoy { get; set; }
     #endregion

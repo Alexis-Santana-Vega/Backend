@@ -15,6 +15,6 @@ namespace CE.Chepeat.Domain.Interfaces.Services
         Task<RespuestaDB> AddComment(CommentAggregate commentAggregate);
         Task<RespuestaDB> UpdateCommentMessage(UpdateCommentMessageAggregate updateMessage);
         Task<RespuestaDB> UpdateCommentRating(UpdateCommentRatingAggregate updateRating);
-        Task<CommentDto> GetCommentById(Guid id);
+        Task<Comments> GetCommentById(Guid id);
     }
 }
