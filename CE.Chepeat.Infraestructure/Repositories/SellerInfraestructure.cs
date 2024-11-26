@@ -96,7 +96,7 @@ public class SellerInfraestructure : ISellerInfraestructure
     }
 
     public async Task<Seller> SelectSellerById(Guid id)
-    {
+    { 
         try
         {
             SqlParameter[] parameters =

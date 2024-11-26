@@ -188,4 +188,15 @@ public class SellerController : ApiController
         return Ok(await _appController.SellerPresenter.SelectSellerByIdUser(idUser));
     }
 
+    [HttpPost("GetSellerDetails")]
+    [Consumes(MediaTypeNames.Application.Json)]
+    [Produces(MediaTypeNames.Application.Json)]
+    [ProducesResponseType(typeof(string), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(string), StatusCodes.Status401Unauthorized)]
+    [ProducesResponseType(typeof(string), StatusCodes.Status500InternalServerError)]
+    public async ValueTask<IActionResult> GetSellerDetails([FromBody] Guid id)
+    {
+        return Ok(await _appController.SellerPresenter.GetSellerDetails(id));
+    }
+
 }

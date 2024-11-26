@@ -192,6 +192,17 @@ public class AuthController : ApiController
         return Ok(await _appController.AuthPresenter.RequestPasswordResetAsync(email));
     }
 
+    [HttpPost("PasswordRecoveryReactNative")]
+    [Consumes(MediaTypeNames.Application.Json)]
+    [Produces(MediaTypeNames.Application.Json)]
+    [ProducesResponseType(typeof(string), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(string), StatusCodes.Status401Unauthorized)]
+    [ProducesResponseType(typeof(string), StatusCodes.Status500InternalServerError)]
+    public async ValueTask<IActionResult> PasswordRecoveryReactNative([FromBody] string email)
+    {
+        return Ok(await _appController.AuthPresenter.RequestPasswordResetReactNativeAsync(email));
+    }
+
     [HttpPost("ResetPassword")]
     [Consumes(MediaTypeNames.Application.Json)]
     [Produces(MediaTypeNames.Application.Json)]

@@ -1,4 +1,5 @@
 ﻿using CE.Chepeat.Domain.Aggregates.Comments;
+using CE.Chepeat.Domain.DTOs.Comment;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,7 +18,14 @@ namespace CE.Chepeat.Application.Presenters
             _unitRepository = unitRepository;
             _mapper = mapper;
         }
-
+        public async Task<List<PublicComment>> GetCommentsBySeller(Guid id)
+        {
+            return await _unitRepository.commentInfraestructure.GetCommentsBySeller(id);
+        }
+        public async Task<Comments> GetCommentById(Guid id)
+        {
+            return await _unitRepository.commentInfraestructure.GetCommentById(id);
+        }
         /// <summary>
         /// Agrega un nuevo comentario
         /// </summary>

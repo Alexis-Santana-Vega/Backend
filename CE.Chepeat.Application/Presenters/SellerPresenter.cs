@@ -15,6 +15,17 @@ public class SellerPresenter : ISellerPresenter
         _unitRepository = unitRepository;
     }
 
+    public async Task<object> GetSellerDetails(Guid id)
+    {
+        var seller = await _unitRepository.sellerInfraestructure.SelectSellerById(id);
+        var comments = await _unitRepository.commentInfraestructure.GetCommentsBySeller(id);
+        return new
+        {
+            Seller = seller,
+            Comments = comments
+        };
+    }
+
     public async Task<SellerResponse> AddSeller(SellerRequest request)
     {
         var response = await _unitRepository.sellerInfraestructure.AddSeller(request);

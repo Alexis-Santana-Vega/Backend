@@ -6,6 +6,7 @@
 /// CopyRight: CE-Chepeat
 
 using CE.Chepeat.Domain.Aggregates.Comments;
+using CE.Chepeat.Domain.DTOs.Comment;
 
 namespace CE.Chepeat.Domain.Interfaces.Services
 {
@@ -14,5 +15,7 @@ namespace CE.Chepeat.Domain.Interfaces.Services
         Task<RespuestaDB> AddComment(CommentAggregate commentAggregate);
         Task<RespuestaDB> UpdateCommentMessage(UpdateCommentMessageAggregate updateMessage);
         Task<RespuestaDB> UpdateCommentRating(UpdateCommentRatingAggregate updateRating);
+        Task<Comments> GetCommentById(Guid id);
+        Task<List<PublicComment>> GetCommentsBySeller(Guid id);
     }
 }

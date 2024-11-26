@@ -1,4 +1,5 @@
 ﻿using CE.Chepeat.Domain.Aggregates.Comments;
+using CE.Chepeat.Domain.DTOs.Comment;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,6 +15,37 @@ namespace CE.Chepeat.Infraestructure.Repositories
         public CommentInfraestructure(ChepeatContext context)
         {
             _context = context;
+        }
+
+        public async Task<List<PublicComment>> GetCommentsBySeller(Guid id)
+        {
+            try
+            {
+                SqlParameter[] parameters =
+                {
+                new SqlParameter("IdSeller", id)
+                };
+
+                string sqlQuery = "EXEC dbo.SP_Comments_CommentsBySeller @IdSeller";
+                var sp = await _context.PublicComments.FromSqlRaw(sqlQuery, parameters).ToListAsync();
+                return sp;
+            }
+            catch (SqlException ex)
+            {
+                throw;
+            }
+        }
+
+        public async Task<Comments> GetCommentById(Guid id)
+        {
+            try
+            {
+                var comment = await _context.Comments.Where(c => c.Id == id).ToListAsync();
+                return comment.FirstOrDefault();
+            } catch (Exception ex)
+            {
+                throw;
+            }
         }
 
         public async Task<RespuestaDB> AddComment(CommentAggregate commentAggregate)
@@ -36,16 +68,15 @@ namespace CE.Chepeat.Infraestructure.Repositories
 
                 SqlParameter[] parameters =
                 {
-                new SqlParameter("IdUser", commentAggregate.IdUser),
-                new SqlParameter("IdSeller", commentAggregate.IdSeller),
                 new SqlParameter("IdTransaction", commentAggregate.IdTransaction),
                 new SqlParameter("Message", commentAggregate.Message),
                 new SqlParameter("Rating", commentAggregate.Rating),
+                new SqlParameter("CreatedAt", DateTime.UtcNow),
                 NumError,
                 Result
             };
 
-                string sqlQuery = "EXEC dbo.SP_Comments_Add @IdUser, @IdSeller, @IdTransaction, @Message, @Rating, @NumError OUTPUT, @Result OUTPUT";
+                string sqlQuery = "EXEC dbo.SP_Comments_Add @IdTransaction, @Message, @Rating, @CreatedAt, @NumError OUTPUT, @Result OUTPUT";
                 var dataSP = await _context.respuestaDB.FromSqlRaw(sqlQuery, parameters).ToListAsync();
                 return dataSP.FirstOrDefault();
             }
@@ -75,15 +106,14 @@ namespace CE.Chepeat.Infraestructure.Repositories
 
                 SqlParameter[] parameters =
                 {
-                new SqlParameter("CommentId", updateMessage.CommentId),
-                new SqlParameter("IdUser", updateMessage.IdUser),
+                new SqlParameter("Id", updateMessage.Id),
                 new SqlParameter("NewMessage", updateMessage.NewMessage),
                 new SqlParameter("NewRating", updateMessage.NewRating),
                 NumError,
                 Result
             };
 
-                string sqlQuery = "EXEC dbo.SP_Comments_Edit @CommentId, @IdUser, @NewMessage, @NewRating, @NumError OUTPUT, @Result OUTPUT";
+                string sqlQuery = "EXEC dbo.SP_Comments_Edit @Id, @NewMessage, @NewRating, @NumError OUTPUT, @Result OUTPUT";
                 var dataSP = await _context.respuestaDB.FromSqlRaw(sqlQuery, parameters).ToListAsync();
                 return dataSP.FirstOrDefault();
             }

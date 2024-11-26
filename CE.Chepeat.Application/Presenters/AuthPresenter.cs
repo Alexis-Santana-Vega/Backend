@@ -264,5 +264,34 @@ public class AuthPresenter : IAuthPresenter
         request.NewPassword = BCrypt.Net.BCrypt.HashPassword(request.NewPassword);
         return await _unitRepository.authInfraestructure.ResetPasswordAsync(request);
     }
+
+    public async Task<RespuestaDB> RequestPasswordResetReactNativeAsync(string email)
+    {
+        var user = await _unitRepository.authInfraestructure.ObtenerPorEmail(email);
+        if (user == null) return new RespuestaDB { NumError = 1, Result = "Usuario no encontrado" };
+        var token = new PasswordResetToken
+        {
+            UserId = user.Id,
+            Token = Guid.NewGuid().ToString(),
+            ExpirationDate = DateTime.UtcNow.AddMinutes(30),
+            IsUsed = false
+        };
+        var response = await _unitRepository.authInfraestructure.AddPasswordResetToken(token);
+        var emailModel = new EmailModel
+        {
+            To = email,
+            Subject = "Recuperación de contraseña",
+            ModelData = new { Link = $"{token.Token}" }
+        };
+        string templatePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Templates", "TemplatePasswordReactNative.cshtml");
+        if (!File.Exists(templatePath))
+        {
+            Console.Write("No fue posible encontrar la ruta del archivo de la plantilla");
+            return new RespuestaDB { NumError = 2, Result = "No se encontro la plantilla pero se guardo el token" };
+        }
+        await _unitRepository.emailServiceInfraestructure.SendEmailAsync(emailModel, templatePath);
+        response.Result = "Correo enviado con exito";
+        return response;
+    }
 }
 
