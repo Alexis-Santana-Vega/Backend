@@ -11,6 +11,7 @@ using CE.Chepeat.Domain.Aggregates.PasswordResetToken;
 namespace CE.Chepeat.Domain.Interfaces.Services;
 public interface IAuthPresenter
 {
+    Task<RespuestaDB> RequestPasswordResetReactNativeAsync(string email);
     /// <summary>
     ///     Realiza el cambio de contraseña
     /// </summary>

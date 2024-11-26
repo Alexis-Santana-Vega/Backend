@@ -12,6 +12,7 @@
 	<ItemGroup>
 	  <Content Remove="Templates\TemplateBienvenida.cshtml" />
 	  <Content Remove="Templates\TemplatePassword.cshtml" />
+	  <Content Remove="Templates\TemplatePasswordReactNative.cshtml" />
 	  <Content Remove="Templates\TemplateRecibo.cshtml" />
 	  <Content Remove="Templates\WelcomeTemplate.cshtml" />
 	</ItemGroup>
@@ -36,6 +37,9 @@
 
 	<ItemGroup>
 	  <None Include="Templates\TemplateBienvenida.cshtml">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </None>
+	  <None Include="Templates\TemplatePasswordReactNative.cshtml">
 	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 	  </None>
 	  <None Include="Templates\TemplatePassword.cshtml">
