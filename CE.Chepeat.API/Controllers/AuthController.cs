@@ -75,7 +75,7 @@ public class AuthController : ApiController
     [ProducesResponseType(typeof(string), StatusCodes.Status500InternalServerError)]
     public async ValueTask<IActionResult> IniciarSesion([FromBody] LoginRequest request)
     {
-        // var loginRequest = await _appController. AuthPresenter.IniciarSesion(request);
+        var loginRequest = await _appController.AuthPresenter.IniciarSesion(request);
         /* Intento con CookieOptions */
         /*
         var accessTokenCookie = new CookieOptions
