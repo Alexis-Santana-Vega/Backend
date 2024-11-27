@@ -14,12 +14,14 @@ namespace CE.Chepeat.Domain.Aggregates.Comments
         public decimal Rating { get; set; }
     }
 
+
     public class UpdateCommentMessageAggregate
     {
         public Guid Id { get; set; }
         public string NewMessage { get; set; }
         public decimal NewRating { get; set; }
     }
+
 
     public class UpdateCommentRatingAggregate
     {
